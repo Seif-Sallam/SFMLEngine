@@ -1,4 +1,6 @@
 #include "../headers/ResourceManager.h"
+#include "../headers/Animation.h"
+
 
 int main()
 {   
@@ -15,6 +17,19 @@ int main()
 	sf::Texture& tex = SFENG::ResourceManager::Get().AddTexture("rsc/Textures/test.png", "test");
 	shape.setTexture(&tex);
 	bool inFocus = true;
+	sf::Texture& texture = SFENG::ResourceManager::Get().AddTexture("rsc/Textures/SampleSprite.png", "sample");
+	sf::Sprite sp;
+	sp.setTexture(texture);
+	sp.setPosition(Vec2f(300, 250));
+	SFENG::Animation anim(32, 32);
+	sf::Time delay = sf::seconds(0.15f);
+	anim.AddFrame(0, delay);
+	anim.AddFrame(1, delay);
+	anim.AddFrame(2, delay);
+	anim.AddFrame(3, delay);
+	anim.AddFrame(2, delay);
+	anim.AddFrame(1, delay);
+	anim.AddFrame(0, delay);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -30,12 +45,12 @@ int main()
 		}
 		if (inFocus)
 		{
-
-
+			sp.setTextureRect(anim.GetFrame());
 
 			window.clear(sf::Color(192,168,128));
 			window.draw(text);
-			window.draw(shape);
+			//window.draw(shape);
+			window.draw(sp);
 			window.display();
 		}
 	}
