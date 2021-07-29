@@ -1,11 +1,6 @@
 #include "../headers/Keyboard.h"
 std::array<bool, sf::Keyboard::KeyCount> SFENG::Keyboard::m_Keys;
 
-SFENG::Keyboard::Keyboard()
-{
-	ResetKeys();
-}
-
 void SFENG::Keyboard::Update(sf::Event& event)
 {
 	switch (event.type)
@@ -24,9 +19,4 @@ void SFENG::Keyboard::Update(sf::Event& event)
 const bool SFENG::Keyboard::IsKeyPressed(const sf::Keyboard::Key& key)
 {
 	return m_Keys[key];
-}
-
-void SFENG::Keyboard::ResetKeys()
-{
-	std::fill(m_Keys.begin(), m_Keys.end(), false);
 }
