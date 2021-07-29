@@ -1,10 +1,14 @@
 #include "../headers/ResourceManager.h"
 #include "../headers/Animation.h"
-
+#include "../headers/Keyboard.h"
+#include "../headers/FPSCounter.h"
 
 int main()
 {   
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Works!");
+	window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
+
 	sf::Text text;
 	sf::Font& font = SFENG::ResourceManager::Get().AddFont("rsc/Fonts/Alex_Bold.ttf", "something");
 	text.setFont(font);
@@ -30,6 +34,11 @@ int main()
 	anim.AddFrame(2, delay);
 	anim.AddFrame(1, delay);
 	anim.AddFrame(0, delay);
+
+
+	SFENG::Keyboard inputHandler;
+	SFENG::FPSCounter FPS(&window);
+	sf::View view = window.getView();
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -41,15 +50,28 @@ int main()
 				inFocus = false;
 			else if (event.type == sf::Event::GainedFocus)
 				inFocus = true;
-
+			inputHandler.Update(event);
 		}
+
+		if (inputHandler.IsKeyPressed(sf::Keyboard::Key::A))
+			view.move(-10.0f, 0.0f);
+		if (inputHandler.IsKeyPressed(sf::Keyboard::Key::D))
+			view.move(10.0f, 0.f);
+		if (inputHandler.IsKeyPressed(sf::Keyboard::Key::S))
+			view.move(0, 10.0f);
+		if (inputHandler.IsKeyPressed(sf::Keyboard::Key::W))
+			view.move(0, -10.0f);
+
+
 		if (inFocus)
 		{
 			sp.setTextureRect(anim.GetFrame());
+			FPS.Update();
 
+			window.setView(view);
 			window.clear(sf::Color(192,168,128));
 			window.draw(text);
-			//window.draw(shape);
+			FPS.Draw();
 			window.draw(sp);
 			window.display();
 		}

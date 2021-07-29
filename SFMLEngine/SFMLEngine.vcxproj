@@ -147,12 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Keyboard.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\FPSCounter.h" />
     <ClInclude Include="headers\Animation.h" />
     <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="headers\PCH.h" />

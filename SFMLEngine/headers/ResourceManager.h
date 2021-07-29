@@ -10,8 +10,10 @@ namespace SFENG {
 		sf::Texture& AddTexture(const std::string& filePath, const std::string& name);
 		sf::Font& AddFont(const std::string& filePath, const std::string& name);
 		sf::SoundBuffer& AddSoundBuffer(const std::string& filePath, const std::string& name);
+		sf::Texture& GetDefaultTexture();
 		sf::Texture& GetTextrue(const std::string& name);
 		sf::Font& GetFont(const std::string& name);
+		sf::Font& GetDefaultFont();
 		sf::SoundBuffer& GetSoundBuffer(const std::string& name);
 		void CleanUp();
 	private:

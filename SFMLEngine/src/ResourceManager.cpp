@@ -21,6 +21,11 @@ sf::SoundBuffer& SFENG::ResourceManager::AddSoundBuffer(const std::string& fileP
 	return m_SoundBufferLoader->Add(filePath, name);
 }
 
+sf::Texture& SFENG::ResourceManager::GetDefaultTexture()
+{
+	return m_TextureLoader->Get("Default");
+}
+
 sf::Texture& SFENG::ResourceManager::GetTextrue(const std::string& name)
 {
 	return m_TextureLoader->Get(name);
@@ -29,6 +34,11 @@ sf::Texture& SFENG::ResourceManager::GetTextrue(const std::string& name)
 sf::Font& SFENG::ResourceManager::GetFont(const std::string& name)
 {
 	return m_FontLoader->Get(name);
+}
+
+sf::Font& SFENG::ResourceManager::GetDefaultFont()
+{
+	return m_FontLoader->Get("Default");
 }
 
 sf::SoundBuffer& SFENG::ResourceManager::GetSoundBuffer(const std::string& name)
