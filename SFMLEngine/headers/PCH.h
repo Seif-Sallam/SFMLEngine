@@ -12,6 +12,7 @@
 #include <exception>
 #include <map>
 #include <unordered_map>
+#include <memory>
 
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
@@ -19,3 +20,6 @@
 #include "SFML/Graphics.hpp"
 
 #include "Vec2.h"
+#include "ResourceManager.h"
+#include "Animation.h"
+#include "Keyboard.h"

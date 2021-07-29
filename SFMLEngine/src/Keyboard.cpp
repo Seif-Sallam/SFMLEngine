@@ -1,4 +1,5 @@
 #include "../headers/Keyboard.h"
+std::array<bool, sf::Keyboard::KeyCount> SFENG::Keyboard::m_Keys;
 
 SFENG::Keyboard::Keyboard()
 {
@@ -20,7 +21,7 @@ void SFENG::Keyboard::Update(sf::Event& event)
 	}
 }
 
-const bool SFENG::Keyboard::IsKeyPressed(const sf::Keyboard::Key& key) const
+const bool SFENG::Keyboard::IsKeyPressed(const sf::Keyboard::Key& key)
 {
 	return m_Keys[key];
 }
