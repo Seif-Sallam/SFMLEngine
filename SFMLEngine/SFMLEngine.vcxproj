@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Keyboard.cpp" />
     <ClCompile Include="src\Animation.cpp" />
@@ -154,12 +155,15 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Engine.h" />
     <ClInclude Include="headers\FPSCounter.h" />
     <ClInclude Include="headers\Animation.h" />
     <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="headers\PCH.h" />
     <ClInclude Include="headers\ResourceLoader.h" />
     <ClInclude Include="headers\ResourceManager.h" />
+    <ClInclude Include="Sandbox.h" />
+    <ClInclude Include="headers\State.h" />
     <ClInclude Include="headers\Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
