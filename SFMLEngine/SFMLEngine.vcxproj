@@ -147,12 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Keyboard.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Animation.h" />
+    <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="headers\PCH.h" />
     <ClInclude Include="headers\ResourceLoader.h" />
     <ClInclude Include="headers\ResourceManager.h" />
