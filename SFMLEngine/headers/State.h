@@ -19,7 +19,7 @@ namespace SFENG {
 		virtual void HandleInput() = 0;
 		virtual void Update(sf::Time) {}
 		virtual void FixedUpdate(sf::Time) {}
-		virtual void Draw(sf::RenderTarget& target) = 0;
+		virtual void Draw(sf::RenderWindow& target) = 0;
 	protected:
 		Engine& m_Game;
 	};

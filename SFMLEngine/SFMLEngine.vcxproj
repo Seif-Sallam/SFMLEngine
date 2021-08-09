@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ParticleSystem.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Keyboard.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="headers\FPSCounter.h" />
     <ClInclude Include="headers\Animation.h" />
     <ClInclude Include="headers\Keyboard.h" />
+    <ClInclude Include="headers\ParticleSystem.h" />
     <ClInclude Include="headers\PCH.h" />
     <ClInclude Include="headers\ResourceLoader.h" />
     <ClInclude Include="headers\ResourceManager.h" />
