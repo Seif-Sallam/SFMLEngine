@@ -23,3 +23,5 @@
 #include "ResourceManager.h"
 #include "Animation.h"
 #include "Keyboard.h"
+
+#include "ECSPCH.h"
