@@ -32,6 +32,8 @@
 *.app
 
 #inside .vs
-.Debug/
-.SFMLEngine/Debug/
+Debug/
+SFMLEngine/Debug/
+SFMLEngine/Release/
+Release/
 .vs/
