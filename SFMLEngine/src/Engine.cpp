@@ -41,6 +41,24 @@ void SFENG::Engine::Run()
 
 }
 
+void SFENG::Engine::HandleEvent()
+{
+	State& currentState = GetCurrentState();
+
+	sf::Event event;
+
+	while (m_Window->pollEvent(event)) {
+		if (event.type == sf::Event::Closed)
+			ExitGame();
+		SFENG::Keyboard::Update(event);
+		if(event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
+			currentState.HandleInputSlow();
+		currentState.HandleEvent(event);
+	}
+
+}
+
+
 SFENG::Engine::~Engine()
 {
 	delete m_FPSCounter;
@@ -74,20 +92,6 @@ void SFENG::Engine::PushState(std::unique_ptr<State> state)
 	m_States.push_back(std::move(state));
 }
 
-void SFENG::Engine::HandleEvent()
-{
-	State& currentState = GetCurrentState();
-
-	sf::Event event;
-
-	while (m_Window->pollEvent(event)) {
-		if (event.type == sf::Event::Closed)
-			ExitGame();
-		SFENG::Keyboard::Update(event);
-		currentState.HandleEvent(event);
-	}
-
-}
 
 void SFENG::Engine::TryPop()
 {

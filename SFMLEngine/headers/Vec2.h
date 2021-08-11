@@ -59,7 +59,9 @@ public:
 	}
 	inline Vec2<T> operator-=(const Vec2<T>& vec)
 	{
-		return Vec2<T>(x - vec.x, y - vec.y);
+		x -= vec.x;
+		y -= vec.y;
+		return *this;
 	}
 	inline Vec2<T> operator+=(const Vec2<T>& vec)
 	{
@@ -75,6 +77,19 @@ public:
 	{
 		return Vec2<T>(x * scaler, y * scaler);
 	}
+	inline Vec2<T> operator*=(const T& scaler)
+	{
+		x *= scaler;
+		y *= scaler;
+		return *this;
+	}
+	inline Vec2<T> operator*=(const Vec2<T>& vec)
+	{
+		x *= vec.x;
+		y *= vec.y;
+		return *this;
+	}
+
 	inline Vec2<T> operator/(const T& scaler)
 	{
 		if (scaler == 0)

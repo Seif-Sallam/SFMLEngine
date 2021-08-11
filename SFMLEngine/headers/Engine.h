@@ -37,6 +37,7 @@ namespace SFENG {
 		bool m_ShouldChangeState;
 		bool m_ShouldExit;
 		bool m_ShouldPop;
+		
 	};
 
 	template<class T, class ...Args>
