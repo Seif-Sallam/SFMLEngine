@@ -22,6 +22,7 @@ void SFENG::ParticleSystem::Update(sf::Time time)
 {
 	if (!m_Stop) {
 		m_AliveTime += time;
+		
 		if (m_Particles.size() < m_MaxParticles) {
 			for (int i = 0; i < m_Intensity; i++)
 			{
@@ -88,14 +89,27 @@ SFENG::ParticleSystem::Particle::Particle()
 {
 	this->color = sf::Color::White;
 	this->position = Vec2f(0, 0);
-	this->rotation = 0;
+	this->angle = 0;
 	this->velocity = Vec2f(0, 0);
+	switch (rand() % 3)
+	{
+	case 0:
+		this->fadingSpeed = 100;
+		break;
+	case 1:
+		this->fadingSpeed = 400;
+		break;
+	case 2:
+		this->fadingSpeed = 700;
+		break;
+	}
+
 }
 
 void SFENG::ParticleSystem::Particle::Update(sf::Time time)
 {
 	aliveTime += time;
-	alpha -= time.asSeconds() * (rand() % 100);
+	alpha -= aliveTime.asSeconds() * (rand() % fadingSpeed);
 	this->color = shape->getFillColor();
 	this->color = sf::Color(color.r, color.g, color.b, alpha);
 }
@@ -108,6 +122,6 @@ void SFENG::ParticleSystem::Particle::Draw(sf::RenderWindow& window)
 	}
 	this->shape->setFillColor(this->color);
 	this->shape->setPosition(this->position);
-	this->shape->setRotation(this->rotation);
+	this->shape->setRotation(this->angle);
 	window.draw(*this->shape);
 }

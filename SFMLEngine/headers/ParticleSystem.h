@@ -26,10 +26,16 @@ namespace SFENG
 		{
 			Vec2f position;
 			Vec2f velocity;
-			float rotation;
+			Vec2f direction;
+			float angle;
+			float radius;
+			float w;
+			bool right;
+			int fadingSpeed;
 			sf::Shape* shape;
-			sf::Color color = sf::Color(255,255,255,255);
+			sf::Color color = sf::Color(255, 255, 255, 255);
 			int alpha = 255; 
+			
 			sf::Time aliveTime;
 			
 			Particle();
