@@ -7,7 +7,8 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	m_Window->setVerticalSyncEnabled(true);
 	m_FPSCounter = new FPSCounter(m_Window);
 	m_Window->setPosition(Vec2i(m_Window->getPosition().x, 0));
-	EngineView = m_Window->getView();
+	engineView = m_Window->getView();
+	m_InFocus = true;
 }
 
 void SFENG::Engine::Run()
@@ -22,7 +23,6 @@ void SFENG::Engine::Run()
 	sf::Time lag = sf::Time::Zero;
 	while (m_Window->isOpen() && !m_States.empty())
 	{
-
 		sf::Time time = timer.getElapsedTime();
 		sf::Time elapsed = time - lastTime;
 		lastTime = time;
@@ -30,12 +30,15 @@ void SFENG::Engine::Run()
 		HandleStates();
 		HandleEvent();
 
-		m_Window->setView(EngineView);
-		GetCurrentState().HandleInput();
-		GetCurrentState().Update(elapsed);
-		m_FPSCounter->Update();
-		GetCurrentState().FixedUpdate(elapsed);
-		Draw();
+		if (m_InFocus) 
+		{
+			GetCurrentState().HandleInput();
+			GetCurrentState().Update(elapsed);
+			m_FPSCounter->Update();
+			GetCurrentState().FixedUpdate(elapsed);
+			m_Window->setView(engineView);
+			Draw();
+		}
 		TryPop();
 	}
 
@@ -50,9 +53,17 @@ void SFENG::Engine::HandleEvent()
 	while (m_Window->pollEvent(event)) {
 		if (event.type == sf::Event::Closed)
 			ExitGame();
+		if (event.type == sf::Event::Resized)
+			engineView.setSize(sf::Vector2f(m_Window->getSize()));
+		if (event.type == sf::Event::GainedFocus)
+			m_InFocus = true;
+		if (event.type == sf::Event::LostFocus)
+			m_InFocus = false;
+
 		SFENG::Keyboard::Update(event);
 		if(event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
 			currentState.HandleInputSlow();
+		
 		currentState.HandleEvent(event);
 	}
 

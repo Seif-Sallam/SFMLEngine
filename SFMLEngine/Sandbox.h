@@ -13,14 +13,14 @@ public:
 		//shape2->setOutlineThickness(2);
 		particleSystem = new SFENG::ParticleFountain(shape2, Vec2f(200.0f, 200.0f), Vec2f(0, -1), 150000);
 		particleSystem->SetIntensity(1);
-		for (int i = 0; i < 5; i++)
+		/*for (int i = 0; i < 5; i++)
 		{
 			for (int j = 0; j < 15; j++) {
 				particleSystems.push_back(new SFENG::ParticleFountain(shape2, Vec2f(j * 50 + 50.0f, 100 * i + 100.0f), Vec2f(0, -1), 150000));
 				particleSystems.back()->SetAngle(90.0f);
 				particleSystems.back()->SetIntensity(7);
 			}
-		}
+		}*/
 		angleText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
 		intensityText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
 		widthText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
@@ -30,6 +30,9 @@ public:
 		angleText.setCharacterSize(15);
 		intensityText.setCharacterSize(15);
 		widthText.setCharacterSize(15);
+		SFENG::ResourceManager::Get().AddTexture("rsc/Textures/Sheet.png", "Sheet");
+		t = new SFENG::Tilemap(Vec2i(4, 4), Vec2f(0.0f, 0.0f), Vec2f(32.0f, 32.0f), "Sheet", m_Engine.GetWindow());
+		t->ReadMap("file2.txt");
 	}
 
 	~CustomState()
@@ -81,13 +84,13 @@ public:
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::S))
 			particleSystem->Move({ 0.0f, 10.0f  });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Left))
-			m_Engine.EngineView.move(-10.0f, 0.0f);
+			m_Engine.engineView.move(-10.0f, 0.0f);
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Right))
-			m_Engine.EngineView.move(10.0f, 0.0f);
+			m_Engine.engineView.move(10.0f, 0.0f);
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Up))
-			m_Engine.EngineView.move(0.0f, -10.0f);
+			m_Engine.engineView.move(0.0f, -10.0f);
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Down))
-			m_Engine.EngineView.move(0.0f, 10.0f);
+			m_Engine.engineView.move(0.0f, 10.0f);
 
 
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Escape))
@@ -110,6 +113,7 @@ public:
 		target.draw(intensityText);
 		target.draw(angleText);
 		target.draw(widthText);
+		t->Darw();
 	}
 
 private:
@@ -122,6 +126,7 @@ private:
 	sf::Text angleText;
 	sf::Text widthText;
 	sf::Text intensityText;
+	SFENG::Tilemap* t;
 };
 
 class Sandbox : public SFENG::Engine

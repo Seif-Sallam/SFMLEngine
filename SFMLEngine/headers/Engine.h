@@ -8,7 +8,7 @@ namespace SFENG {
 	{
 	public:
 		void Run();
-		sf::View EngineView;
+		sf::View engineView;
 		inline sf::RenderWindow& GetWindow() { return *m_Window; }
 		void ExitGame();
 	protected:
@@ -37,6 +37,7 @@ namespace SFENG {
 		bool m_ShouldChangeState;
 		bool m_ShouldExit;
 		bool m_ShouldPop;
+		bool m_InFocus;
 		
 	};
 
