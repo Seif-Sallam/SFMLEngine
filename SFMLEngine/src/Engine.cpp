@@ -7,7 +7,7 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	m_Window->setVerticalSyncEnabled(true);
 	m_FPSCounter = new FPSCounter(m_Window);
 	m_Window->setPosition(Vec2i(m_Window->getPosition().x, 0));
-	view = m_Window->getView();
+	EngineView = m_Window->getView();
 }
 
 void SFENG::Engine::Run()
@@ -30,7 +30,7 @@ void SFENG::Engine::Run()
 		HandleStates();
 		HandleEvent();
 
-		m_Window->setView(view);
+		m_Window->setView(EngineView);
 		GetCurrentState().HandleInput();
 		GetCurrentState().Update(elapsed);
 		m_FPSCounter->Update();

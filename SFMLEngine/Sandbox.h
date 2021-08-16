@@ -13,6 +13,14 @@ public:
 		//shape2->setOutlineThickness(2);
 		particleSystem = new SFENG::ParticleFountain(shape2, Vec2f(200.0f, 200.0f), Vec2f(0, -1), 150000);
 		particleSystem->SetIntensity(1);
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 15; j++) {
+				particleSystems.push_back(new SFENG::ParticleFountain(shape2, Vec2f(j * 50 + 50.0f, 100 * i + 100.0f), Vec2f(0, -1), 150000));
+				particleSystems.back()->SetAngle(90.0f);
+				particleSystems.back()->SetIntensity(7);
+			}
+		}
 		angleText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
 		intensityText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
 		widthText.setFont(SFENG::ResourceManager::Get().GetDefaultFont());
@@ -72,14 +80,23 @@ public:
 			particleSystem->Move({ 0.0f, -10.0f });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::S))
 			particleSystem->Move({ 0.0f, 10.0f  });
-		/*if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::B))
-			particleSystem->Stop();*/
+		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Left))
+			m_Engine.EngineView.move(-10.0f, 0.0f);
+		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Right))
+			m_Engine.EngineView.move(10.0f, 0.0f);
+		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Up))
+			m_Engine.EngineView.move(0.0f, -10.0f);
+		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Down))
+			m_Engine.EngineView.move(0.0f, 10.0f);
+
 
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Escape))
-			m_Game.ExitGame();
+			m_Engine.ExitGame();
 	}
 	void Update(sf::Time t) override {
 		particleSystem->Update(t);
+		for (auto& i : particleSystems)
+			i->Update(t);
 		intensityText.setString("Intensity Press U AND I: " + std::to_string(intensity));
 		widthText.setString("Width Press N AND M: " + std::to_string(width));
 		angleText.setString("Angle Press K AND L: " + std::to_string((int)angle));
@@ -88,6 +105,8 @@ public:
 	}
 	void Draw(sf::RenderWindow& target) override {
 		particleSystem->Draw(target);
+		for (auto& i : particleSystems)
+			i->Draw(target);
 		target.draw(intensityText);
 		target.draw(angleText);
 		target.draw(widthText);
@@ -95,6 +114,7 @@ public:
 
 private:
 	SFENG::ParticleFountain* particleSystem;
+	std::vector<SFENG::ParticleFountain*>  particleSystems;
 	sf::Clock clk;
 	int intensity = 1;
 	int width = 5;

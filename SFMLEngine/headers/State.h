@@ -8,8 +8,8 @@ namespace SFENG {
 	class State
 	{
 	public:
-		State(Engine& game)
-			: m_Game(game)
+		State(Engine& engine)
+			: m_Engine(engine)
 		{}
 
 		virtual ~State() = default;
@@ -22,6 +22,6 @@ namespace SFENG {
 		virtual void FixedUpdate(sf::Time) {}
 		virtual void Draw(sf::RenderWindow& target) = 0;
 	protected:
-		Engine& m_Game;
+		Engine& m_Engine;
 	};
 }
