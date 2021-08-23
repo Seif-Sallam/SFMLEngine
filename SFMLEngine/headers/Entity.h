@@ -1,0 +1,75 @@
+#pragma once
+#include <iostream>
+#include <array>
+#include <memory>
+#include <vector>
+#include <map>
+#include <typeindex>
+#include <typeinfo>
+#include "SFML/Graphics.hpp"
+#include "Transform.h"
+
+namespace SFENG {
+	class Entity {
+	public:
+		Entity();
+
+		Entity(const Entity& en);
+
+		void PrintComponents();
+
+		template<class Type, class... TypeArgs>
+		Type& AddComponent(TypeArgs&&... args)
+		{
+			Type* compoenent = (std::move(new Type(std::forward<TypeArgs>(args)...)));
+
+			m_Components.emplace_back(comp);
+
+			comp->enitity = this;
+			if (comp->Init())
+			{
+				m_ComponentsMap[typeid(Type)] = comp;
+				return *comp;
+			}
+			throw;
+		}
+
+
+		template<class Type>
+		Type& GetCopmonent()
+		{
+			if (HasComponent<Type>())
+			{
+				auto& comp = m_ComponentsMap[typeid(Type)];
+				if (comp->IsValid())
+				{
+					return *(dynamic_cast<Type*>(comp));
+				}
+			}
+			throw "Component Is NOT valid OR doesn't exist";
+		}
+
+		template<class Type>
+		bool HasComponent()
+		{
+			auto& key = m_ComponentsMap.find(typeid(Type));
+			return key != m_ComponentsMap.end();
+		}
+
+
+		inline bool IsActive() const { return m_Active; }
+		inline bool Destory() { m_Active = false; }
+
+		void Draw(sf::RenderWindow& window);
+		void Update(const sf::Time& time);
+		void HandleEvents(sf::Event& event);
+		void FixedUpdate(const sf::Time&);
+
+		~Entity();
+
+	private:
+		std::vector<Component*> m_Components;
+		bool m_Active;
+		std::map<std::type_index, Component*> m_ComponentsMap;
+	};
+}
