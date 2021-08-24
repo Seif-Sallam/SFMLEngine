@@ -2,9 +2,9 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
-class Entity;
-
 namespace SFENG {
+	class Entity;
+
 	class Component {
 	public:
 		Component() = default;

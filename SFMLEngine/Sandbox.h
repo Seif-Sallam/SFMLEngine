@@ -1,4 +1,5 @@
 #pragma once
+
 #include "headers/Engine.h"
 
 class CustomState : public SFENG::State
@@ -33,6 +34,26 @@ public:
 		SFENG::ResourceManager::Get().AddTexture("rsc/Textures/Sheet.png", "Sheet");
 		t = new SFENG::Tilemap(Vec2i(4, 4), Vec2f(0.0f, 0.0f), Vec2f(32.0f, 32.0f), "Sheet", m_Engine.GetWindow());
 		t->ReadMap("file2.txt");
+
+		const b2Vec2 gravity(1.0f, 20.f);
+		m_PhysWorld = new b2World(gravity);
+		
+		b2BodyDef groundBodyDef;
+		groundBodyDef.position.Set(300.0f, 500.0f);
+		b2Body* groundBody = m_PhysWorld->CreateBody(&groundBodyDef);
+		b2PolygonShape groundBoxShape;
+		groundBoxShape.SetAsBox(500.0f, 10.0f);
+		groundBody->CreateFixture(&groundBoxShape, 0.0f);
+
+		std::mt19937 randomGen;
+		std::uniform_real_distribution<float> xPos(75.0f, 150.f);
+		std::uniform_real_distribution<float> yPos(0, 300.0f);
+
+		for (int i = 0; i < 5; i++) {
+			CustomBox box;
+			box.Init(m_PhysWorld, Vec2f(xPos(randomGen), yPos(randomGen)), Vec2f(20.0f, 20.0f), sf::Color::Red);
+			boxes.push_back(box);
+		}
 	}
 
 	~CustomState()
@@ -97,6 +118,9 @@ public:
 			m_Engine.ExitGame();
 	}
 	void Update(sf::Time t) override {
+		m_PhysWorld->Step(1.0f / 60.0f, 6, 2);
+		for (auto& b : boxes)
+			b.Update();
 		particleSystem->Update(t);
 		for (auto& i : particleSystems)
 			i->Update(t);
@@ -106,14 +130,17 @@ public:
 	}
 	void FixedUpdate(sf::Time) override {
 	}
-	void Draw(sf::RenderWindow& target) override {
-		particleSystem->Draw(target);
+	void Draw(sf::RenderWindow& window) override {
+		particleSystem->Draw(window);
 		for (auto& i : particleSystems)
-			i->Draw(target);
-		target.draw(intensityText);
-		target.draw(angleText);
-		target.draw(widthText);
+			i->Draw(window);
+		window.draw(intensityText);
+		window.draw(angleText);
+		window.draw(widthText);
 		t->Darw();
+
+		for (auto& b : boxes)
+			b.Draw(window);
 	}
 
 private:
@@ -127,6 +154,60 @@ private:
 	sf::Text widthText;
 	sf::Text intensityText;
 	SFENG::Tilemap* t;
+	b2World* m_PhysWorld;
+	class CustomBox {
+	public:
+		CustomBox(){}
+		~CustomBox(){}
+		void Init(b2World* world, const Vec2f& position, const Vec2f& dim, const sf::Color& color)
+		{
+			this->world = world;
+			this->dim = dim;
+			
+			
+			sfShape.setPosition(position.x, position.y);
+			sfShape.setSize(sf::Vector2f(dim.x, dim.y));
+			sfShape.setFillColor(color);
+
+			//Create the body definition;
+			b2BodyDef bodyDef;
+			bodyDef.position.Set(position.x, position.y);
+			bodyDef.type = b2_dynamicBody;
+			
+			//Create the body itself
+			body = world->CreateBody(&bodyDef);
+			b2PolygonShape shape;
+			shape.SetAsBox(dim.x / 2.0f, dim.y / 2.0f);
+			
+			b2FixtureDef fixtureDef;
+			fixtureDef.density = 1.0f;
+			fixtureDef.friction = 0.3f;
+			fixtureDef.shape = &shape;
+
+			fixture = body->CreateFixture(&fixtureDef);
+
+			
+
+		}
+
+		void Update()
+		{
+			float rot = body->GetAngle();
+			auto pos = body->GetPosition();
+			sfShape.setPosition(pos.x, pos.y);
+		}
+		void Draw(sf::RenderWindow& window)
+		{
+			window.draw(sfShape);
+		}
+		sf::RectangleShape sfShape;
+		b2Body* body;
+		b2World* world;
+		b2Fixture* fixture;
+		Vec2f dim;
+	};
+
+	std::vector<CustomBox> boxes;
 };
 
 class Sandbox : public SFENG::Engine

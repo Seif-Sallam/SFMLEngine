@@ -21,11 +21,11 @@ namespace SFENG {
 		template<class Type, class... TypeArgs>
 		Type& AddComponent(TypeArgs&&... args)
 		{
-			Type* compoenent = (std::move(new Type(std::forward<TypeArgs>(args)...)));
+			Type* comp = (std::move(new Type(std::forward<TypeArgs>(args)...)));
 
 			m_Components.emplace_back(comp);
 
-			comp->enitity = this;
+			comp->entity = this;
 			if (comp->Init())
 			{
 				m_ComponentsMap[typeid(Type)] = comp;

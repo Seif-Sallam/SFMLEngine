@@ -13,6 +13,10 @@
 #include <map>
 #include <unordered_map>
 #include <memory>
+#include <random>
+
+#include "box2d/box2d.h"
+
 
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
