@@ -65,7 +65,7 @@ namespace SFENG {
 		void HandleEvents(sf::Event& event);
 		void FixedUpdate(const sf::Time&);
 		const std::string& GetName() const { return m_Name; }
-		void SetName(const std::string& name) { m_Name = name };
+		void SetName(const std::string& name) { m_Name = name; }
 		~Entity();
 	private:
 		std::string m_Name;

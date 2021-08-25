@@ -24,12 +24,9 @@ public:
 
 	inline Vec2() : x(T()), y(T()) {}
 	inline Vec2(const sf::Vector2<T>& sfVec2) : x(sfVec2.x), y(sfVec2.y) {}
-	inline Vec2(const sf::Vector2<T>&& sfvec2) : x(sfVec2.x), y(sfVec2.y) {}
 	inline Vec2(const b2Vec2& vec) : x(vec.x), y(vec.y) {}
-	inline Vec2(const b2Vec2&& vec) : x(vec.x), y(vec.y) {}
-	inline Vec2(const T& x, const T& y) : x(x), y(y) {}
+	inline Vec2(const T& x,const T& y) : x(x), y(y) {}
 	inline Vec2(const Vec2<T>& vec2) : x(vec2.x), y(vec2.y) {}
-	inline Vec2(const Vec2<T>&& vec2) : x(vec2.x), y(vec2.y) {}
 	inline Vec2<T>& operator=(const Vec2& vec2) { x = vec2.x; y = vec2.y; return *this; }
 	inline Vec2<T>& Zero() { x = 0; y = 0; return *this; }
 	inline Vec2<T>& One() { x = 0; y = 0; return *this; }

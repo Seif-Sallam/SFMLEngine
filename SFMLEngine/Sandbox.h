@@ -51,7 +51,12 @@ public:
 
 		for (int i = 0; i < 5; i++) {
 			CustomBox box;
-			box.Init(m_PhysWorld, Vec2f(xPos(randomGen), yPos(randomGen)), Vec2f(20.0f, 20.0f), sf::Color::Red);
+			float x = xPos(randomGen);
+			float y = yPos(randomGen);
+			if(y < 50.f)
+				box.Init(m_PhysWorld, Vec2f(x, y), Vec2f(20.0f, 20.0f), sf::Color::Blue);
+			else
+				box.Init(m_PhysWorld, Vec2f(x, y), Vec2f(20.0f, 20.0f), sf::Color::Red);
 			boxes.push_back(box);
 		}
 	}
@@ -119,8 +124,9 @@ public:
 	}
 	void Update(sf::Time t) override {
 		m_PhysWorld->Step(1.0f / 60.0f, 6, 2);
-		for (auto& b : boxes)
+		for (auto& b : boxes) {
 			b.Update();
+		}
 		particleSystem->Update(t);
 		for (auto& i : particleSystems)
 			i->Update(t);
@@ -164,7 +170,7 @@ private:
 			this->world = world;
 			this->dim = dim;
 			
-			
+			sfShape.setOrigin(dim.x / 2.0f, dim.y / 2.0f);
 			sfShape.setPosition(position.x, position.y);
 			sfShape.setSize(sf::Vector2f(dim.x, dim.y));
 			sfShape.setFillColor(color);
@@ -185,16 +191,16 @@ private:
 			fixtureDef.shape = &shape;
 
 			fixture = body->CreateFixture(&fixtureDef);
-
 			
 
 		}
 
 		void Update()
 		{
-			float rot = body->GetAngle();
+			float rot = body->GetAngle() * 180.0f / M_PI;
 			auto pos = body->GetPosition();
 			sfShape.setPosition(pos.x, pos.y);
+			sfShape.setRotation(rot);
 		}
 		void Draw(sf::RenderWindow& window)
 		{
