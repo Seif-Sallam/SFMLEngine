@@ -12,7 +12,7 @@
 namespace SFENG {
 	class Entity {
 	public:
-		Entity();
+		Entity(const std::string& name);
 
 		Entity(const Entity& en);
 
@@ -64,10 +64,11 @@ namespace SFENG {
 		void Update(const sf::Time& time);
 		void HandleEvents(sf::Event& event);
 		void FixedUpdate(const sf::Time&);
-
+		const std::string& GetName() const { return m_Name; }
+		void SetName(const std::string& name) { m_Name = name };
 		~Entity();
-
 	private:
+		std::string m_Name;
 		std::vector<Component*> m_Components;
 		bool m_Active;
 		std::map<std::type_index, Component*> m_ComponentsMap;

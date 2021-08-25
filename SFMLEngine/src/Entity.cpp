@@ -1,7 +1,7 @@
 #include "../headers/Entity.h"
 
-SFENG::Entity::Entity()
-	: m_Active(true)
+SFENG::Entity::Entity(const std::string& name)
+	: m_Active(true), m_Name(name)
 {
 	m_Components.reserve(32u);
 	this->AddComponent<Transform>(Vec2f(0.0f, 0.0f), Vec2f(1.0f, 1.0f), 0.f);
@@ -26,6 +26,18 @@ SFENG::Entity::Entity(const Entity& en)
 			this->m_ComponentsMap.insert(*it);
 			it++;
 		}
+	}
+
+	int32_t index = en.m_Name.find("_");
+	if (index == std::string::npos)
+	{
+		m_Name = en.m_Name + "_0";
+	}
+	else
+	{
+		std::string str = en.m_Name.substr(index + 1);
+		int32_t digit = stoi(str);
+		m_Name = en.m_Name.substr(0, index) + std::to_string(digit++);
 	}
 	m_Active = true;
 }

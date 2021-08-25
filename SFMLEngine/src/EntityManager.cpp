@@ -8,8 +8,10 @@ SFENG::EntityManager::EntityManager(const int32_t& initialSize)
 SFENG::Entity* SFENG::EntityManager::CloneEntity(SFENG::Entity* en)
 {
 	Entity* newEn =  new Entity(*en);
-	if (newEn != nullptr)
+	if (newEn != nullptr) {
 		m_Entities.push_back(newEn);
+		newEn->SetName(AddEntityToMap(newEn, newEn->GetName()));		
+	}
 	return newEn;
 }
 
@@ -22,14 +24,28 @@ SFENG::EntityManager::EntityManager(const SFENG::EntityManager& em)
 		this->m_Entities.push_back(*it);
 		it++;
 	}
+	for (auto i : em.m_EntitiesMap) {
+		this->m_EntitiesMap.emplace(i);
+	}
 }
 
-SFENG::Entity* SFENG::EntityManager::MakeEntity()
+SFENG::Entity* SFENG::EntityManager::MakeEntity(const std::string& name)
 {
-	Entity* en = new Entity;
-	if (en != nullptr)
+	Entity* en = new Entity(name);
+	if (en != nullptr) 
+	{
 		m_Entities.push_back(en);
+		en->SetName(AddEntityToMap(en, name));
+	}
 	return en;
+}
+
+SFENG::Entity* SFENG::EntityManager::GetEntity(const std::string& name) const
+{
+	if (m_EntitiesMap.find(name) == m_EntitiesMap.end())
+		return nullptr;
+	else
+		return m_EntitiesMap.at(name);
 }
 
 void SFENG::EntityManager::FixedUpdate(const sf::Time& time)
@@ -77,6 +93,7 @@ void SFENG::EntityManager::CleanUpUnused()
 	auto it = m_UnusedEntities.begin();
 	while(it != m_UnusedEntities.end())
 	{
+		m_EntitiesMap.erase((*it)->GetName());
 		delete* it;
 		it = m_UnusedEntities.erase(it);
 	}
@@ -102,6 +119,45 @@ void SFENG::EntityManager::RmEntity(std::vector<Entity*>::iterator& it)
 		it = m_Entities.erase(it);
 	}
 	else throw "Entity iterator was at the end!\n";
+}
+
+const std::string& SFENG::EntityManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
+{
+	if (m_EntitiesMap.find(name) == m_EntitiesMap.end()) {
+		m_EntitiesMap.insert({ name, en });
+		return name;
+	}
+	else
+	{
+		int digit = 0;
+		int index = name.find("_");
+		std::string str = name;
+		if (index != std::string::npos)
+		{
+			str = name + "_0";
+			m_EntitiesMap.insert({ str, en });
+			return str;
+		}
+		else
+		{
+			digit = stoi(name.substr(index + 1)) + 1;
+			while (true)
+			{
+				str = name.substr(0, index);
+				str += std::to_string(digit);
+				if (m_EntitiesMap.find(str) == m_EntitiesMap.end())
+				{
+					m_EntitiesMap.insert({ str, en });
+					return str;
+					break;
+				}
+				else
+				{
+					digit++;
+				}
+			}
+		}
+	}
 }
 
 SFENG::EntityManager::~EntityManager()
