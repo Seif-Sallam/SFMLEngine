@@ -34,7 +34,6 @@ namespace SFENG {
 			throw;
 		}
 
-
 		template<class Type>
 		Type& GetCopmonent()
 		{
@@ -52,13 +51,14 @@ namespace SFENG {
 		template<class Type>
 		bool HasComponent()
 		{
-			auto& key = m_ComponentsMap.find(typeid(Type));
+			auto key = m_ComponentsMap.find(typeid(Type));
 			return key != m_ComponentsMap.end();
 		}
 
-
+		inline bool IsAlive() const { return m_Alive; }
 		inline bool IsActive() const { return m_Active; }
-		inline bool Destory() { m_Active = false; }
+		inline void Deactivate() { m_Active = false; }
+		inline bool Destory() { m_Alive = false; }
 
 		void Draw(sf::RenderWindow& window);
 		void Update(const sf::Time& time);
@@ -68,9 +68,10 @@ namespace SFENG {
 		void SetName(const std::string& name) { m_Name = name; }
 		~Entity();
 	private:
+		bool m_Active;
+		bool m_Alive;
 		std::string m_Name;
 		std::vector<Component*> m_Components;
-		bool m_Active;
 		std::map<std::type_index, Component*> m_ComponentsMap;
 	};
 }

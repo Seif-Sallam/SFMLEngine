@@ -3,13 +3,12 @@
 #include "Vec2.h"
 #include <math.h>
 
-namespace SFENG 
+namespace SFENG
 {
-
-	class ParticleSystem 
+	class ParticleSystem
 	{
 	public:
-		ParticleSystem(sf::Shape* shapeType = nullptr, const Vec2f& position = Vec2f(0,0), 
+		ParticleSystem(sf::Shape* shapeType = nullptr, const Vec2f& position = Vec2f(0, 0),
 			const Vec2f& direction = Vec2f(0, -1), const uint32_t& maxParticles = 1000);
 		~ParticleSystem();
 		void Update(sf::Time time);
@@ -18,9 +17,9 @@ namespace SFENG
 		void SetIntensity(const int& i);
 		sf::Time AliveTime();
 		void Draw(sf::RenderWindow& window);
-		inline bool IsDead() { return m_Dead;  }
+		inline bool IsDead() { return m_Dead; }
 		inline void Stop() { m_Stop = true; }
-	
+
 	protected:
 		struct Particle
 		{
@@ -34,15 +33,14 @@ namespace SFENG
 			int fadingSpeed;
 			sf::Shape* shape;
 			sf::Color color = sf::Color(255, 255, 255, 255);
-			int alpha = 255; 
-			
+			int alpha = 255;
+
 			sf::Time aliveTime;
-			
+
 			Particle();
 			void Update(sf::Time time);
 			void Draw(sf::RenderWindow& window);
 		};
-
 
 		bool IsParticleFinished(uint32_t index);
 		virtual void CustomParticleInit(Particle& p) = 0;

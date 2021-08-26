@@ -20,4 +20,3 @@ namespace SFENG {
 		uint32_t m_FrameCounter;
 	};
 }
-

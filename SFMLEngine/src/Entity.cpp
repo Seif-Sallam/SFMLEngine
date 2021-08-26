@@ -1,7 +1,7 @@
 #include "../headers/Entity.h"
 
 SFENG::Entity::Entity(const std::string& name)
-	: m_Active(true), m_Name(name)
+	: m_Active(true), m_Alive(true), m_Name(name)
 {
 	m_Components.reserve(32u);
 	this->AddComponent<Transform>(Vec2f(0.0f, 0.0f), Vec2f(1.0f, 1.0f), 0.f);
@@ -10,7 +10,7 @@ SFENG::Entity::Entity(const std::string& name)
 
 SFENG::Entity::Entity(const Entity& en)
 {
-	{	
+	{
 		this->m_Components.reserve(en.m_Components.size());
 		auto it = en.m_Components.begin();
 		while (it != en.m_Components.end())
@@ -21,7 +21,7 @@ SFENG::Entity::Entity(const Entity& en)
 	}
 	{
 		auto it = en.m_ComponentsMap.begin();
-		while (it != en.m_ComponentsMap.end()) 
+		while (it != en.m_ComponentsMap.end())
 		{
 			this->m_ComponentsMap.insert(*it);
 			it++;
@@ -39,7 +39,8 @@ SFENG::Entity::Entity(const Entity& en)
 		int32_t digit = stoi(str);
 		m_Name = en.m_Name.substr(0, index) + std::to_string(digit++);
 	}
-	m_Active = true;
+	m_Active = en.m_Active;
+	m_Alive = true;
 }
 
 void SFENG::Entity::PrintComponents()
@@ -74,7 +75,7 @@ void SFENG::Entity::FixedUpdate(const sf::Time& time)
 
 SFENG::Entity::~Entity()
 {
-	for(int i = m_Components.size() - 1; i >=0; i--)
+	for (int i = m_Components.size() - 1; i >= 0; i--)
 	{
 		if (m_Components[i] != nullptr)
 			delete m_Components[i];

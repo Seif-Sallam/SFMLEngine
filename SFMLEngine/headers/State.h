@@ -3,8 +3,7 @@
 
 namespace SFENG {
 	class Engine;
-	
-	
+
 	class State
 	{
 	public:

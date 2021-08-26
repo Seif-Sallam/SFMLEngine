@@ -7,10 +7,10 @@ SFENG::EntityManager::EntityManager(const int32_t& initialSize)
 
 SFENG::Entity* SFENG::EntityManager::CloneEntity(SFENG::Entity* en)
 {
-	Entity* newEn =  new Entity(*en);
+	Entity* newEn = new Entity(*en);
 	if (newEn != nullptr) {
 		m_Entities.push_back(newEn);
-		newEn->SetName(AddEntityToMap(newEn, newEn->GetName()));		
+		newEn->SetName(AddEntityToMap(newEn, newEn->GetName()));
 	}
 	return newEn;
 }
@@ -32,7 +32,7 @@ SFENG::EntityManager::EntityManager(const SFENG::EntityManager& em)
 SFENG::Entity* SFENG::EntityManager::MakeEntity(const std::string& name)
 {
 	Entity* en = new Entity(name);
-	if (en != nullptr) 
+	if (en != nullptr)
 	{
 		m_Entities.push_back(en);
 		en->SetName(AddEntityToMap(en, name));
@@ -58,7 +58,6 @@ void SFENG::EntityManager::HandleEvents(sf::Event& event)
 {
 	for (auto& en : m_Entities)
 		en->HandleEvents(event);
-
 }
 
 void SFENG::EntityManager::Update(const sf::Time& time)
@@ -69,8 +68,26 @@ void SFENG::EntityManager::Update(const sf::Time& time)
 
 void SFENG::EntityManager::Draw(sf::RenderWindow& window)
 {
-	for (auto& en : m_Entities)
-		en->Draw(window);
+	sf::View currentView = window.getView();
+	Vec2f min = currentView.getCenter() - currentView.getSize() / 2.0f;
+	Vec2f max = min + currentView.getSize();
+
+	// Needs Testing
+	for (auto& en : m_Entities) {
+		Transform& transform = en->GetCopmonent<Transform>();
+
+		Vec2f minPos = transform.position - transform.size / 2.0f;
+		Vec2f maxPos = transform.position + transform.size / 2.0f;
+		if (transform.size.x < currentView.getSize().x && transform.size.y < currentView.getSize().y) {
+			if (minPos.x > min.x && minPos.y > min.y && maxPos.x < max.x && maxPos.y < max.y)
+				en->Draw(window);
+		}
+		else
+		{
+			if ((minPos.x < min.x && minPos.y < min.y) || (maxPos.x > max.x && maxPos.y > max.y))
+				en->Draw(window);
+		}
+	}
 }
 
 void SFENG::EntityManager::Refresh()
@@ -83,7 +100,7 @@ void SFENG::EntityManager::GetInactive()
 {
 	auto it = m_Entities.begin();
 	while (it != m_Entities.end()) {
-		if(*it)
+		if ((*it)->IsAlive())
 			RmEntity(it);
 	}
 }
@@ -91,13 +108,12 @@ void SFENG::EntityManager::GetInactive()
 void SFENG::EntityManager::CleanUpUnused()
 {
 	auto it = m_UnusedEntities.begin();
-	while(it != m_UnusedEntities.end())
+	while (it != m_UnusedEntities.end())
 	{
 		m_EntitiesMap.erase((*it)->GetName());
 		delete* it;
 		it = m_UnusedEntities.erase(it);
 	}
-
 }
 
 void SFENG::EntityManager::CleanUp()
@@ -106,9 +122,10 @@ void SFENG::EntityManager::CleanUp()
 	for (int32_t i = 0; i < m_Entities.size(); i++)
 	{
 		delete m_Entities[i];
-		m_Entities[i]= nullptr;
+		m_Entities[i] = nullptr;
 	}
 	m_Entities.clear();
+	m_EntitiesMap.clear();
 }
 
 void SFENG::EntityManager::RmEntity(std::vector<Entity*>::iterator& it)

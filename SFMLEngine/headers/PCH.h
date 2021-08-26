@@ -17,7 +17,6 @@
 
 #include "box2d/box2d.h"
 
-
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Audio.hpp"
@@ -30,4 +29,3 @@
 #include "ParticleSystem.h"
 #include "ParticleFountain.h"
 #include "Tilemap.h"
-

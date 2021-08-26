@@ -30,7 +30,7 @@ void SFENG::Engine::Run()
 		HandleStates();
 		HandleEvent();
 
-		if (m_InFocus) 
+		if (m_InFocus)
 		{
 			GetCurrentState().HandleInput();
 			GetCurrentState().Update(elapsed);
@@ -41,7 +41,6 @@ void SFENG::Engine::Run()
 		}
 		TryPop();
 	}
-
 }
 
 void SFENG::Engine::HandleEvent()
@@ -61,14 +60,12 @@ void SFENG::Engine::HandleEvent()
 			m_InFocus = false;
 
 		SFENG::Keyboard::Update(event);
-		if(event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
+		if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
 			currentState.HandleInputSlow();
-		
+
 		currentState.HandleEvent(event);
 	}
-
 }
-
 
 SFENG::Engine::~Engine()
 {
@@ -103,7 +100,6 @@ void SFENG::Engine::PushState(std::unique_ptr<State> state)
 	m_States.push_back(std::move(state));
 }
 
-
 void SFENG::Engine::TryPop()
 {
 	if (m_ShouldPop)
@@ -128,7 +124,7 @@ void SFENG::Engine::TryPop()
 
 void SFENG::Engine::Draw()
 {
-	m_Window->clear(sf::Color(192,168,138));
+	m_Window->clear(sf::Color(192, 168, 138));
 	GetCurrentState().Draw(*m_Window);
 	m_FPSCounter->Draw();
 	m_Window->display();

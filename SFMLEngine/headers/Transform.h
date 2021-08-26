@@ -5,9 +5,9 @@ namespace SFENG {
 	class Transform : public Component
 	{
 	public:
-		Transform(const Vec2f& position, const Vec2f& scale, const float& rotation);
+		Transform(const Vec2f& position, const Vec2f& size, const float& rotation);
 		Transform(const Vec2f& position);
-		Transform(const Vec2f& position, const Vec2f& scale);
+		Transform(const Vec2f& position, const Vec2f& size);
 		Transform();
 		Transform(const Transform& t);
 		Transform(const Transform&& t);
@@ -18,7 +18,7 @@ namespace SFENG {
 		inline void FixedUpdate(const sf::Time& elapsedTime) override;
 		inline void HandleEvents(sf::Event& event) override;
 		Vec2f position;
-		Vec2f scale;
+		Vec2f size;
 		float rotation;
 	};
 }

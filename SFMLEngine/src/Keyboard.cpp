@@ -14,11 +14,9 @@ void SFENG::Keyboard::Update(sf::Event& event)
 	default:
 		break;
 	}
-
 }
 
 const bool SFENG::Keyboard::IsKeyPressed(const sf::Keyboard::Key& key)
 {
 	return m_Keys[key];
 }
-

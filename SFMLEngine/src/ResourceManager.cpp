@@ -54,8 +54,8 @@ void SFENG::ResourceManager::CleanUp()
 }
 
 SFENG::ResourceManager::ResourceManager()
-	: m_FontLoader( new ResourceLoader<sf::Font>("rsc/failed/arial.ttf")),
-	  m_TextureLoader(new ResourceLoader<sf::Texture>("rsc/failed/failed.png")),
-	  m_SoundBufferLoader(new ResourceLoader<sf::SoundBuffer>("rsc/failed/Silent.wav"))
+	: m_FontLoader(new ResourceLoader<sf::Font>("rsc/failed/arial.ttf")),
+	m_TextureLoader(new ResourceLoader<sf::Texture>("rsc/failed/failed.png")),
+	m_SoundBufferLoader(new ResourceLoader<sf::SoundBuffer>("rsc/failed/Silent.wav"))
 {
 }

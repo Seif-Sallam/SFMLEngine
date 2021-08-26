@@ -29,7 +29,7 @@ namespace SFENG {
 		{
 			return m_Resources.find(name) != m_Resources.end();
 		}
-		~ResourceLoader(){
+		~ResourceLoader() {
 			for (auto& i : m_Resources)
 				delete i.second;
 		}

@@ -11,9 +11,8 @@
 #include "Vec2.h"
 #include "ResourceManager.h"
 
-
 namespace SFENG {
-	class Tilemap 
+	class Tilemap
 	{
 	public:
 		Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, sf::RenderWindow& window);

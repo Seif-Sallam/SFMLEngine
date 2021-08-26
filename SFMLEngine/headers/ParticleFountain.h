@@ -3,7 +3,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 namespace SFENG {
-
 	class ParticleFountain : public ParticleSystem
 	{
 	public:
@@ -14,7 +13,7 @@ namespace SFENG {
 		void CustomParticleInit(Particle& p) override;
 		void CustomParticleUpdate(Particle& p, sf::Time t) override;
 	private:
-		inline float toRadian(float degree) { return ((degree / 180.0f) * M_PI); }
+		inline float toRadian(float degree) { return float((degree / 180.0f) * M_PI); }
 		int m_Width;
 		//float m_Angle;
 		float m_Angle;

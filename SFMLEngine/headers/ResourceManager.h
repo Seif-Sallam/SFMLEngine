@@ -1,7 +1,6 @@
 #pragma once
 #include "ResourceLoader.h"
 
-
 //You have to clean it yourself by calling CleanUp;
 namespace SFENG {
 	class ResourceManager {

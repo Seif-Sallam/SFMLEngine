@@ -18,10 +18,9 @@ namespace SFENG {
 		inline virtual void HandleEvents(sf::Event& event) {}
 		inline virtual void Print() { std::cout << "Raw Copmonent\n"; }
 		inline bool IsValid() { return m_IsValid; }
-
+		inline void MakeUnValid() { m_IsValid = true; }
 		Entity* entity = nullptr;
 	protected:
 		bool m_IsValid = false;
 	};
-
 }

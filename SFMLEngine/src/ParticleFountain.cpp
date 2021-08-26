@@ -20,8 +20,8 @@ void SFENG::ParticleFountain::SetAngle(float angle)
 void SFENG::ParticleFountain::CustomParticleInit(Particle& p)
 {
 	//float randomVelocity = 2 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1.0f)));
-	p.radius = rand() % m_Width + 5;
-	p.right = rand() % 2;
+	p.radius = float(rand() % m_Width + 5);
+	p.right = bool(rand() % 2);
 	p.w = sqrtf(2) / p.radius;
 }
 

@@ -4,7 +4,7 @@
 //#include "../headers/FPSCounter.h"
 //
 //int main()
-//{   
+//{
 //	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Works!");
 //	window.setFramerateLimit(60);
 //	window.setVerticalSyncEnabled(true);

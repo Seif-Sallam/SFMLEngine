@@ -1,9 +1,9 @@
 #include "../headers/Tilemap.h"
 
 SFENG::Tilemap::Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, sf::RenderWindow& window)
-	: m_Size(size), m_StartPos(startPos), m_TileSize(tileSize) ,m_Window(window)
+	: m_Size(size), m_StartPos(startPos), m_TileSize(tileSize), m_Window(window)
 {
-	m_SheetTexture = &SFENG::ResourceManager::Get().GetTextrue(spriteSheet);	
+	m_SheetTexture = &SFENG::ResourceManager::Get().GetTextrue(spriteSheet);
 	m_MapIndicies = new Vec2<uint8_t>[m_Size.x * m_Size.y];
 	m_ErrorReading = false;
 	m_Tile.setPosition(m_StartPos);
@@ -21,7 +21,7 @@ void SFENG::Tilemap::ReadMap(const std::string& map)
 		for (int i = 0; i < m_Size.y; i++) // Rows
 			for (int j = 0; j < m_Size.x; j++) // Columns
 			{
-				uint32_t index = j + i * m_Size.x;
+				int32_t index = j + i * m_Size.x;
 				if (index >= m_Size.x * m_Size.y)
 				{
 					std::cout << "Index out of bounds!!\n";
@@ -50,7 +50,7 @@ void SFENG::Tilemap::Darw()
 	const Vec2f& pos = m_StartPos;
 	auto viewBoundries = GetViewBoundries();
 	auto startIndicies = GetStartIndex(viewBoundries);
-	auto endIndicies = GetEndIndex(viewBoundries);	
+	auto endIndicies = GetEndIndex(viewBoundries);
 	for (int j = startIndicies.y; j < endIndicies.y; j++) // Columns
 		for (int i = startIndicies.x; i < endIndicies.x; i++) // Rows
 		{
@@ -75,7 +75,6 @@ sf::IntRect SFENG::Tilemap::GetViewBoundries()
 	Vec2f viewHalf = view.getSize() / 2.0f;
 	return sf::IntRect(view.getCenter().x - viewHalf.x, view.getCenter().y - viewHalf.y,
 		view.getCenter().x + viewHalf.x, view.getCenter().y + viewHalf.y);
-	
 }
 
 Vec2i SFENG::Tilemap::GetStartIndex(const sf::IntRect& viewBoundries)

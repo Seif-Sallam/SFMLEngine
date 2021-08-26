@@ -17,7 +17,7 @@ namespace SFENG {
 		virtual void HandleStates() {}
 		void PushStartingState(std::unique_ptr<State> state);
 		void ShouldChangeState(std::unique_ptr<State> change);
-		
+
 		void PopState();
 	private:
 		template<class T, class... Args>
@@ -38,7 +38,6 @@ namespace SFENG {
 		bool m_ShouldExit;
 		bool m_ShouldPop;
 		bool m_InFocus;
-		
 	};
 
 	template<class T, class ...Args>

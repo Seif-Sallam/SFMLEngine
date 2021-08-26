@@ -5,7 +5,7 @@ SFENG::ParticleSystem::ParticleSystem(sf::Shape* shapeType, const Vec2f& positio
 {
 	m_Intensity = 5;
 	m_AliveTime = sf::Time::Zero;
-	srand(time(0));
+	srand(time(nullptr));
 }
 
 SFENG::ParticleSystem::~ParticleSystem()
@@ -22,7 +22,7 @@ void SFENG::ParticleSystem::Update(sf::Time time)
 {
 	if (!m_Stop) {
 		m_AliveTime += time;
-		
+
 		if (m_Particles.size() < m_MaxParticles) {
 			for (int i = 0; i < m_Intensity; i++)
 			{
@@ -103,7 +103,6 @@ SFENG::ParticleSystem::Particle::Particle()
 		this->fadingSpeed = 700;
 		break;
 	}
-
 }
 
 void SFENG::ParticleSystem::Particle::Update(sf::Time time)

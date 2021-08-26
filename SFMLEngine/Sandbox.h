@@ -37,7 +37,7 @@ public:
 
 		const b2Vec2 gravity(1.0f, 20.f);
 		m_PhysWorld = new b2World(gravity);
-		
+
 		b2BodyDef groundBodyDef;
 		groundBodyDef.position.Set(300.0f, 500.0f);
 		b2Body* groundBody = m_PhysWorld->CreateBody(&groundBodyDef);
@@ -53,7 +53,7 @@ public:
 			CustomBox box;
 			float x = xPos(randomGen);
 			float y = yPos(randomGen);
-			if(y < 50.f)
+			if (y < 50.f)
 				box.Init(m_PhysWorld, Vec2f(x, y), Vec2f(20.0f, 20.0f), sf::Color::Blue);
 			else
 				box.Init(m_PhysWorld, Vec2f(x, y), Vec2f(20.0f, 20.0f), sf::Color::Red);
@@ -67,7 +67,6 @@ public:
 	}
 
 	void HandleEvent(sf::Event) override {
-
 	}
 	void HandleInputSlow() override
 	{
@@ -83,7 +82,7 @@ public:
 			particleSystem->SetIntensity(intensity);
 		}
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::K)) {
-			angle = (int)(angle - 1) % 360;
+			angle = float((int)(angle - 1) % 360);
 			if (angle < 0) angle = 0;
 			particleSystem->SetAngle(angle);
 		}
@@ -96,19 +95,17 @@ public:
 		}
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::M))
 			particleSystem->SetWidth(++width);
-			
-			
 	}
 
 	void HandleInput() override {
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::A))
 			particleSystem->Move({ -10.0f, 0.0f });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::D))
-			particleSystem->Move({  10.0f, 0.0f });
+			particleSystem->Move({ 10.0f, 0.0f });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::W))
 			particleSystem->Move({ 0.0f, -10.0f });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::S))
-			particleSystem->Move({ 0.0f, 10.0f  });
+			particleSystem->Move({ 0.0f, 10.0f });
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Left))
 			m_Engine.engineView.move(-10.0f, 0.0f);
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Right))
@@ -117,7 +114,6 @@ public:
 			m_Engine.engineView.move(0.0f, -10.0f);
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Down))
 			m_Engine.engineView.move(0.0f, 10.0f);
-
 
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Key::Escape))
 			m_Engine.ExitGame();
@@ -163,13 +159,13 @@ private:
 	b2World* m_PhysWorld;
 	class CustomBox {
 	public:
-		CustomBox(){}
-		~CustomBox(){}
+		CustomBox() {}
+		~CustomBox() {}
 		void Init(b2World* world, const Vec2f& position, const Vec2f& dim, const sf::Color& color)
 		{
 			this->world = world;
-			this->dim = dim;
-			
+			this->dim   = dim;
+
 			sfShape.setOrigin(dim.x / 2.0f, dim.y / 2.0f);
 			sfShape.setPosition(position.x, position.y);
 			sfShape.setSize(sf::Vector2f(dim.x, dim.y));
@@ -179,26 +175,24 @@ private:
 			b2BodyDef bodyDef;
 			bodyDef.position.Set(position.x, position.y);
 			bodyDef.type = b2_dynamicBody;
-			
+
 			//Create the body itself
 			body = world->CreateBody(&bodyDef);
 			b2PolygonShape shape;
 			shape.SetAsBox(dim.x / 2.0f, dim.y / 2.0f);
-			
+
 			b2FixtureDef fixtureDef;
 			fixtureDef.density = 1.0f;
 			fixtureDef.friction = 0.3f;
 			fixtureDef.shape = &shape;
 
 			fixture = body->CreateFixture(&fixtureDef);
-			
-
 		}
 
 		void Update()
 		{
 			float rot = body->GetAngle() * 180.0f / M_PI;
-			auto pos = body->GetPosition();
+			auto pos  = body->GetPosition();
 			sfShape.setPosition(pos.x, pos.y);
 			sfShape.setRotation(rot);
 		}
@@ -224,12 +218,11 @@ public:
 		PushStartingState(std::move(state));
 	}
 	~Sandbox() {}
-	
+
 	void HandleStates()
 	{
 		float passedTime = clk.getElapsedTime().asSeconds();
 	}
 private:
 	sf::Clock clk;
-
 };
