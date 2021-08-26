@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
@@ -161,10 +162,11 @@
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ParticleFountain.cpp" />
-    <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Component.h" />
+    <ClInclude Include="headers\Components\SpriteRenderer.h" />
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />
     <ClInclude Include="headers\EntityManager.h" />
@@ -177,7 +179,7 @@
     <ClInclude Include="headers\ResourceManager.h" />
     <ClInclude Include="headers\ParticleFountain.h" />
     <ClInclude Include="headers\Tilemap.h" />
-    <ClInclude Include="headers\Transform.h" />
+    <ClInclude Include="headers\Components\Transform.h" />
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="headers\State.h" />
     <ClInclude Include="headers\Vec2.h" />

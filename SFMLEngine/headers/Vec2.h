@@ -19,8 +19,14 @@
 template<class T>
 class Vec2 {
 public:
-	T x, y;
-
+	union {
+		struct {
+			T x, y;
+		};
+		struct {
+			T w, h;
+		};
+	};
 	inline Vec2() : x(T()), y(T()) {}
 	inline Vec2(const sf::Vector2<T>& sfVec2) : x(sfVec2.x), y(sfVec2.y) {}
 	inline Vec2(const b2Vec2& vec) : x(vec.x), y(vec.y) {}

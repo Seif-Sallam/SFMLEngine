@@ -7,7 +7,7 @@
 #include <typeindex>
 #include <typeinfo>
 #include "SFML/Graphics.hpp"
-#include "Transform.h"
+#include "Components/Transform.h"
 
 namespace SFENG {
 	class Entity {

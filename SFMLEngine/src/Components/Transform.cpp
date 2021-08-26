@@ -1,4 +1,4 @@
-#include "../headers/Transform.h"
+#include "../../headers/Components/Transform.h"
 
 SFENG::Transform::Transform(const Vec2f& position, const Vec2f& size, const float& rotation)
 	: Component(), position(position), size(size), rotation(rotation)
@@ -57,4 +57,12 @@ void SFENG::Transform::FixedUpdate(const sf::Time& elapsedTime)
 void SFENG::Transform::HandleEvents(sf::Event& event)
 {
 	return Component::HandleEvents(event);
+}
+
+inline void SFENG::Transform::Print()
+{
+	std::cout << "Transform Component\n";
+	std::cout << "Pos: " << position << "\n";
+	std::cout << "Size: " << size << "\n";
+	std::cout << "Rotation: " << rotation << "\n";
 }
