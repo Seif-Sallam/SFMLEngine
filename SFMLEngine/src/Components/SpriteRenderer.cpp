@@ -29,7 +29,7 @@ void SFENG::SpriteRenderer::SetRect(const sf::IntRect& rect)
 {
 	m_Sprite.setTextureRect(rect);
 	if ((int)m_Transform->size.w != rect.width || (int)m_Transform->size.h != rect.height) {
-		Vec2f size = { rect.width,	rect.height };
+		Vec2f size = { (float)rect.width, (float)rect.height };
 		m_Transform->size = size;
 		m_Sprite.setOrigin(size / 2.f);
 		m_Sprite.setPosition(m_Transform->position);

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Component.h"
+#include "Component.h"
 #include "../Vec2.h"
 namespace SFENG {
 	class Transform : public Component
@@ -18,6 +18,7 @@ namespace SFENG {
 		inline void FixedUpdate(const sf::Time& elapsedTime) override;
 		inline void HandleEvents(sf::Event& event) override;
 		inline void Print() override;
+
 		Vec2f position;
 		Vec2f size;
 		float rotation;

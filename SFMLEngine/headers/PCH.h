@@ -24,7 +24,6 @@
 
 #include "Vec2.h"
 #include "ResourceManager.h"
-#include "Animation.h"
 #include "Keyboard.h"
 #include "ParticleSystem.h"
 #include "ParticleFountain.h"

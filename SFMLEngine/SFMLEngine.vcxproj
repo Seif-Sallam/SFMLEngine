@@ -158,20 +158,19 @@
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Keyboard.cpp" />
-    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ParticleFountain.cpp" />
     <ClCompile Include="src\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\Component.h" />
+    <ClInclude Include="headers\Components\Component.h" />
+    <ClInclude Include="headers\Components\Animator.h" />
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />
     <ClInclude Include="headers\EntityManager.h" />
     <ClInclude Include="headers\FPSCounter.h" />
-    <ClInclude Include="headers\Animation.h" />
     <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="headers\ParticleSystem.h" />
     <ClInclude Include="headers\PCH.h" />
@@ -183,6 +182,7 @@
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="headers\State.h" />
     <ClInclude Include="headers\Vec2.h" />
+    <ClInclude Include="src\Components\Animator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
