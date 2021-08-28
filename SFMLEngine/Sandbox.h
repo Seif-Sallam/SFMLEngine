@@ -43,7 +43,7 @@ public:
 		b2Body* groundBody = m_PhysWorld->CreateBody(&groundBodyDef);
 		b2PolygonShape groundBoxShape;
 		groundBoxShape.SetAsBox(500.0f, 10.0f);
-		groundBody->CreateFixture(&groundBoxShape, 0.0f);
+		b2Fixture* f = groundBody->CreateFixture(&groundBoxShape, 0.0f);
 
 		std::mt19937 randomGen(time(0));
 		std::uniform_real_distribution<float> xPos(75.0f, 150.f);
