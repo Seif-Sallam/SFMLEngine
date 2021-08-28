@@ -14,11 +14,11 @@ namespace SFENG {
 	protected:
 		Engine(Vec2u resolution = Vec2u(800, 600), const std::string& title = "Title");
 		~Engine();
-		virtual void HandleStates() {}
 		void PushStartingState(std::unique_ptr<State> state);
 		void ShouldChangeState(std::unique_ptr<State> change);
-
 		void PopState();
+
+		virtual void HandleStates() {}
 	private:
 		template<class T, class... Args>
 		void PushState(Args&&... args);
@@ -34,6 +34,8 @@ namespace SFENG {
 		sf::RenderWindow* m_Window;
 		FPSCounter* m_FPSCounter;
 
+		sf::Clock m_PhysicsClock;
+		const float m_TimeStep;
 		bool m_ShouldChangeState;
 		bool m_ShouldExit;
 		bool m_ShouldPop;

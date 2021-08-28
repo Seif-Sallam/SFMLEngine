@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\RigidBody2D.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="headers\Components\Component.h" />
     <ClInclude Include="headers\Components\Animator.h" />
+    <ClInclude Include="headers\Components\RigidBody2D.h" />
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />

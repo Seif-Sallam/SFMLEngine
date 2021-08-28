@@ -31,6 +31,9 @@ namespace SFENG {
 				m_ComponentsMap[typeid(Type)] = comp;
 				return *comp;
 			}
+			std::cout << "Component:\n";
+			comp->Print();
+			std::cout << "Was not Initalized Successfully\n";
 			throw;
 		}
 

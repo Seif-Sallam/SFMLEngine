@@ -45,7 +45,7 @@ public:
 		groundBoxShape.SetAsBox(500.0f, 10.0f);
 		groundBody->CreateFixture(&groundBoxShape, 0.0f);
 
-		std::mt19937 randomGen;
+		std::mt19937 randomGen(time(0));
 		std::uniform_real_distribution<float> xPos(75.0f, 150.f);
 		std::uniform_real_distribution<float> yPos(0, 300.0f);
 
@@ -119,10 +119,7 @@ public:
 			m_Engine.ExitGame();
 	}
 	void Update(sf::Time t) override {
-		m_PhysWorld->Step(1.0f / 60.0f, 6, 2);
-		for (auto& b : boxes) {
-			b.Update();
-		}
+
 		particleSystem->Update(t);
 		for (auto& i : particleSystems)
 			i->Update(t);
@@ -131,6 +128,10 @@ public:
 		angleText.setString("Angle Press K AND L: " + std::to_string((int)angle));
 	}
 	void FixedUpdate(sf::Time) override {
+		m_PhysWorld->Step(1.0f / 60.0f, 6, 2);
+		for (auto& b : boxes) {
+			b.Update();
+		}
 	}
 	void Draw(sf::RenderWindow& window) override {
 		particleSystem->Draw(window);

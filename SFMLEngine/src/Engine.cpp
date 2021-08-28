@@ -2,6 +2,7 @@
 
 SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	: m_ShouldChangeState(false), m_ShouldExit(false), m_ShouldPop(false)
+	, m_TimeStep(1.0f / 60.0f)
 {
 	m_Window = new sf::RenderWindow(sf::VideoMode(resolution.x, resolution.y), title);
 	m_Window->setVerticalSyncEnabled(true);
@@ -35,9 +36,13 @@ void SFENG::Engine::Run()
 			GetCurrentState().HandleInput();
 			GetCurrentState().Update(elapsed);
 			m_FPSCounter->Update();
-			GetCurrentState().FixedUpdate(elapsed);
 			m_Window->setView(engineView);
 			Draw();
+			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
+			{
+				m_PhysicsClock.restart();
+				GetCurrentState().FixedUpdate(elapsed);
+			}
 		}
 		TryPop();
 	}
