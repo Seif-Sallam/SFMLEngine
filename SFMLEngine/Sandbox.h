@@ -63,6 +63,9 @@ public:
 
 	~CustomState()
 	{
+		for (int i = 0; i < particleSystems.size(); i++)
+			delete particleSystems[i];
+		particleSystems.clear();
 		delete particleSystem;
 	}
 

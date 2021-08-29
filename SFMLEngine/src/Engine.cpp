@@ -14,20 +14,14 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 
 void SFENG::Engine::Run()
 {
-	constexpr unsigned int TPS = 30;
-	const sf::Time timePerUpdate = sf::seconds(1.0f / float(TPS));
-	unsigned int ticks = 0;
-
 	sf::Clock timer;
 
 	sf::Time lastTime = sf::Time::Zero;
-	sf::Time lag = sf::Time::Zero;
 	while (m_Window->isOpen() && !m_States.empty())
 	{
 		sf::Time time = timer.getElapsedTime();
 		sf::Time elapsed = time - lastTime;
 		lastTime = time;
-		lag += elapsed;
 		HandleStates();
 		HandleEvent();
 
@@ -40,8 +34,8 @@ void SFENG::Engine::Run()
 			Draw();
 			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
 			{
-				m_PhysicsClock.restart();
 				GetCurrentState().FixedUpdate(elapsed);
+				m_PhysicsClock.restart();
 			}
 		}
 		TryPop();
@@ -65,6 +59,7 @@ void SFENG::Engine::HandleEvent()
 			m_InFocus = false;
 
 		SFENG::Keyboard::Update(event);
+
 		if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
 			currentState.HandleInputSlow();
 
