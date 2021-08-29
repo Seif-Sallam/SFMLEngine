@@ -28,3 +28,11 @@
 #include "ParticleSystem.h"
 #include "ParticleFountain.h"
 #include "Tilemap.h"
+
+#include "Components/Component.h"
+#include "Components/Transform.h"
+#include "Components/RigidBody2D.h"
+#include "Components/BoxCollider.h"
+#include "Components/CircleCollider.h"
+#include "Components/SpriteRenderer.h"
+#include "Components/Animator.h"

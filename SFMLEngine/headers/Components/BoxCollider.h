@@ -4,15 +4,17 @@
 #include "Transform.h"
 
 namespace SFENG {
+	class RigidBody2D;
 	class BoxCollider : public Component
 	{
+		friend RigidBody2D;
 	public:
 		BoxCollider(b2World* world);
 		~BoxCollider();
 
-		
 		inline void SetFriction(float f);
 		inline void SetDensity(float d);
+		inline b2Body* GetBody();
 		inline b2Shape* GetShape();
 		inline void SetSensor(bool s);
 		inline bool Init() override;
@@ -25,8 +27,8 @@ namespace SFENG {
 	private:
 
 		void CreateFixture();
-		b2World* m_PhysWorld;
 		b2Body* m_Body;
+		b2World* m_PhysWorld;
 		b2Fixture* m_Fixture;
 		Transform* m_Transform;
 		Vec2f m_CurrentSize;

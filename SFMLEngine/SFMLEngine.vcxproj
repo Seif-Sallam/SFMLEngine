@@ -171,6 +171,7 @@
     <ClInclude Include="headers\Components\CircleCollider.h" />
     <ClInclude Include="headers\Components\Component.h" />
     <ClInclude Include="headers\Components\Animator.h" />
+    <ClInclude Include="headers\Components\Controller.h" />
     <ClInclude Include="headers\Components\RigidBody2D.h" />
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
     <ClInclude Include="headers\Entity.h" />

@@ -80,9 +80,9 @@ sf::IntRect SFENG::Tilemap::GetViewBoundries()
 Vec2i SFENG::Tilemap::GetStartIndex(const sf::IntRect& viewBoundries)
 {
 	float check = ((float)viewBoundries.left - m_StartPos.x) / m_TileSize.x;
-	int32_t startIndexC = (viewBoundries.left <= m_StartPos.x) ? 0 : (check >= m_Size.x) ? m_Size.x : check;
+	int32_t startIndexC = (viewBoundries.left <= m_StartPos.x) ? 0 : (check >= m_Size.x) ? m_Size.x : (int32_t)check;
 	check = (float)(viewBoundries.top - m_StartPos.y) / m_TileSize.y;
-	int32_t startIndexR = (viewBoundries.top <= m_StartPos.y) ? 0 : (check >= m_Size.y) ? m_Size.y : check;
+	int32_t startIndexR = (viewBoundries.top <= m_StartPos.y) ? 0 : (check >= m_Size.y) ? m_Size.y : (int32_t)check;
 
 	return Vec2i(startIndexR, startIndexC);
 }
@@ -90,8 +90,8 @@ Vec2i SFENG::Tilemap::GetStartIndex(const sf::IntRect& viewBoundries)
 Vec2i SFENG::Tilemap::GetEndIndex(const sf::IntRect& viewBoundries)
 {
 	float check = ((float)viewBoundries.width - m_StartPos.x) / m_TileSize.x;
-	int32_t endIndexC = (viewBoundries.width <= m_StartPos.x) ? 0 : (viewBoundries.width >= m_ViewLimit.x) ? m_Size.x : (check <= 0.f) ? 0 : check + 1;
+	int32_t endIndexC = (viewBoundries.width <= m_StartPos.x) ? 0 : (viewBoundries.width >= m_ViewLimit.x) ? m_Size.x : (check <= 0.f) ? 0 : (int32_t)check + 1;
 	check = (float)(viewBoundries.height - m_StartPos.y) / m_TileSize.y;
-	int32_t endIndexR = (viewBoundries.height <= m_StartPos.y) ? 0 : (viewBoundries.height >= m_ViewLimit.y) ? m_Size.y : (check <= 0.f) ? 0 : check + 1;
+	int32_t endIndexR = (viewBoundries.height <= m_StartPos.y) ? 0 : (viewBoundries.height >= m_ViewLimit.y) ? m_Size.y : (check <= 0.f) ? 0 : (int32_t)check + 1;
 	return Vec2i(endIndexR, endIndexC);
 }

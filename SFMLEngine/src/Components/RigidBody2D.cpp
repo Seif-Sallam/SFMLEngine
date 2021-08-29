@@ -1,7 +1,11 @@
 #include "../../headers/Components/RigidBody2D.h"
+#include "../../headers/Components/BoxCollider.h"
+#include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Entity.h"
 SFENG::RigidBody2D::RigidBody2D(b2World* world)
-	: m_PhysWorld(world), m_Body(nullptr), m_Transform(nullptr)
+	: m_PhysWorld(world)
+	, m_Body(nullptr)
+	, m_Transform(nullptr)
 {
 }
 
@@ -35,7 +39,7 @@ inline const float& SFENG::RigidBody2D::GetAngle() const
 		return 0.f;
 }
 
-inline b2Body* SFENG::RigidBody2D::GetBody() const
+inline b2Body* SFENG::RigidBody2D::GetBody()
 {
 	return m_Body;
 }
@@ -61,11 +65,22 @@ inline bool SFENG::RigidBody2D::Init()
 	if (m_PhysWorld != nullptr)
 	{
 		m_Transform = &this->entity->GetCopmonent<Transform>();
-		b2BodyDef bodyDef;
-		bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
-		bodyDef.angle = m_Transform->rotation;
-		bodyDef.type = b2BodyType::b2_staticBody;
-		m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
+		if (this->entity->HasComponent<CircleCollider>()) 
+		{
+			m_Body = this->entity->GetCopmonent<CircleCollider>().m_Body;
+		}
+		else if (this->entity->HasComponent<BoxCollider>())
+		{
+			m_Body = this->entity->GetCopmonent<BoxCollider>().m_Body;
+		}
+		else
+		{
+			b2BodyDef bodyDef;
+			bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
+			bodyDef.angle = m_Transform->rotation;
+			bodyDef.type = b2BodyType::b2_staticBody;
+			m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
+		}
 	}
 	else
 		return false;

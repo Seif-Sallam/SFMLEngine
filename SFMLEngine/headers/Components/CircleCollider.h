@@ -4,8 +4,10 @@
 #include "Transform.h"
 
 namespace SFENG {
+	class RigidBody2D;
 	class CircleCollider : public Component
 	{
+		friend RigidBody2D;
 	public:
 		CircleCollider(b2World* world);
 		~CircleCollider();

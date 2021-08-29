@@ -32,6 +32,11 @@ inline void SFENG::BoxCollider::SetDensity(float d)
 	m_Density = d;
 }
 
+inline b2Body* SFENG::BoxCollider::GetBody()
+{
+	return m_Body;
+}
+
 inline b2Shape* SFENG::BoxCollider::GetShape()
 {
 	return m_Fixture->GetShape();
@@ -48,7 +53,7 @@ inline bool SFENG::BoxCollider::Init()
 	m_Transform = &this->entity->GetCopmonent<Transform>();
 	if (this->entity->HasComponent<RigidBody2D>()) {
 		RigidBody2D& rb = entity->GetCopmonent<RigidBody2D>();
-		m_Body = rb.GetBody();
+		m_Body = rb.m_Body;
 	}
 	else
 	{

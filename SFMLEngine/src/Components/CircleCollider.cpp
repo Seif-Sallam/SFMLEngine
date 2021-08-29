@@ -53,7 +53,7 @@ inline bool SFENG::CircleCollider::Init()
 	m_Transform = &this->entity->GetCopmonent<Transform>();
 	if (this->entity->HasComponent<RigidBody2D>()) {
 		RigidBody2D& rb = entity->GetCopmonent<RigidBody2D>();
-		m_Body = rb.GetBody();
+		m_Body = rb.m_Body;
 	}
 	else
 	{
