@@ -16,24 +16,23 @@ namespace SFENG {
 		Controller();
 		~Controller();
 
-		inline void SetRotation(float r);
-		inline void Rotate(float r);
-		inline void Scale(const Vec2f& factor);
-		inline void Scale(float xFactor, float yFactor);
-		inline void Scale(float factor);
-		inline void Resize(const Vec2f& v);
-		inline void Resize(float w, float h);
-		inline void Move(const Vec2f& v);
-		inline void Move(float x, float y);
-		inline void SetPosition(const Vec2f& pos);
-		inline void SetPosition(float x, float y);
-
-		inline bool Init() override;
-		inline void Draw(sf::RenderWindow& window) override;
-		inline void Update(const sf::Time& elapsedTime) override;
-		inline void FixedUpdate(const sf::Time& elapsedTime) override;
-		inline void HandleEvents(sf::Event& event) override;
-		inline void Print() override;
+		void SetRotation(float r);
+		void Rotate(float r);
+		void Scale(const Vec2f& factor);
+		void Scale(float xFactor, float yFactor);
+		void Scale(float factor);
+		void Resize(const Vec2f& v);
+		void Resize(float w, float h);
+		void Move(const Vec2f& v);
+		void Move(float x, float y);
+		void SetPosition(const Vec2f& pos);
+		void SetPosition(float x, float y);
+		bool Init() override;
+		void Draw(sf::RenderWindow& window) override;
+		void Update(const sf::Time& elapsedTime) override;
+		void FixedUpdate(const sf::Time& elapsedTime) override;
+		void HandleEvents(sf::Event& event) override;
+		void Print() override;
 	private:
 
 	public:
@@ -42,5 +41,4 @@ namespace SFENG {
 	private:
 		Transform* m_Transform;
 	};
-
 }

@@ -7,21 +7,20 @@ namespace SFENG {
 	{
 	public:
 		Animator();
-		
-		inline void AddFrame(const sf::IntRect& rect, sf::Time delay);
 
-		inline void Play();
-		inline void Stop();
-		inline void Loop(bool v);
-		inline void AttachSpriteRenderer(SpriteRenderer* spriteRenderer);
-		
-		
-		inline bool Init() override;
-		inline void Draw(sf::RenderWindow& window) override;
-		inline void Update(const sf::Time& elapsedTime) override;
-		inline void FixedUpdate(const sf::Time& elapsedTime) override;
-		inline void HandleEvents(sf::Event& event) override;
-		inline void Print() override;
+		void AddFrame(const sf::IntRect& rect, sf::Time delay);
+
+		void Play();
+		void Stop();
+		void Loop(bool v);
+		void AttachSpriteRenderer(SpriteRenderer* spriteRenderer);
+
+		bool Init() override;
+		void Draw(sf::RenderWindow& window) override;
+		void Update(const sf::Time& elapsedTime) override;
+		void FixedUpdate(const sf::Time& elapsedTime) override;
+		void HandleEvents(sf::Event& event) override;
+		void Print() override;
 
 	private:
 		struct Frame {
@@ -32,7 +31,6 @@ namespace SFENG {
 			sf::Time delay;
 		};
 
-		
 		uint32_t m_FramePointer;
 		sf::Clock m_Timer;
 		sf::Time m_OverlappedTime;
@@ -43,5 +41,4 @@ namespace SFENG {
 		bool m_Loop;
 		SpriteRenderer* m_SpriteRender;
 	};
-
 }

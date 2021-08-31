@@ -5,10 +5,11 @@
 namespace SFENG {
 	//Life Cycle Manager
 	class LifeCycleManager {
+	public:
 		LifeCycleManager(const int32_t& initialSize = 200);
 		explicit LifeCycleManager(const LifeCycleManager& em);
 		Entity* CloneEntity(Entity* en);
-		Entity* MakeEntity(const std::string& name);
+		Entity* CreateEntity(const std::string& name);
 		Entity* GetEntity(const std::string& name) const;
 		void FixedUpdate(const sf::Time& time);
 		void HandleEvents(sf::Event& event);

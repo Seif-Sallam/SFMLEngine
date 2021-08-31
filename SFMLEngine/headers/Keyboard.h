@@ -1,6 +1,7 @@
 #pragma once
-#include "PCH.h"
-
+#include "SFML/Graphics.hpp"
+#include <array>
+#include <vector>
 namespace SFENG {
 	class Keyboard {
 	public:

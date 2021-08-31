@@ -22,6 +22,7 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 
+#include "Engine.h"
 #include "Vec2.h"
 #include "ResourceManager.h"
 #include "Keyboard.h"

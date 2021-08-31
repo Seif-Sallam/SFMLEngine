@@ -5,7 +5,6 @@
 SFENG::SpriteRenderer::SpriteRenderer()
 	: Component(), m_Texture(nullptr), m_TextureName("UN_SET"), m_Transform(nullptr)
 {
-
 }
 
 bool SFENG::SpriteRenderer::Init()
@@ -19,7 +18,7 @@ void SFENG::SpriteRenderer::AttachTexture(const std::string& textureName)
 	m_TextureName = textureName;
 	m_Texture = &SFENG::ResourceManager::Get().GetTextrue(textureName);
 	m_Sprite.setTexture(*m_Texture);
-	Vec2f size = { m_Sprite.getLocalBounds().width,	m_Sprite.getLocalBounds().height};
+	Vec2f size = { m_Sprite.getLocalBounds().width,	m_Sprite.getLocalBounds().height };
 	m_Transform->size = size;
 	m_Sprite.setOrigin(size / 2.f);
 	m_Sprite.setPosition(m_Transform->position);
@@ -45,7 +44,7 @@ void SFENG::SpriteRenderer::Draw(sf::RenderWindow& window)
 void SFENG::SpriteRenderer::Update(const sf::Time& elapsedTime)
 {
 	m_Sprite.setPosition(m_Transform->position);
-	m_Sprite.setRotation(m_Transform->rotation);
+	m_Sprite.setRotation(m_Transform->angle);
 	return Component::Update(elapsedTime);
 }
 

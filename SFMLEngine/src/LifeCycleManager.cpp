@@ -29,7 +29,7 @@ SFENG::LifeCycleManager::LifeCycleManager(const SFENG::LifeCycleManager& em)
 	}
 }
 
-SFENG::Entity* SFENG::LifeCycleManager::MakeEntity(const std::string& name)
+SFENG::Entity* SFENG::LifeCycleManager::CreateEntity(const std::string& name)
 {
 	Entity* en = new Entity(name);
 	if (en != nullptr)
@@ -70,23 +70,14 @@ void SFENG::LifeCycleManager::Draw(sf::RenderWindow& window)
 {
 	sf::View currentView = window.getView();
 	Vec2f min = currentView.getCenter() - currentView.getSize() / 2.0f;
-	Vec2f max = min + currentView.getSize();
+	sf::IntRect viewRect = sf::IntRect(min.x, min.y, currentView.getSize().x, currentView.getSize().y);
 
-	// Needs Testing
 	for (auto& en : m_Entities) {
 		Transform& transform = en->GetCopmonent<Transform>();
-
 		Vec2f minPos = transform.position - transform.size / 2.0f;
-		Vec2f maxPos = transform.position + transform.size / 2.0f;
-		if (transform.size.x < currentView.getSize().x && transform.size.y < currentView.getSize().y) {
-			if (minPos.x > min.x && minPos.y > min.y && maxPos.x < max.x && maxPos.y < max.y)
-				en->Draw(window);
-		}
-		else
-		{
-			if ((minPos.x < min.x && minPos.y < min.y) || (maxPos.x > max.x && maxPos.y > max.y))
-				en->Draw(window);
-		}
+		sf::IntRect enRect = sf::IntRect(minPos.x, minPos.y, transform.size.x, transform.size.y);
+		if (enRect.intersects(viewRect))
+			en->Draw(window);
 	}
 }
 
@@ -100,8 +91,12 @@ void SFENG::LifeCycleManager::GetInactive()
 {
 	auto it = m_Entities.begin();
 	while (it != m_Entities.end()) {
-		if ((*it)->IsAlive())
+		if ((*it)->IsAlive() == false)
 			RmEntity(it);
+		else
+		{
+			it++;
+		}
 	}
 }
 

@@ -1,7 +1,9 @@
 #include "../../headers/Components/RigidBody2D.h"
 #include "../../headers/Components/BoxCollider.h"
+#include "../../headers/Components/Transform.h"
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Entity.h"
+
 SFENG::RigidBody2D::RigidBody2D(b2World* world)
 	: m_PhysWorld(world)
 	, m_Body(nullptr)
@@ -23,7 +25,7 @@ void SFENG::RigidBody2D::SetBodyType(const b2BodyType& type)
 	}
 }
 
-inline const Vec2f& SFENG::RigidBody2D::GetPosition() const
+Vec2f SFENG::RigidBody2D::GetPosition()
 {
 	if (m_Body != nullptr)
 		return m_Body->GetPosition();
@@ -31,7 +33,13 @@ inline const Vec2f& SFENG::RigidBody2D::GetPosition() const
 		return Vec2f();
 }
 
-inline const float& SFENG::RigidBody2D::GetAngle() const
+void SFENG::RigidBody2D::SetPosition(const Vec2f& v)
+{
+	m_Transform->position = v;
+	m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+}
+
+float SFENG::RigidBody2D::GetAngle()
 {
 	if (m_Body != nullptr)
 		return m_Body->GetAngle();
@@ -39,20 +47,20 @@ inline const float& SFENG::RigidBody2D::GetAngle() const
 		return 0.f;
 }
 
-inline b2Body* SFENG::RigidBody2D::GetBody()
+b2Body* SFENG::RigidBody2D::GetBody()
 {
 	return m_Body;
 }
 
-inline b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2Shape* shape, float dinsety)
+b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2Shape* shape, float dinsety)
 {
 	if (m_Body != nullptr)
 		return m_Body->CreateFixture(shape, dinsety);
 	else
-	return nullptr;
+		return nullptr;
 }
 
-inline b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2FixtureDef* def)
+b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2FixtureDef* def)
 {
 	if (m_Body != nullptr)
 		return m_Body->CreateFixture(def);
@@ -60,12 +68,12 @@ inline b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2FixtureDef* def)
 		return nullptr;
 }
 
-inline bool SFENG::RigidBody2D::Init()
+bool SFENG::RigidBody2D::Init()
 {
 	if (m_PhysWorld != nullptr)
 	{
 		m_Transform = &this->entity->GetCopmonent<Transform>();
-		if (this->entity->HasComponent<CircleCollider>()) 
+		if (this->entity->HasComponent<CircleCollider>())
 		{
 			m_Body = this->entity->GetCopmonent<CircleCollider>().m_Body;
 		}
@@ -77,7 +85,7 @@ inline bool SFENG::RigidBody2D::Init()
 		{
 			b2BodyDef bodyDef;
 			bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
-			bodyDef.angle = m_Transform->rotation;
+			bodyDef.angle = m_Transform->angle;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
 		}
@@ -87,34 +95,33 @@ inline bool SFENG::RigidBody2D::Init()
 	return Component::Init();
 }
 
-inline void SFENG::RigidBody2D::Draw(sf::RenderWindow& window)
+void SFENG::RigidBody2D::Draw(sf::RenderWindow& window)
 {
 	return Component::Draw(window);
 }
 
-
-inline void SFENG::RigidBody2D::Update(const sf::Time& elapsedTime)
+void SFENG::RigidBody2D::Update(const sf::Time& elapsedTime)
 {
-	m_Body->SetTransform(m_Transform->position, m_Transform->rotation);
+	//m_Body->SetTransform(m_Transform->position, m_Transform->rotation);
 	return Component::Update(elapsedTime);
 }
 
-inline void SFENG::RigidBody2D::FixedUpdate(const sf::Time& elapsedTime)
+void SFENG::RigidBody2D::FixedUpdate(const sf::Time& elapsedTime)
 {
-	if (m_Body != nullptr) 
+	if (m_Body != nullptr)
 	{
 		m_Transform->position = m_Body->GetPosition();
-		m_Transform->rotation = m_Body->GetAngle();
+		m_Transform->angle = m_Body->GetAngle();
 	}
 	return Component::FixedUpdate(elapsedTime);
 }
 
-inline void SFENG::RigidBody2D::HandleEvents(sf::Event& event)
+void SFENG::RigidBody2D::HandleEvents(sf::Event& event)
 {
 	return Component::HandleEvents(event);
 }
 
-inline void SFENG::RigidBody2D::Print()
+void SFENG::RigidBody2D::Print()
 {
 	const std::string typeNames[] = { "Static", "Kinematic", "Dynamic", "" };
 	std::cout << "RigidBody2D Component\n";
@@ -127,5 +134,4 @@ inline void SFENG::RigidBody2D::Print()
 	{
 		std::cout << "Body = nullptr\n";
 	}
-	
 }

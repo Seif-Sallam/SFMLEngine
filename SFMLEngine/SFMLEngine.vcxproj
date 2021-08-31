@@ -108,7 +108,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>sfml-window-s-d.lib;sfml-graphics-s-d.lib;sfml-audio-s-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;freetype.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;box2d-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Thirdparty\SFML64\lib;$(SolutionDir)Thirdparty\Box2D\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Thirdparty\SFML64\lib;$(SolutionDir)Thirdparty\Box2D\lib;$(ProjectDir)src\Components\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -185,6 +185,7 @@
     <ClInclude Include="headers\ResourceLoader.h" />
     <ClInclude Include="headers\ResourceManager.h" />
     <ClInclude Include="headers\ParticleFountain.h" />
+    <ClInclude Include="headers\Scene.h" />
     <ClInclude Include="headers\Tilemap.h" />
     <ClInclude Include="headers\Components\Transform.h" />
     <ClInclude Include="Sandbox.h" />

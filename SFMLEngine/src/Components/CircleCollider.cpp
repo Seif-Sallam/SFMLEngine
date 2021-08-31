@@ -20,35 +20,35 @@ SFENG::CircleCollider::~CircleCollider()
 		m_Body->DestroyFixture(m_Fixture);
 }
 
-inline void SFENG::CircleCollider::SetFriction(float f)
+void SFENG::CircleCollider::SetFriction(float f)
 {
 	m_Fixture->SetFriction(f);
 	m_Friction = f;
 }
 
-inline void SFENG::CircleCollider::SetDensity(float d)
+void SFENG::CircleCollider::SetDensity(float d)
 {
 	m_Fixture->SetDensity(d);
 	m_Density = d;
 }
 
-inline b2Body* SFENG::CircleCollider::GetBody()
+b2Body* SFENG::CircleCollider::GetBody()
 {
 	return m_Body;
 }
 
-inline b2Shape* SFENG::CircleCollider::GetShape()
+b2Shape* SFENG::CircleCollider::GetShape()
 {
 	return m_Fixture->GetShape();
 }
 
-inline void SFENG::CircleCollider::SetSensor(bool s)
+void SFENG::CircleCollider::SetSensor(bool s)
 {
 	m_IsSensor = s;
 	m_Fixture->SetSensor(s);
 }
 
-inline bool SFENG::CircleCollider::Init()
+bool SFENG::CircleCollider::Init()
 {
 	m_Transform = &this->entity->GetCopmonent<Transform>();
 	if (this->entity->HasComponent<RigidBody2D>()) {
@@ -59,21 +59,21 @@ inline bool SFENG::CircleCollider::Init()
 	{
 		b2BodyDef bodyDef;
 		bodyDef.position = m_Transform->position;
-		bodyDef.angle = m_Transform->rotation;
+		bodyDef.angle = m_Transform->angle;
 		bodyDef.type = b2BodyType::b2_staticBody;
 		m_Body = m_PhysWorld->CreateBody(&bodyDef);
 	}
 	CreateFixture();
-	
+
 	return Component::Init();
 }
 
-inline void SFENG::CircleCollider::Draw(sf::RenderWindow& window)
+void SFENG::CircleCollider::Draw(sf::RenderWindow& window)
 {
 	return Component::Draw(window);
 }
 
-inline void SFENG::CircleCollider::Update(const sf::Time& elapsedTime)
+void SFENG::CircleCollider::Update(const sf::Time& elapsedTime)
 {
 	if (m_Radius != m_Transform->size.x)
 	{
@@ -82,17 +82,17 @@ inline void SFENG::CircleCollider::Update(const sf::Time& elapsedTime)
 	return Component::Update(elapsedTime);
 }
 
-inline void SFENG::CircleCollider::FixedUpdate(const sf::Time& elapsedTime)
+void SFENG::CircleCollider::FixedUpdate(const sf::Time& elapsedTime)
 {
 	return Component::FixedUpdate(elapsedTime);
 }
 
-inline void SFENG::CircleCollider::HandleEvents(sf::Event& event)
+void SFENG::CircleCollider::HandleEvents(sf::Event& event)
 {
 	return Component::HandleEvents(event);
 }
 
-inline void SFENG::CircleCollider::Print()
+void SFENG::CircleCollider::Print()
 {
 	std::cout << "CircleCollider Component\n";
 	std::cout << "Friction: " << m_Friction << '\n';
@@ -102,7 +102,7 @@ inline void SFENG::CircleCollider::Print()
 
 void SFENG::CircleCollider::CreateFixture()
 {
-	if (m_Fixture != nullptr) 
+	if (m_Fixture != nullptr)
 	{
 		m_Body->DestroyFixture(m_Fixture);
 	}

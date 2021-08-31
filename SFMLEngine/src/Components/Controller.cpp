@@ -14,64 +14,64 @@ SFENG::Controller::~Controller()
 {
 }
 
-inline void SFENG::Controller::SetRotation(float r)
+void SFENG::Controller::SetRotation(float r)
 {
-	m_Transform->rotation = r;
+	m_Transform->angle = r;
 }
 
-inline void SFENG::Controller::Rotate(float r)
+void SFENG::Controller::Rotate(float r)
 {
-	m_Transform->rotation += r;
+	m_Transform->angle += r;
 }
 
-inline void SFENG::Controller::Scale(const Vec2f& factor)
+void SFENG::Controller::Scale(const Vec2f& factor)
 {
 	m_Transform->size.x *= factor.x;
 	m_Transform->size.y *= factor.y;
 }
 
-inline void SFENG::Controller::Scale(float xFactor, float yFactor)
+void SFENG::Controller::Scale(float xFactor, float yFactor)
 {
 	m_Transform->size.x *= xFactor;
 	m_Transform->size.y *= yFactor;
 }
 
-inline void SFENG::Controller::Scale(float factor)
+void SFENG::Controller::Scale(float factor)
 {
 	m_Transform->size *= factor;
 }
 
-inline void SFENG::Controller::Resize(float w, float h)
+void SFENG::Controller::Resize(float w, float h)
 {
 	m_Transform->size = { w, h };
 }
 
-inline void SFENG::Controller::Resize(const Vec2f& v)
+void SFENG::Controller::Resize(const Vec2f& v)
 {
 	m_Transform->size = v;
 }
 
-inline void SFENG::Controller::Move(const Vec2f& v)
+void SFENG::Controller::Move(const Vec2f& v)
 {
 	m_Transform->position += v;
 }
 
-inline void SFENG::Controller::Move(float x, float y)
+void SFENG::Controller::Move(float x, float y)
 {
 	m_Transform->position += { x, y };
 }
 
-inline void SFENG::Controller::SetPosition(const Vec2f& pos)
+void SFENG::Controller::SetPosition(const Vec2f& pos)
 {
 	m_Transform->position = pos;
 }
 
-inline void SFENG::Controller::SetPosition(float x, float y)
+void SFENG::Controller::SetPosition(float x, float y)
 {
 	m_Transform->position = { x, y };
 }
 
-inline bool SFENG::Controller::Init()
+bool SFENG::Controller::Init()
 {
 	m_Transform = &this->entity->GetCopmonent<Transform>();
 	if (this->entity->HasComponent<RigidBody2D>())
@@ -81,27 +81,27 @@ inline bool SFENG::Controller::Init()
 	return Component::Init();
 }
 
-inline void SFENG::Controller::Draw(sf::RenderWindow& window)
+void SFENG::Controller::Draw(sf::RenderWindow& window)
 {
 	return Component::Draw(window);
 }
 
-inline void SFENG::Controller::Update(const sf::Time& elapsedTime)
+void SFENG::Controller::Update(const sf::Time& elapsedTime)
 {
 	return Component::Update(elapsedTime);
 }
 
-inline void SFENG::Controller::FixedUpdate(const sf::Time& elapsedTime)
+void SFENG::Controller::FixedUpdate(const sf::Time& elapsedTime)
 {
 	return Component::FixedUpdate(elapsedTime);
 }
 
-inline void SFENG::Controller::HandleEvents(sf::Event& event)
+void SFENG::Controller::HandleEvents(sf::Event& event)
 {
 	return Component::HandleEvents(event);
 }
 
-inline void SFENG::Controller::Print()
+void SFENG::Controller::Print()
 {
 	std::cout << "Controller Component\n";
 	std::cout << "Speed: " << speed << '\n';

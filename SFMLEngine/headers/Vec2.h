@@ -55,7 +55,7 @@ public:
 	inline operator Vec2<uint32_t>() { return Vec2<uint32_t>((uint32_t)x, (uint32_t)y); }
 	inline operator Vec2<int32_t>() { return Vec2<int32_t>((int32_t)x, (int32_t)y); }
 	inline operator Vec2<double>() { return Vec2<double>((double)x, (double)y); }
-	
+
 	inline friend std::ostream& operator<<(std::ostream& stream, const Vec2<T>& vec) {
 		stream << "(" << vec.x << ", " << vec.y << ")";
 		return stream;

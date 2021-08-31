@@ -12,15 +12,17 @@ namespace SFENG {
 		Transform(const Transform& t);
 		Transform(const Transform&& t);
 		~Transform();
-		inline bool Init() override;
-		inline void Draw(sf::RenderWindow& window) override;
-		inline void Update(const sf::Time& elapsedTime) override;
-		inline void FixedUpdate(const sf::Time& elapsedTime) override;
-		inline void HandleEvents(sf::Event& event) override;
-		inline void Print() override;
+		
+		bool Init() override;
+		void Draw(sf::RenderWindow& window) override;
+		void Update(const sf::Time& elapsedTime) override;
+		void FixedUpdate(const sf::Time& elapsedTime) override;
+		void HandleEvents(sf::Event& event) override;
+		void Print() override;
+		
 
 		Vec2f position;
 		Vec2f size;
-		float rotation;
+		float angle;
 	};
 }

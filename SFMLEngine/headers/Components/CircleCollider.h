@@ -12,17 +12,17 @@ namespace SFENG {
 		CircleCollider(b2World* world);
 		~CircleCollider();
 
-		inline void SetFriction(float f);
-		inline void SetDensity(float d);
-		inline b2Body* GetBody();
-		inline b2Shape* GetShape();
-		inline void SetSensor(bool s);
-		inline bool Init() override;
-		inline void Draw(sf::RenderWindow& window) override;
-		inline void Update(const sf::Time& elapsedTime) override;
-		inline void FixedUpdate(const sf::Time& elapsedTime) override;
-		inline void HandleEvents(sf::Event& event) override;
-		inline void Print() override;
+		void SetFriction(float f);
+		void SetDensity(float d);
+		b2Body* GetBody();
+		b2Shape* GetShape();
+		void SetSensor(bool s);
+		bool Init() override;
+		void Draw(sf::RenderWindow& window) override;
+		void Update(const sf::Time& elapsedTime) override;
+		void FixedUpdate(const sf::Time& elapsedTime) override;
+		void HandleEvents(sf::Event& event) override;
+		void Print() override;
 
 	private:
 		void CreateFixture();
@@ -37,5 +37,4 @@ namespace SFENG {
 		float m_Density;
 		bool m_IsSensor;
 	};
-
 }

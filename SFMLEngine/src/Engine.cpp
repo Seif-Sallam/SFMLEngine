@@ -1,15 +1,19 @@
 #include "../headers/Engine.h"
 
 SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
-	: m_ShouldChangeState(false), m_ShouldExit(false), m_ShouldPop(false)
+	: m_ShouldChangeState(false)
+	, m_ShouldExit(false)
+	, m_ShouldPop(false)
+	, m_InFocus(true)
 	, m_TimeStep(1.0f / 60.0f)
+	, m_Gravity(Vec2f(0.0f, 981.f))
 {
 	m_Window = new sf::RenderWindow(sf::VideoMode(resolution.x, resolution.y), title);
 	m_Window->setVerticalSyncEnabled(true);
 	m_FPSCounter = new FPSCounter(m_Window);
 	m_Window->setPosition(Vec2i(m_Window->getPosition().x, 0));
 	engineView = m_Window->getView();
-	m_InFocus = true;
+	m_PhysicsWorld = new b2World(m_Gravity);
 }
 
 void SFENG::Engine::Run()
@@ -19,24 +23,26 @@ void SFENG::Engine::Run()
 	sf::Time lastTime = sf::Time::Zero;
 	while (m_Window->isOpen() && !m_States.empty())
 	{
+		Scene& thisScene = GetCurrentScene();
 		sf::Time time = timer.getElapsedTime();
 		sf::Time elapsed = time - lastTime;
 		lastTime = time;
-		HandleStates();
+		HandleScenes();
 		HandleEvent();
+		m_PhysicsWorld->Step(m_TimeStep, 6, 2);
 
 		if (m_InFocus)
 		{
-			GetCurrentState().HandleInput();
-			GetCurrentState().Update(elapsed);
+			thisScene.Update(elapsed);
 			m_FPSCounter->Update();
 			m_Window->setView(engineView);
 			Draw();
 			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
 			{
-				GetCurrentState().FixedUpdate(elapsed);
+				thisScene.FixedUpdate(elapsed);
 				m_PhysicsClock.restart();
 			}
+			thisScene.Refresh();
 		}
 		TryPop();
 	}
@@ -44,7 +50,7 @@ void SFENG::Engine::Run()
 
 void SFENG::Engine::HandleEvent()
 {
-	State& currentState = GetCurrentState();
+	Scene& currentState = GetCurrentScene();
 
 	sf::Event event;
 
@@ -60,10 +66,7 @@ void SFENG::Engine::HandleEvent()
 
 		SFENG::Keyboard::Update(event);
 
-		if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
-			currentState.HandleInputSlow();
-
-		currentState.HandleEvent(event);
+		currentState.HandleEvents(event);
 	}
 }
 
@@ -73,12 +76,12 @@ SFENG::Engine::~Engine()
 	delete m_Window;
 }
 
-void SFENG::Engine::PushStartingState(std::unique_ptr<State> state)
+void SFENG::Engine::PushStartingScene(std::unique_ptr<Scene> state)
 {
-	PushState(std::move(state));
+	PushScene(std::move(state));
 }
 
-void SFENG::Engine::ShouldChangeState(std::unique_ptr<State> change)
+void SFENG::Engine::ShouldChangeScene(std::unique_ptr<Scene> change)
 {
 	m_ShouldChangeState = true;
 	m_Change = std::move(change);
@@ -95,7 +98,18 @@ void SFENG::Engine::ExitGame()
 	m_ShouldExit = true;
 }
 
-void SFENG::Engine::PushState(std::unique_ptr<State> state)
+void SFENG::Engine::SetGravity(const Vec2f& gravity)
+{
+	m_Gravity = gravity;
+	m_PhysicsWorld->SetGravity(m_Gravity);
+}
+
+const Vec2f& SFENG::Engine::GetGravity()
+{
+	return m_Gravity;
+}
+
+void SFENG::Engine::PushScene(std::unique_ptr<Scene> state)
 {
 	m_States.push_back(std::move(state));
 }
@@ -114,7 +128,7 @@ void SFENG::Engine::TryPop()
 		{
 			m_ShouldChangeState = false;
 			m_States.pop_back();
-			PushState(std::move(m_Change));
+			PushScene(std::move(m_Change));
 			return;
 		}
 		else
@@ -125,12 +139,12 @@ void SFENG::Engine::TryPop()
 void SFENG::Engine::Draw()
 {
 	m_Window->clear(sf::Color(192, 168, 138));
-	GetCurrentState().Draw(*m_Window);
+	GetCurrentScene().Draw(*m_Window);
 	m_FPSCounter->Draw();
 	m_Window->display();
 }
 
-SFENG::State& SFENG::Engine::GetCurrentState()
+SFENG::Scene& SFENG::Engine::GetCurrentScene()
 {
 	return *m_States.back();
 }

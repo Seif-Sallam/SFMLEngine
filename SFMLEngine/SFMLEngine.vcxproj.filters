@@ -134,6 +134,9 @@
     <ClInclude Include="headers\Components\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="file2.txt" />

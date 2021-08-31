@@ -20,35 +20,35 @@ SFENG::BoxCollider::~BoxCollider()
 		m_Body->DestroyFixture(m_Fixture);
 }
 
-inline void SFENG::BoxCollider::SetFriction(float f)
+void SFENG::BoxCollider::SetFriction(float f)
 {
 	m_Fixture->SetFriction(f);
 	m_Friction = f;
 }
 
-inline void SFENG::BoxCollider::SetDensity(float d)
+void SFENG::BoxCollider::SetDensity(float d)
 {
 	m_Fixture->SetDensity(d);
 	m_Density = d;
 }
 
-inline b2Body* SFENG::BoxCollider::GetBody()
+b2Body* SFENG::BoxCollider::GetBody()
 {
 	return m_Body;
 }
 
-inline b2Shape* SFENG::BoxCollider::GetShape()
+b2Shape* SFENG::BoxCollider::GetShape()
 {
 	return m_Fixture->GetShape();
 }
 
-inline void SFENG::BoxCollider::SetSensor(bool s)
+void SFENG::BoxCollider::SetSensor(bool s)
 {
 	m_IsSensor = s;
 	m_Fixture->SetSensor(s);
 }
 
-inline bool SFENG::BoxCollider::Init()
+bool SFENG::BoxCollider::Init()
 {
 	m_Transform = &this->entity->GetCopmonent<Transform>();
 	if (this->entity->HasComponent<RigidBody2D>()) {
@@ -59,21 +59,21 @@ inline bool SFENG::BoxCollider::Init()
 	{
 		b2BodyDef bodyDef;
 		bodyDef.position = m_Transform->position;
-		bodyDef.angle = m_Transform->rotation;
+		bodyDef.angle = m_Transform->angle;
 		bodyDef.type = b2BodyType::b2_staticBody;
 		m_Body = m_PhysWorld->CreateBody(&bodyDef);
 	}
 	CreateFixture();
-	
+
 	return Component::Init();
 }
 
-inline void SFENG::BoxCollider::Draw(sf::RenderWindow& window)
+void SFENG::BoxCollider::Draw(sf::RenderWindow& window)
 {
 	return Component::Draw(window);
 }
 
-inline void SFENG::BoxCollider::Update(const sf::Time& elapsedTime)
+void SFENG::BoxCollider::Update(const sf::Time& elapsedTime)
 {
 	if (m_CurrentSize != m_Transform->size)
 	{
@@ -82,17 +82,17 @@ inline void SFENG::BoxCollider::Update(const sf::Time& elapsedTime)
 	return Component::Update(elapsedTime);
 }
 
-inline void SFENG::BoxCollider::FixedUpdate(const sf::Time& elapsedTime)
+void SFENG::BoxCollider::FixedUpdate(const sf::Time& elapsedTime)
 {
 	return Component::FixedUpdate(elapsedTime);
 }
 
-inline void SFENG::BoxCollider::HandleEvents(sf::Event& event)
+void SFENG::BoxCollider::HandleEvents(sf::Event& event)
 {
 	return Component::HandleEvents(event);
 }
 
-inline void SFENG::BoxCollider::Print()
+void SFENG::BoxCollider::Print()
 {
 	std::cout << "BoxCollider Component\n";
 	std::cout << "Friction: " << m_Friction << '\n';
@@ -102,11 +102,11 @@ inline void SFENG::BoxCollider::Print()
 
 void SFENG::BoxCollider::CreateFixture()
 {
-	if (m_Fixture != nullptr) 
+	if (m_Fixture != nullptr)
 	{
 		m_Body->DestroyFixture(m_Fixture);
 	}
-	
+
 	b2PolygonShape polyShape;
 	m_CurrentSize = m_Transform->size;
 	polyShape.SetAsBox(m_Transform->size.x, m_Transform->size.y);

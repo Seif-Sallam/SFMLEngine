@@ -1,5 +1,9 @@
 #pragma once
-#include "PCH.h"
+#include "SFML/Graphics.hpp"
+#include <iostream>
+#include <string>
+#include <map>
+
 namespace SFENG {
 	class FPSCounter
 	{
