@@ -45,7 +45,7 @@
     <ClCompile Include="src\Components\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EntityManager.cpp">
+    <ClCompile Include="src\LifeCycleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\SpriteRenderer.cpp">
@@ -58,6 +58,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\CircleCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +110,7 @@
     <ClInclude Include="headers\Components\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\EntityManager.h">
+    <ClInclude Include="headers\LifeCycleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Components\SpriteRenderer.h">

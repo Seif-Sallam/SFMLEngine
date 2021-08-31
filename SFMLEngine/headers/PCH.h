@@ -28,6 +28,7 @@
 #include "ParticleSystem.h"
 #include "ParticleFountain.h"
 #include "Tilemap.h"
+#include "LifeCycleManager.h"
 
 #include "Components/Component.h"
 #include "Components/Transform.h"
@@ -36,3 +37,4 @@
 #include "Components/CircleCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/Animator.h"
+#include "Components/Controller.h"

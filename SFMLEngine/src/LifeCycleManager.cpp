@@ -1,11 +1,11 @@
-#include "../headers/EntityManager.h"
+#include "../headers/LifeCycleManager.h"
 
-SFENG::EntityManager::EntityManager(const int32_t& initialSize)
+SFENG::LifeCycleManager::LifeCycleManager(const int32_t& initialSize)
 {
 	m_Entities.reserve(initialSize);
 }
 
-SFENG::Entity* SFENG::EntityManager::CloneEntity(SFENG::Entity* en)
+SFENG::Entity* SFENG::LifeCycleManager::CloneEntity(SFENG::Entity* en)
 {
 	Entity* newEn = new Entity(*en);
 	if (newEn != nullptr) {
@@ -15,7 +15,7 @@ SFENG::Entity* SFENG::EntityManager::CloneEntity(SFENG::Entity* en)
 	return newEn;
 }
 
-SFENG::EntityManager::EntityManager(const SFENG::EntityManager& em)
+SFENG::LifeCycleManager::LifeCycleManager(const SFENG::LifeCycleManager& em)
 {
 	this->m_Entities.reserve(em.m_Entities.size());
 	auto it = em.m_Entities.begin();
@@ -29,7 +29,7 @@ SFENG::EntityManager::EntityManager(const SFENG::EntityManager& em)
 	}
 }
 
-SFENG::Entity* SFENG::EntityManager::MakeEntity(const std::string& name)
+SFENG::Entity* SFENG::LifeCycleManager::MakeEntity(const std::string& name)
 {
 	Entity* en = new Entity(name);
 	if (en != nullptr)
@@ -40,7 +40,7 @@ SFENG::Entity* SFENG::EntityManager::MakeEntity(const std::string& name)
 	return en;
 }
 
-SFENG::Entity* SFENG::EntityManager::GetEntity(const std::string& name) const
+SFENG::Entity* SFENG::LifeCycleManager::GetEntity(const std::string& name) const
 {
 	if (m_EntitiesMap.find(name) == m_EntitiesMap.end())
 		return nullptr;
@@ -48,25 +48,25 @@ SFENG::Entity* SFENG::EntityManager::GetEntity(const std::string& name) const
 		return m_EntitiesMap.at(name);
 }
 
-void SFENG::EntityManager::FixedUpdate(const sf::Time& time)
+void SFENG::LifeCycleManager::FixedUpdate(const sf::Time& time)
 {
 	for (auto& en : m_Entities)
 		en->FixedUpdate(time);
 }
 
-void SFENG::EntityManager::HandleEvents(sf::Event& event)
+void SFENG::LifeCycleManager::HandleEvents(sf::Event& event)
 {
 	for (auto& en : m_Entities)
 		en->HandleEvents(event);
 }
 
-void SFENG::EntityManager::Update(const sf::Time& time)
+void SFENG::LifeCycleManager::Update(const sf::Time& time)
 {
 	for (auto& en : m_Entities)
 		en->Update(time);
 }
 
-void SFENG::EntityManager::Draw(sf::RenderWindow& window)
+void SFENG::LifeCycleManager::Draw(sf::RenderWindow& window)
 {
 	sf::View currentView = window.getView();
 	Vec2f min = currentView.getCenter() - currentView.getSize() / 2.0f;
@@ -90,13 +90,13 @@ void SFENG::EntityManager::Draw(sf::RenderWindow& window)
 	}
 }
 
-void SFENG::EntityManager::Refresh()
+void SFENG::LifeCycleManager::Refresh()
 {
 	GetInactive();
 	CleanUpUnused();
 }
 
-void SFENG::EntityManager::GetInactive()
+void SFENG::LifeCycleManager::GetInactive()
 {
 	auto it = m_Entities.begin();
 	while (it != m_Entities.end()) {
@@ -105,7 +105,7 @@ void SFENG::EntityManager::GetInactive()
 	}
 }
 
-void SFENG::EntityManager::CleanUpUnused()
+void SFENG::LifeCycleManager::CleanUpUnused()
 {
 	auto it = m_UnusedEntities.begin();
 	while (it != m_UnusedEntities.end())
@@ -116,7 +116,7 @@ void SFENG::EntityManager::CleanUpUnused()
 	}
 }
 
-void SFENG::EntityManager::CleanUp()
+void SFENG::LifeCycleManager::CleanUp()
 {
 	CleanUpUnused();
 	for (int32_t i = 0; i < m_Entities.size(); i++)
@@ -128,7 +128,7 @@ void SFENG::EntityManager::CleanUp()
 	m_EntitiesMap.clear();
 }
 
-void SFENG::EntityManager::RmEntity(std::vector<Entity*>::iterator& it)
+void SFENG::LifeCycleManager::RmEntity(std::vector<Entity*>::iterator& it)
 {
 	if (it != m_Entities.end())
 	{
@@ -138,7 +138,7 @@ void SFENG::EntityManager::RmEntity(std::vector<Entity*>::iterator& it)
 	else throw "Entity iterator was at the end!\n";
 }
 
-const std::string& SFENG::EntityManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
+const std::string& SFENG::LifeCycleManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
 {
 	if (m_EntitiesMap.find(name) == m_EntitiesMap.end()) {
 		m_EntitiesMap.insert({ name, en });
@@ -177,7 +177,7 @@ const std::string& SFENG::EntityManager::AddEntityToMap(SFENG::Entity*& en, cons
 	}
 }
 
-SFENG::EntityManager::~EntityManager()
+SFENG::LifeCycleManager::~LifeCycleManager()
 {
 	CleanUp();
 }

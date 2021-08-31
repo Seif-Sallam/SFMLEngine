@@ -150,12 +150,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Controller.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\CircleCollider.cpp" />
     <ClCompile Include="src\Components\RigidBody2D.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
     <ClCompile Include="src\Entity.cpp" />
-    <ClCompile Include="src\EntityManager.cpp" />
+    <ClCompile Include="src\LifeCycleManager.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
     <ClCompile Include="src\ParticleSystem.cpp" />
     <ClCompile Include="src\Engine.cpp" />
@@ -176,7 +177,7 @@
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />
-    <ClInclude Include="headers\EntityManager.h" />
+    <ClInclude Include="headers\LifeCycleManager.h" />
     <ClInclude Include="headers\FPSCounter.h" />
     <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="headers\ParticleSystem.h" />

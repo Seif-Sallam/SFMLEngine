@@ -3,9 +3,10 @@
 #include <list>
 
 namespace SFENG {
-	class EntityManager {
-		EntityManager(const int32_t& initialSize = 200);
-		explicit EntityManager(const EntityManager& em);
+	//Life Cycle Manager
+	class LifeCycleManager {
+		LifeCycleManager(const int32_t& initialSize = 200);
+		explicit LifeCycleManager(const LifeCycleManager& em);
 		Entity* CloneEntity(Entity* en);
 		Entity* MakeEntity(const std::string& name);
 		Entity* GetEntity(const std::string& name) const;
@@ -15,7 +16,7 @@ namespace SFENG {
 		void Refresh();
 		void Draw(sf::RenderWindow& window);
 
-		~EntityManager();
+		~LifeCycleManager();
 	private:
 
 		void GetInactive();
