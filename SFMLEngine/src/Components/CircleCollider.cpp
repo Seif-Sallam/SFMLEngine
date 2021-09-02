@@ -1,6 +1,8 @@
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Components/RigidBody2D.h"
 #include "../../headers/Entity.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 SFENG::CircleCollider::CircleCollider(b2World* world)
 	: m_PhysWorld(world)
@@ -59,7 +61,7 @@ bool SFENG::CircleCollider::Init()
 	{
 		b2BodyDef bodyDef;
 		bodyDef.position = m_Transform->position;
-		bodyDef.angle = m_Transform->angle;
+		bodyDef.angle = m_Transform->angle / 180.0f * M_PI;
 		bodyDef.type = b2BodyType::b2_staticBody;
 		m_Body = m_PhysWorld->CreateBody(&bodyDef);
 	}

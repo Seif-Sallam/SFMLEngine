@@ -3,6 +3,8 @@
 #include "../../headers/Components/Transform.h"
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Entity.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 SFENG::RigidBody2D::RigidBody2D(b2World* world)
 	: m_PhysWorld(world)
@@ -36,7 +38,7 @@ Vec2f SFENG::RigidBody2D::GetPosition()
 void SFENG::RigidBody2D::SetPosition(const Vec2f& v)
 {
 	m_Transform->position = v;
-	m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+	m_Body->SetTransform(m_Transform->position, m_Transform->angle / 180.0f * M_PI);
 }
 
 float SFENG::RigidBody2D::GetAngle()
@@ -85,7 +87,7 @@ bool SFENG::RigidBody2D::Init()
 		{
 			b2BodyDef bodyDef;
 			bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
-			bodyDef.angle = m_Transform->angle;
+			bodyDef.angle = m_Transform->angle / 180.0f * M_PI;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
 		}
@@ -111,7 +113,7 @@ void SFENG::RigidBody2D::FixedUpdate(const sf::Time& elapsedTime)
 	if (m_Body != nullptr)
 	{
 		m_Transform->position = m_Body->GetPosition();
-		m_Transform->angle = m_Body->GetAngle();
+		m_Transform->angle = m_Body->GetAngle() * 180.0f / M_PI;
 	}
 	return Component::FixedUpdate(elapsedTime);
 }

@@ -59,7 +59,7 @@ void CustomScene::CircleShape::FixedUpdate(const sf::Time& elapsed)
 {
 	m_Shape.setRadius(m_Trans->size.x);
 	this->m_Shape.setPosition(m_Trans->position);
-	this->m_Shape.setRotation(m_Trans->angle * 180.0f / M_PI);
+	this->m_Shape.setRotation(m_Trans->angle);
 }
 
 void CustomScene::CircleShape::Draw(sf::RenderWindow& window)
