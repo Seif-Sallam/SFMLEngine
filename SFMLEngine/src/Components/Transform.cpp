@@ -27,11 +27,13 @@ SFENG::Transform::Transform()
 SFENG::Transform::Transform(const Transform& t)
 	: Component(), position(t.position), size(t.size), angle(t.angle)
 {
+	Component::Init();
 }
 
 SFENG::Transform::Transform(const Transform&& t)
 	: Component(), position(t.position), size(t.size), angle(t.angle)
 {
+	Component::Init();
 }
 
 SFENG::Transform::~Transform()

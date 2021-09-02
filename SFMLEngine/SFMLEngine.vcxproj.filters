@@ -63,6 +63,12 @@
     <ClCompile Include="src\Components\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Components\Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Vec2.h">
@@ -116,10 +122,7 @@
     <ClInclude Include="headers\Components\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Components\Animator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Components\Animator.cpp">
+    <ClInclude Include="headers\Components\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Components\RigidBody2D.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\Components\Animator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

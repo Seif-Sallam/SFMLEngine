@@ -1,87 +1,80 @@
-﻿#include "../../headers/Components/Animator.h"
+#include "../../headers/Components/Animator.h"
+#include "../../headers/Components/SpriteRenderer.h"
+#include "../../headers/Entity.h"
 
 SFENG::Animator::Animator()
-	: Component(), m_FramePointer(0)
-	, m_OverlappedTime(sf::Time::Zero), m_Play(true), m_Loop(false), m_SpriteRender(0)
+	: m_ActiveAnimation("NULL")
+	, m_Reset(false)
+	, m_SpriteRenderer(nullptr)
 {
 }
 
-void SFENG::Animator::AddFrame(const sf::IntRect& rect, sf::Time delay)
+SFENG::Animator::Animator(const Animator& a)
 {
-	m_Frames.emplace_back(rect, delay);
+	m_Reset = false;
+	for (auto& anim : a.m_Animations)
+	{
+		m_Animations.insert(anim);
+	}
+	m_SpriteRenderer = a.m_SpriteRenderer;
+	Component::Init();
 }
 
-void SFENG::Animator::Play()
+void SFENG::Animator::AttachSpriteRenderer(SpriteRenderer* sr)
 {
-	m_Play = true;
+	m_SpriteRenderer = sr;
+	for (auto& anim : m_Animations)
+		anim.second.AttachSpriteRenderer(m_SpriteRenderer);
 }
 
-void SFENG::Animator::Stop()
+SFENG::Animation* SFENG::Animator::AddAnimation(const std::string& animName)
 {
-	m_Play = false;
+	if (m_Animations.find(animName) == m_Animations.end()) {
+		Animation a(animName);
+		m_Animations.insert({ animName, a });
+		m_Animations[animName].AttachSpriteRenderer(m_SpriteRenderer);
+	}
+	return &m_Animations[animName];
 }
 
-void SFENG::Animator::Loop(bool v)
+SFENG::Animation* SFENG::Animator::GetAnimation(const std::string& animName)
 {
-	m_Loop = v;
+	if (m_Animations.find(animName) != m_Animations.end())
+		return &m_Animations[animName];
+	else
+		return nullptr;
 }
 
-void SFENG::Animator::AttachSpriteRenderer(SpriteRenderer* spriteRenderer)
+void SFENG::Animator::SetActiveAnimation(const std::string& animName)
 {
-	m_SpriteRender = spriteRenderer;
+	m_ActiveAnimation = animName;
+	m_Reset = true;
 }
 
 bool SFENG::Animator::Init()
 {
-	m_Timer.restart();
+	if (this->entity->HasComponent<SpriteRenderer>())
+		m_SpriteRenderer = &this->entity->GetCopmonent<SpriteRenderer>();
+	else
+		m_SpriteRenderer = nullptr;
 	return Component::Init();
-}
-
-void SFENG::Animator::Draw(sf::RenderWindow& window)
-{
-	return Component::Draw(window);
 }
 
 void SFENG::Animator::Update(const sf::Time& elapsedTime)
 {
-	if (m_Play)
-	{
-		m_OverlappedTime += m_Timer.getElapsedTime();
-
-		while (m_OverlappedTime >= m_Frames[m_FramePointer % m_Frames.size()].delay)
+	if (m_ActiveAnimation != "NULL") {
+		Animation& animation = m_Animations[m_ActiveAnimation];
+		if (m_Reset)
 		{
-			m_OverlappedTime -= m_Frames[m_FramePointer % m_Frames.size()].delay;
-
-			m_FramePointer++;
-			if (m_FramePointer == m_Frames.size())
-			{
-				if (!m_Loop)
-					Stop();
-			}
+			animation.Reset();
+			m_Reset = false;
 		}
-
-		m_Timer.restart();
-
-		const sf::IntRect& rect = m_Frames[m_FramePointer % m_Frames.size()].bounds;
-		if (m_SpriteRender != nullptr)
-			m_SpriteRender->SetRect(rect);
+		animation.Update(elapsedTime);
 	}
-	return Component::Update(elapsedTime);
-}
-
-void SFENG::Animator::FixedUpdate(const sf::Time& elapsedTime)
-{
-	return Component::FixedUpdate(elapsedTime);
-}
-
-void SFENG::Animator::HandleEvents(sf::Event& event)
-{
-	return Component::HandleEvents(event);
 }
 
 void SFENG::Animator::Print()
 {
 	std::cout << "Animator Component\n";
-	std::cout << "Frames Count: " << m_Frames.size() << '\n';
-	std::cout << "Loop: " << ((m_Loop) ? "YES\n" : "NO\n");
+	std::cout << "Has " << m_Animations.size() << " Animations\n";
 }

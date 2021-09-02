@@ -16,7 +16,6 @@ namespace SFENG {
 		void SetDensity(float d);
 		b2Body* GetBody();
 		b2Shape* GetShape();
-		void SetSize(const Vec2f& v);
 		void SetSensor(bool s);
 		bool Init() override;
 		void Draw(sf::RenderWindow& window) override;

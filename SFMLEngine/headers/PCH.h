@@ -38,5 +38,6 @@
 #include "Components/BoxCollider.h"
 #include "Components/CircleCollider.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/Animation.h"
 #include "Components/Animator.h"
 #include "Components/Controller.h"

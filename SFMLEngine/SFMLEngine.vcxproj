@@ -150,6 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Animation.cpp" />
+    <ClCompile Include="src\Components\Animator.cpp" />
     <ClCompile Include="src\Components\Controller.cpp" />
     <ClCompile Include="src\Components\BoxCollider.cpp" />
     <ClCompile Include="src\Components\CircleCollider.cpp" />
@@ -168,10 +170,11 @@
     <ClCompile Include="src\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Components\Animator.h" />
     <ClInclude Include="headers\Components\BoxCollider.h" />
     <ClInclude Include="headers\Components\CircleCollider.h" />
     <ClInclude Include="headers\Components\Component.h" />
-    <ClInclude Include="headers\Components\Animator.h" />
+    <ClInclude Include="headers\Components\Animation.h" />
     <ClInclude Include="headers\Components\Controller.h" />
     <ClInclude Include="headers\Components\RigidBody2D.h" />
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
@@ -191,7 +194,6 @@
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="headers\State.h" />
     <ClInclude Include="headers\Vec2.h" />
-    <ClInclude Include="src\Components\Animator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="file2.txt" />

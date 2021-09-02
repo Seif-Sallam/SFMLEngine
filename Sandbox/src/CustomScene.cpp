@@ -71,7 +71,31 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow& window)
 CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	: SFENG::Scene(engine, world)
 {
-	Main();
+	//Main();
+	SFENG::ResourceManager::Get().AddTexture("SampleSprite.png", "Sample");
+	SFENG::Entity* en = this->m_LCManager.CreateEntity("Entity");
+	SFENG::Transform& transform = en->GetCopmonent<SFENG::Transform>();
+	transform.position = { 200.0f, 200.0f };
+	transform.size = { 32.0f, 32.0f };
+	SFENG::SpriteRenderer& sr = en->AddComponent<SFENG::SpriteRenderer>();
+	SFENG::Animator& animator = en->AddComponent<SFENG::Animator>();
+	sr.AttachTexture("Sample");
+	SFENG::Animation* IDLEAnimation = animator.AddAnimation("IDLE");
+	sf::Time delay = sf::seconds(0.15f);
+	sf::IntRect rect = { 0, 0, 32, 32 };
+	IDLEAnimation->AddFrame(rect, delay);
+	rect.left = 32;
+	IDLEAnimation->AddFrame(rect, delay);
+	rect.left = 64;
+	IDLEAnimation->AddFrame(rect, delay);
+	rect.left = 96;
+	IDLEAnimation->AddFrame(rect, delay);
+	rect.left = 64;
+	IDLEAnimation->AddFrame(rect, delay);
+	rect.left = 32;
+	IDLEAnimation->AddFrame(rect, delay);
+	animator.SetActiveAnimation("IDLE");
+	IDLEAnimation->Loop(true);
 }
 
 void CustomScene::Main()
