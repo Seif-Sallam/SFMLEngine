@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SFMLEngine", "SFMLEngine\SFMLEngine.vcxproj", "{47787408-9F14-44F7-B2B5-F9A872121588}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{47787408-9F14-44F7-B2B5-F9A872121588}.Release|x64.Build.0 = Release|x64
 		{47787408-9F14-44F7-B2B5-F9A872121588}.Release|x86.ActiveCfg = Release|Win32
 		{47787408-9F14-44F7-B2B5-F9A872121588}.Release|x86.Build.0 = Release|Win32
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Debug|x64.ActiveCfg = Debug|x64
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Debug|x64.Build.0 = Debug|x64
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Debug|x86.Build.0 = Debug|Win32
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Release|x64.ActiveCfg = Release|x64
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Release|x64.Build.0 = Release|x64
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Release|x86.ActiveCfg = Release|Win32
+		{2A5279A1-FF4C-4AB2-8B56-A1341F7A33E4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

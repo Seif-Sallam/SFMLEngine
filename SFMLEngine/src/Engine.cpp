@@ -6,7 +6,7 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	, m_ShouldPop(false)
 	, m_InFocus(true)
 	, m_TimeStep(1.0f / 60.0f)
-	, m_Gravity(Vec2f(0.0f, 981.f))
+	, m_Gravity(Vec2f(0.0f, 9.81f))
 {
 	m_Window = new sf::RenderWindow(sf::VideoMode(resolution.x, resolution.y), title);
 	m_Window->setVerticalSyncEnabled(true);
@@ -29,14 +29,14 @@ void SFENG::Engine::Run()
 		lastTime = time;
 		HandleScenes();
 		HandleEvent();
-		m_PhysicsWorld->Step(m_TimeStep, 6, 2);
 
 		if (m_InFocus)
 		{
-			thisScene.Update(elapsed);
 			m_FPSCounter->Update();
+			thisScene.Update(elapsed);
 			m_Window->setView(engineView);
 			Draw();
+			m_PhysicsWorld->Step(m_TimeStep, 6, 2);
 			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
 			{
 				thisScene.FixedUpdate(elapsed);

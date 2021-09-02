@@ -9,8 +9,7 @@ namespace SFENG {
 	{
 	public:
 		FPSCounter(sf::RenderWindow* window);
-		void Update();
-
+		float Update();
 		void Draw(sf::RenderStates states = sf::RenderStates::Default);
 
 	private:

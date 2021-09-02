@@ -109,7 +109,7 @@ void SFENG::BoxCollider::CreateFixture()
 
 	b2PolygonShape polyShape;
 	m_CurrentSize = m_Transform->size;
-	polyShape.SetAsBox(m_Transform->size.x, m_Transform->size.y);
+	polyShape.SetAsBox(m_Transform->size.x / 2.0f, m_Transform->size.y / 2.0f);
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &polyShape;
 	fixtureDef.density = m_Density;

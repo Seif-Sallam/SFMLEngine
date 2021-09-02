@@ -1,10 +1,12 @@
 #include "../headers/FPSCounter.h"
 #include "../headers/ResourceManager.h"
 SFENG::FPSCounter::FPSCounter(sf::RenderWindow* window)
-	: m_Window(window)
+	: m_Window(window), m_FPS(60.f)
 {
-	if (window == nullptr)
+	if (window == nullptr) {
 		std::cerr << "Window is a nullptr in FPSCounter\n";
+		exit(0);
+	}
 	sf::Font& font = ResourceManager::Get().GetDefaultFont();
 	m_Text.setFont(font);
 	m_Text.setCharacterSize(15);
@@ -14,7 +16,7 @@ SFENG::FPSCounter::FPSCounter(sf::RenderWindow* window)
 	m_Text.setPosition(position);
 }
 
-void SFENG::FPSCounter::Update()
+float SFENG::FPSCounter::Update()
 {
 	sf::View currentView = m_Window->getView();
 	sf::Vector2f position = currentView.getCenter() - currentView.getSize() / 2.0f; // Top LEFT
@@ -28,6 +30,7 @@ void SFENG::FPSCounter::Update()
 		m_Text.setString("FPS: " + std::to_string((int)m_FPS));
 		m_DelayTimer.restart();
 	}
+	return m_FPS;
 }
 
 void SFENG::FPSCounter::Draw(sf::RenderStates states)

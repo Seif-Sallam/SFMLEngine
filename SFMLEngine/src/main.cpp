@@ -79,11 +79,7 @@
 //	return 0;
 //}
 
-#include "../Sandbox.h"
-
 int main()
 {
-	Sandbox box;
-	box.Run();
 	return 0;
 }

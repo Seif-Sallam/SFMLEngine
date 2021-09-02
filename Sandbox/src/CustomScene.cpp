@@ -1,0 +1,113 @@
+#pragma once
+#include "../headers/CustomScene.h"
+
+CustomScene::BoxShape::BoxShape()
+	: SFENG::Component(), m_Trans(nullptr), rb(nullptr)
+{
+
+}
+
+bool CustomScene::BoxShape::Init()
+{
+	m_Trans = &this->entity->GetCopmonent<SFENG::Transform>();
+	m_Shape.setSize(m_Trans->size);
+	m_Shape.setOrigin(m_Trans->size / 2.0f);
+	m_Shape.setPosition(m_Trans->position);
+	m_Shape.setFillColor(sf::Color::Black);
+	rb = &this->entity->GetCopmonent<SFENG::RigidBody2D>();
+	return Component::Init();
+}
+
+void CustomScene::BoxShape::Update(const sf::Time&)
+{
+}
+
+void CustomScene::BoxShape::FixedUpdate(const sf::Time& elapsed)
+{
+	this->m_Shape.setSize(m_Trans->size);
+	this->m_Shape.setPosition(m_Trans->position);
+	this->m_Shape.setRotation(m_Trans->angle * 180.0f / M_PI);
+}
+
+void CustomScene::BoxShape::Draw(sf::RenderWindow& window)
+{
+	window.draw(m_Shape);
+}
+
+CustomScene::CircleShape::CircleShape()
+	: SFENG::Component(), m_Trans(nullptr), rb(nullptr)
+{
+
+}
+
+bool CustomScene::CircleShape::Init()
+{
+	m_Trans = &this->entity->GetCopmonent<SFENG::Transform>();
+	m_Shape.setRadius(m_Trans->size.x);
+	m_Shape.setOrigin(m_Trans->size.x, m_Trans->size.x);
+	m_Shape.setPosition(m_Trans->position);
+	m_Shape.setFillColor(sf::Color::Red);
+	rb = &this->entity->GetCopmonent<SFENG::RigidBody2D>();
+	return Component::Init();
+}
+
+void CustomScene::CircleShape::Update(const sf::Time&)
+{
+}
+
+void CustomScene::CircleShape::FixedUpdate(const sf::Time& elapsed)
+{
+	m_Shape.setRadius(m_Trans->size.x);
+	this->m_Shape.setPosition(m_Trans->position);
+	this->m_Shape.setRotation(m_Trans->angle * 180.0f / M_PI);
+}
+
+void CustomScene::CircleShape::Draw(sf::RenderWindow& window)
+{
+	window.draw(m_Shape);
+}
+
+
+CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
+	: SFENG::Scene(engine, world)
+{
+	Main();
+}
+
+void CustomScene::Main()
+{
+	AddBox("Ground", Vec2f(400.0f, 600.0f), Vec2f(1200.f, 50.0f), b2BodyType::b2_staticBody);
+	std::mt19937 random(time(0));
+	std::uniform_real_distribution<float> xPos(100.0f, 500.0f);
+	std::uniform_real_distribution<float> yPos(100.0f, 300.0f);
+	for (int i = 0; i < 100; i++) {
+		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), { 10.0f , 10.0f }, b2BodyType::b2_dynamicBody);
+		AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 10.0f, b2BodyType::b2_dynamicBody);
+	}
+}
+
+void CustomScene::AddBox(const std::string& name, const Vec2f& position, const Vec2f& size, b2BodyType type)
+{
+	SFENG::Entity* newEntity = m_LCManager.CreateEntity(name);
+	m_Entities[name] = newEntity;
+	SFENG::Transform& trans = newEntity->GetCopmonent<SFENG::Transform>();
+	trans.size = size;
+	trans.position = position;
+	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>(&this->m_PhysicsWorld);
+	SFENG::BoxCollider& boxCol = newEntity->AddComponent<SFENG::BoxCollider>(&this->m_PhysicsWorld);
+	BoxShape& shape = newEntity->AddComponent<BoxShape>();
+	rb.SetBodyType(type);
+}
+
+void CustomScene::AddCircle(const std::string& name, const Vec2f& position, float radius, b2BodyType type)
+{
+	SFENG::Entity* newEntity = m_LCManager.CreateEntity(name);
+	m_Entities[name] = newEntity;
+	SFENG::Transform& trans = newEntity->GetCopmonent<SFENG::Transform>();
+	trans.size = { radius , radius };
+	trans.position = position;
+	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>(&this->m_PhysicsWorld);
+	SFENG::CircleCollider& boxCol = newEntity->AddComponent<SFENG::CircleCollider>(&this->m_PhysicsWorld);
+	CircleShape& shape = newEntity->AddComponent<CircleShape>();
+	rb.SetBodyType(type);
+}

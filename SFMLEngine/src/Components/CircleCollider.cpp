@@ -107,6 +107,7 @@ void SFENG::CircleCollider::CreateFixture()
 		m_Body->DestroyFixture(m_Fixture);
 	}
 	b2CircleShape shape;
+	m_Radius = m_Transform->size.x;
 	shape.m_radius = m_Radius;
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;

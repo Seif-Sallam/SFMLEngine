@@ -23,6 +23,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "Engine.h"
+#include "Scene.h"
 #include "Vec2.h"
 #include "ResourceManager.h"
 #include "Keyboard.h"
