@@ -3,11 +3,20 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include "Vec2.h"
 
 namespace SFENG {
+	/// <summary>
+	/// A Class made specifically to keep track of the FPS of the game
+	///	and it shows it up on the top left of the screen at coordinates(0, 0).
+	/// </summary>
 	class FPSCounter
 	{
 	public:
+		/// <summary>
+		/// Constructor that needs the window to be present in it
+		/// </summary>
+		/// <param name="window">Render Window</param>
 		FPSCounter(sf::RenderWindow* window);
 		float Update();
 		void Draw(sf::RenderStates states = sf::RenderStates::Default);

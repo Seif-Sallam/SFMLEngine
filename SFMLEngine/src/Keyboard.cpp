@@ -1,4 +1,5 @@
 #include "../headers/Keyboard.h"
+// Static data members declaration
 std::array<bool, sf::Keyboard::KeyCount> SFENG::Keyboard::m_Keys;
 
 void SFENG::Keyboard::Update(sf::Event& event)

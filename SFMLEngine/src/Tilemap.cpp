@@ -3,7 +3,7 @@
 SFENG::Tilemap::Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, sf::RenderWindow& window)
 	: m_Size(size), m_StartPos(startPos), m_TileSize(tileSize), m_Window(window)
 {
-	m_SheetTexture = &SFENG::ResourceManager::Get().GetTextrue(spriteSheet);
+	m_SheetTexture = &SFENG::ResourceManager::GetTextrue(spriteSheet);
 	m_MapIndicies = new Vec2<uint8_t>[m_Size.x * m_Size.y];
 	m_ErrorReading = false;
 	m_Tile.setPosition(m_StartPos);

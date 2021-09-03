@@ -72,7 +72,7 @@ CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	: SFENG::Scene(engine, world)
 {
 	//Main();
-	SFENG::ResourceManager::Get().AddTexture("SampleSprite.png", "Sample");
+	SFENG::ResourceManager::AddTexture("SampleSprite.png", "Sample");
 	SFENG::Entity* en = this->m_LCManager.CreateEntity("Entity");
 	SFENG::Transform& transform = en->GetCopmonent<SFENG::Transform>();
 	transform.position = { 200.0f, 200.0f };

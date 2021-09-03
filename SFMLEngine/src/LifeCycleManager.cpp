@@ -94,9 +94,7 @@ void SFENG::LifeCycleManager::GetInactive()
 		if ((*it)->IsAlive() == false)
 			RmEntity(it);
 		else
-		{
 			it++;
-		}
 	}
 }
 
@@ -130,45 +128,23 @@ void SFENG::LifeCycleManager::RmEntity(std::vector<Entity*>::iterator& it)
 		m_UnusedEntities.push_back(std::move(*it));
 		it = m_Entities.erase(it);
 	}
-	else throw "Entity iterator was at the end!\n";
+	else return;
 }
 
 const std::string& SFENG::LifeCycleManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
 {
 	if (m_EntitiesMap.find(name) == m_EntitiesMap.end()) {
 		m_EntitiesMap.insert({ name, en });
+		m_EntitiesUsedNums.insert({ name, 0 });
 		return name;
 	}
 	else
 	{
-		int digit = 0;
-		int index = name.find("_");
-		std::string str = name;
-		if (index != std::string::npos)
-		{
-			str = name + "_0";
-			m_EntitiesMap.insert({ str, en });
-			return str;
-		}
-		else
-		{
-			digit = stoi(name.substr(index + 1)) + 1;
-			while (true)
-			{
-				str = name.substr(0, index);
-				str += std::to_string(digit);
-				if (m_EntitiesMap.find(str) == m_EntitiesMap.end())
-				{
-					m_EntitiesMap.insert({ str, en });
-					return str;
-					break;
-				}
-				else
-				{
-					digit++;
-				}
-			}
-		}
+		int32_t& num = m_EntitiesUsedNums[name];
+		num++;
+		std::string newName = name + std::to_string(num);
+		m_EntitiesMap.insert({ newName, en });
+		return newName;
 	}
 }
 

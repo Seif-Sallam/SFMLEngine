@@ -1,5 +1,5 @@
 #pragma once
-
+// Including STLs
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -15,16 +15,19 @@
 #include <memory>
 #include <random>
 
+// Including Physics Related Libraries (They are all in box2d.h)
 #include "box2d/box2d.h"
 
+// Include SFML
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 
+// Including Engine related files
 #include "Engine.h"
 #include "Scene.h"
-#include "Vec2.h"
+#include "FPSCounter.h"
 #include "ResourceManager.h"
 #include "Keyboard.h"
 #include "ParticleSystem.h"
@@ -32,6 +35,10 @@
 #include "Tilemap.h"
 #include "LifeCycleManager.h"
 
+// Including Utlities
+#include "Vec2.h"
+
+// Including Components
 #include "Components/Component.h"
 #include "Components/Transform.h"
 #include "Components/RigidBody2D.h"

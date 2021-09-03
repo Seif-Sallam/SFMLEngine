@@ -1,6 +1,13 @@
 #pragma once
-#include "PCH.h"
+#include <map>
+#include <vector>
+#include <string>
+
 namespace SFENG {
+	/// <summary>
+	/// Tempalte class used to handle the resouces.
+	/// </summary>
+	/// <typeparam name="Resource"></typeparam>
 	template<class Resource>
 	class ResourceLoader {
 	public:

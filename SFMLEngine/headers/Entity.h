@@ -10,6 +10,10 @@
 #include "Components/Transform.h"
 
 namespace SFENG {
+	/// <summary>
+	/// The building block of the Game engine.
+	/// Every GameObject is an Entity that has a set of Copmonents that updates them and controls them.
+	/// </summary>
 	class Entity {
 	public:
 		Entity(const std::string& name);
@@ -67,8 +71,8 @@ namespace SFENG {
 		void Update(const sf::Time& time);
 		void HandleEvents(sf::Event& event);
 		void FixedUpdate(const sf::Time&);
-		const std::string& GetName() const { return m_Name; }
-		void SetName(const std::string& name) { m_Name = name; }
+		inline const std::string& GetName() const { return m_Name; }
+		inline void SetName(const std::string& name) { m_Name = name; }
 		~Entity();
 	private:
 		bool m_Active;

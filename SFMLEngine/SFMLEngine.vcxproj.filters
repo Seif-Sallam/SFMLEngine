@@ -92,9 +92,6 @@
     <ClInclude Include="headers\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Sandbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>

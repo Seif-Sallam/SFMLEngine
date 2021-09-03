@@ -7,7 +7,7 @@ SFENG::FPSCounter::FPSCounter(sf::RenderWindow* window)
 		std::cerr << "Window is a nullptr in FPSCounter\n";
 		exit(0);
 	}
-	sf::Font& font = ResourceManager::Get().GetDefaultFont();
+	sf::Font& font = ResourceManager::GetDefaultFont();
 	m_Text.setFont(font);
 	m_Text.setCharacterSize(15);
 	m_Text.setFillColor(sf::Color::White);

@@ -4,7 +4,7 @@
 
 namespace SFENG {
 	class Entity;
-
+	/// Base class of the Components
 	class Component {
 	public:
 		Component() = default;

@@ -16,7 +16,7 @@ bool SFENG::SpriteRenderer::Init()
 void SFENG::SpriteRenderer::AttachTexture(const std::string& textureName)
 {
 	m_TextureName = textureName;
-	m_Texture = &SFENG::ResourceManager::Get().GetTextrue(textureName);
+	m_Texture = &SFENG::ResourceManager::GetTextrue(textureName);
 	m_Sprite.setTexture(*m_Texture);
 	Vec2f size = { m_Sprite.getLocalBounds().width,	m_Sprite.getLocalBounds().height };
 	m_Transform->size = size;

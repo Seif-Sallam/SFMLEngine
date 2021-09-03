@@ -192,7 +192,6 @@
     <ClInclude Include="headers\Tilemap.h" />
     <ClInclude Include="headers\Components\Transform.h" />
     <ClInclude Include="Sandbox.h" />
-    <ClInclude Include="headers\State.h" />
     <ClInclude Include="headers\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
