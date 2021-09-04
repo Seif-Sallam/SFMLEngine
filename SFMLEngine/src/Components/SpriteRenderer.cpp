@@ -37,7 +37,7 @@ void SFENG::SpriteRenderer::SetRect(const sf::IntRect& rect)
 
 void SFENG::SpriteRenderer::Draw(sf::RenderWindow& window)
 {
-	window.draw(m_Sprite);
+	window.draw(m_Sprite, m_RenderState);
 	return Component::Draw(window);
 }
 

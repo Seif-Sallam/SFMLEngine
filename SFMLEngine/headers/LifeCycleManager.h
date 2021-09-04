@@ -74,7 +74,7 @@ namespace SFENG {
 
 		~LifeCycleManager();
 	private:
-		void GetInactive();
+		void GetDeadEntities();
 		void CleanUpUnused();
 		void CleanUp();
 		void RmEntity(std::vector<Entity*>::iterator& it);

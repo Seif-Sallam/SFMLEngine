@@ -10,28 +10,31 @@
 #include "SFML/Graphics.hpp"
 #include "Vec2.h"
 #include "ResourceManager.h"
+#include "LifeCycleManager.h"
 //Needs refactoring
 namespace SFENG {
+	class Transform;
+	class SpriteRenderer;
 	class Tilemap
 	{
 	public:
-		Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, sf::RenderWindow& window);
+		Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, LifeCycleManager* LCM);
 		void ReadMap(const std::string& map);
-		void Darw();
 		~Tilemap();
 	private:
-		sf::IntRect GetViewBoundries();
-		Vec2i GetStartIndex(const sf::IntRect& viewBoundries);
-		Vec2i GetEndIndex(const sf::IntRect& viewBoundries);
-		sf::RectangleShape m_Tile;
+		void CleanUp();
+		struct Tile
+		{
+			Entity* thisEn;
+			Transform* trans;
+			SpriteRenderer* sr;
+		};
+		
 		Vec2i m_Size;
 		Vec2f m_StartPos;
 		Vec2f m_TileSize;
-		Vec2f m_ViewLimit;
-		sf::RenderWindow& m_Window;
-		sf::View m_View;
-		sf::Texture* m_SheetTexture;
-		Vec2<uint8_t>* m_MapIndicies;
-		bool m_ErrorReading;
+		LifeCycleManager* m_LCM;
+		std::vector<Tile*> m_Tiles;
+		static int32_t s_TileNum;
 	};
 }

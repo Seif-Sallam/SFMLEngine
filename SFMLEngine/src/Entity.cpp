@@ -1,11 +1,12 @@
 #include "../headers/Entity.h"
 
 SFENG::Entity::Entity(const std::string& name)
-	: m_Active(true), m_Alive(true), m_Name(name)
+	: m_Active(true)
+	, m_Alive(true)
+	, m_Name(name)
 {
 	m_Components.reserve(32u);
 	this->AddComponent<Transform>(Vec2f(0.0f, 0.0f), Vec2f(1.0f, 1.0f), 0.f);
-	m_Active = true;
 }
 
 SFENG::Entity::Entity(const Entity& en)

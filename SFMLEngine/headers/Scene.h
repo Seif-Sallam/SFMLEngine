@@ -20,8 +20,10 @@ namespace SFENG {
 		}
 
 		virtual ~Scene() = default;
+	protected:
 		/// <summary>
 		/// This is a function made as an initializer to this class.
+		/// DO NOT CALL IT IN THE CONSTRUCTOR OF YOUR SCENE IT WILL BE CALLED AUTOMATICALLY.
 		/// </summary>
 		virtual void Main() {}
 

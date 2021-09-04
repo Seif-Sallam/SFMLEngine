@@ -73,7 +73,7 @@ namespace SFENG {
 		void FixedUpdate(const sf::Time&);
 		inline const std::string& GetName() const { return m_Name; }
 		inline void SetName(const std::string& name) { m_Name = name; }
-		~Entity();
+		virtual ~Entity();
 	private:
 		bool m_Active;
 		bool m_Alive;

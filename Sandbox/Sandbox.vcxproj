@@ -147,11 +147,15 @@
   <ItemGroup>
     <ClCompile Include="src\CustomScene.cpp" />
     <ClCompile Include="src\CustomGame.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestGame\src\Game.cpp" />
+    <ClCompile Include="TestGame\src\MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\CustomGame.h" />
     <ClInclude Include="headers\CustomScene.h" />
+    <ClInclude Include="TestGame\headers\Game.h" />
+    <ClInclude Include="TestGame\headers\MainMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

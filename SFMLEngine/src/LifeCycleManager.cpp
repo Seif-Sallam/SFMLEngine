@@ -83,11 +83,11 @@ void SFENG::LifeCycleManager::Draw(sf::RenderWindow& window)
 
 void SFENG::LifeCycleManager::Refresh()
 {
-	GetInactive();
+	GetDeadEntities();
 	CleanUpUnused();
 }
 
-void SFENG::LifeCycleManager::GetInactive()
+void SFENG::LifeCycleManager::GetDeadEntities()
 {
 	auto it = m_Entities.begin();
 	while (it != m_Entities.end()) {

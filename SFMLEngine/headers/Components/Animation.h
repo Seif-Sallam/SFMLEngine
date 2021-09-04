@@ -23,7 +23,7 @@ namespace SFENG {
 		void Print();
 		inline std::string GetName() { return m_Name; }
 	private:
-		inline void SetSpriteRenderer(SpriteRenderer* sp) { m_SpriteRender = sp; }
+		inline void SetSpriteRenderer(SpriteRenderer* sr) { m_SpriteRender = sr; }
 		std::string m_Name;
 		struct Frame {
 			Frame(const sf::IntRect& bounds, sf::Time delay)
