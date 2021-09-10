@@ -48,3 +48,7 @@
 #include "Components/Animation.h"
 #include "Components/Animator.h"
 #include "Components/Controller.h"
+
+// UI
+#include "UI/Canvas.h"
+#include "UI/UIElement.h"

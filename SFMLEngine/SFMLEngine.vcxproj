@@ -169,6 +169,7 @@
     <ClCompile Include="src\ParticleFountain.cpp" />
     <ClCompile Include="src\Components\Transform.cpp" />
     <ClCompile Include="src\UI\Canvas.cpp" />
+    <ClCompile Include="src\UI\Textbox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Components\Animator.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="headers\Tilemap.h" />
     <ClInclude Include="headers\Components\Transform.h" />
     <ClInclude Include="headers\UI\Canvas.h" />
+    <ClInclude Include="headers\UI\Textbox.h" />
     <ClInclude Include="headers\UI\UIElement.h" />
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="headers\Vec2.h" />
