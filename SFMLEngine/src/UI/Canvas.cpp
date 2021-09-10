@@ -1,29 +1,37 @@
 #include "../../headers/UI/Canvas.h"
+#include "../../headers/UI/Textbox.h"
 #include "../../headers/Components/Transform.h"
 #include "../../headers/Components/SpriteRenderer.h"
+#include "../../headers/LifeCycleManager.h"
 
-SFENG::UI::Canvas::Canvas(LifeCycleManager& LCM)
-	: m_LCM(LCM), m_Entity(nullptr)
+SFENG::UI::Canvas::Canvas(const std::string& name, LifeCycleManager& LCM)
+	: m_LCM(LCM)
 {
+	entity = m_LCM.CreateEntity(name);
 }
 
-std::string SFENG::UI::Canvas::AddElement(const std::string& name, UIElement* element)
+std::string SFENG::UI::Canvas::AddElement(const std::string& name, UIElementType type)
 {
-	if (m_ElementsNums.find(name) == m_ElementsNums.end())
+	UIElement* element = nullptr;
+	std::string newName = GetNewName(name);
+	switch (type)
 	{
-		m_Elements.insert({ name, element });
-		m_ElementsNums.insert({ name, 0 });
-		return name;
+	case SFENG::UI::UIElementType::Button:
+		break;
+	case SFENG::UI::UIElementType::TextBox:
+		element = new Textbox(m_LCM.CreateEntity(newName), this);
+		break;
+	case SFENG::UI::UIElementType::SlideBar:
+		break;
+	case SFENG::UI::UIElementType::Label:
+		break;
+	case SFENG::UI::UIElementType::Image:
+		break;
+	default:
+		break;
 	}
-	else
-	{
-		int32_t& num = m_ElementsNums[name];
-		num++;
-		std::string newName = name + std::to_string(num);
-		m_ElementsNums.insert({ newName, 0 });
-		m_Elements.insert({ newName, element });
-		return newName;
-	}
+	AddElementPriv(name, element);
+	return newName;
 }
 
 SFENG::UI::UIElement* SFENG::UI::Canvas::GetElement(const std::string& name)
@@ -35,4 +43,26 @@ SFENG::UI::UIElement* SFENG::UI::Canvas::GetElement(const std::string& name)
 
 SFENG::UI::Canvas::~Canvas()
 {
+}
+
+void SFENG::UI::Canvas::AddElementPriv(const std::string& name, UIElement*& element)
+{
+	m_ElementsNums.insert({ name, 0 });
+	m_Elements.insert({ name, element });
+}
+
+std::string SFENG::UI::Canvas::GetNewName(const std::string& name)
+{
+	if (m_ElementsNums.find(name) == m_ElementsNums.end())
+	{
+		return name;
+	}
+	else
+	{
+		int32_t& num = m_ElementsNums[name];
+		num++;
+		std::string newName = name + std::to_string(num);
+		return newName;
+	}
+	return std::string();
 }

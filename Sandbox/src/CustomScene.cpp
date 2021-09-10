@@ -96,6 +96,15 @@ CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	IDLEAnimation->AddFrame(rect, delay);
 	animator.SetActiveAnimation("IDLE");
 	IDLEAnimation->Loop(true);
+	SFENG::UI::Canvas canvas("Canvas1" ,m_LCManager);
+	std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
+	SFENG::UI::Textbox* txtBox = dynamic_cast<SFENG::UI::Textbox*>(canvas.GetElement(textBoxName));
+	txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
+	SFENG::UI::TextEnterHandler* txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+	txtHandler->SetBoxColor(sf::Color::Red);
+	txtHandler->SetCharacterSize(25);
+	txtHandler->SetMaxNumOfChars(60);
+	txtHandler->SetTextColor(sf::Color::Green);
 }
 
 void CustomScene::Main()

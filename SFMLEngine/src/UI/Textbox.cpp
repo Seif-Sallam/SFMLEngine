@@ -12,27 +12,27 @@ SFENG::UI::Textbox::Textbox(Entity* entity, Canvas* parentCanvas)
 
 void SFENG::UI::Textbox::Initialize()
 {
-	Transform& boxTrans = m_Entity->GetCopmonent<Transform>();
-	Entity*& canvasEntity = m_Canvas->operator SFENG::Entity * &();
+	Transform& boxTrans = entity->GetCopmonent<Transform>();
+	Entity*& canvasEntity = m_Canvas->entity;
 	Transform& canvasTrans = canvasEntity->GetCopmonent<Transform>();
 	boxTrans.position = canvasTrans.position;
-	boxTrans.size = {50.0f, 20.0f};
-	m_WriteTextComp = &m_Entity->AddComponent<WriteText>();
-	m_WriteTextComp->SetFont("Default");
+	boxTrans.size = { 50.0f, 25.0f };
+	m_TextEnterHandler = &entity->AddComponent<TextEnterHandler>();
+	m_TextEnterHandler->SetFont("Default");
 }
 
-SFENG::UI::Textbox::WriteText::WriteText()
-	: m_Transform(nullptr), m_MinSize(Vec2f(50.0f, 20.0f)), m_MaxCharacters(30)
+SFENG::UI::TextEnterHandler::TextEnterHandler()
+	: m_Transform(nullptr), m_MinSize(Vec2f(150.0f, 25.0f)), m_MaxCharacters(50)
 {
 }
 
-void SFENG::UI::Textbox::WriteText::SetFont(const std::string& fontName)
+void SFENG::UI::TextEnterHandler::SetFont(const std::string& fontName)
 {
 	sf::Font& font = SFENG::ResourceManager::GetFont(fontName);
 	text.setFont(font);
 }
 
-bool SFENG::UI::Textbox::WriteText::Init()
+bool SFENG::UI::TextEnterHandler::Init()
 {
 	m_Shape.setSize(m_MinSize);
 	m_Shape.setOrigin(m_MinSize / 2.0f);
@@ -40,60 +40,58 @@ bool SFENG::UI::Textbox::WriteText::Init()
 	m_Shape.setOutlineColor(sf::Color::Black);
 	m_Shape.setOutlineThickness(1.5f);
 	m_Transform = &this->entity->GetCopmonent<Transform>();
-	CenterText();
 	m_Shape.setPosition(m_Transform->position.x - 2.f, m_Transform->position.y - 2.f);
-	text.setCharacterSize(24);
+	text.setCharacterSize(15);
+	text.setFillColor(sf::Color::Blue);
 	return Component::Init();
 }
 
-inline void SFENG::UI::Textbox::WriteText::HandleEvents(sf::Event& event)
+inline void SFENG::UI::TextEnterHandler::HandleEvents(sf::Event& event)
 {
-	if(m_ActualText.size() - 1 < m_MaxCharacters)
-		if (event.type == sf::Event::TextEntered)
+	if (event.type == sf::Event::TextEntered)
+	{
+		if (ValidText(event.text.unicode))
 		{
-			if (ValidText(event.text.unicode))
-			{
-				if (event.text.unicode == '\b' && m_ActualText.size() > 0)
-						m_ActualText.pop_back();
-				else
-					m_ActualText.push_back(event.text.unicode);
-				text.setString(m_ActualText);
-				CenterText();
-				auto rect = text.getLocalBounds();
-				if (rect.width + 2.f > m_MinSize.x) 
-				{
-					Vec2f newSize(rect.width + 2.f, 20.0f);
-					m_Shape.setSize(newSize);
-				}
-				else
-				{
-					m_Shape.setSize(m_MinSize);
-				}
-			}
+			AddText(event.text.unicode);
+			text.setString(m_ActualText);
+			CenterText();
 		}
+	}
 	return Component::HandleEvents(event);
 }
 
-void SFENG::UI::Textbox::WriteText::Update(const sf::Time& elapsedTime)
+void SFENG::UI::TextEnterHandler::Update(const sf::Time& elapsedTime)
 {
-	CenterText();
-	m_Shape.setPosition(m_Transform->position.x - 2.f, m_Transform->position.y - 2.f);
+	if (m_Transform->position != Vec2f(m_Shape.getPosition()))
+		CenterText();
 }
 
-void SFENG::UI::Textbox::WriteText::CenterText()
+void SFENG::UI::TextEnterHandler::AddText(uint32_t value)
 {
-	Vec2f pos = m_Transform->position;
+	if (value == '\b') {
+		if (m_ActualText.size() > 0) {
+			m_ActualText.pop_back();
+		}
+	}
+	else if ((int)m_ActualText.size() - 1 < m_MaxCharacters)
+		m_ActualText.push_back(value);
+}
+
+void SFENG::UI::TextEnterHandler::CenterText()
+{
 	auto rect = text.getLocalBounds();
-	pos.x += rect.width / 2.0f;
+	text.setOrigin(text.getLocalBounds().width / 2.0f, (m_MinSize.h - 2.0f) / 2.0f);
+	Vec2f pos = m_Transform->position;
 	text.setPosition(pos);
+	Vec2f newSize(std::max(rect.width + 20.f, m_MinSize.x), m_MinSize.h);
+	m_Shape.setSize(newSize);
+	m_Shape.setOrigin(newSize / 2.0f);
+	m_Shape.setPosition(m_Transform->position);
 }
 
-bool SFENG::UI::Textbox::WriteText::ValidText(uint32_t unicode)
+bool SFENG::UI::TextEnterHandler::ValidText(uint32_t unicode)
 {
-	if (unicode == '\b' || unicode == ' '
-		|| unicode >= '0' && unicode <= '9'
-		|| unicode >= 'A' && unicode <= 'Z'
-		|| unicode >= 'a' && unicode <= 'z')
+	if (unicode == '\b' || unicode >= 32 && unicode <= 128)
 		return true;
 	return false;
 }
