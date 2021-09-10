@@ -157,6 +157,7 @@
     <ClCompile Include="src\Components\CircleCollider.cpp" />
     <ClCompile Include="src\Components\RigidBody2D.cpp" />
     <ClCompile Include="src\Components\SpriteRenderer.cpp" />
+    <ClCompile Include="src\Components\UI\TextEnterHandler.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\LifeCycleManager.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="headers\Components\Controller.h" />
     <ClInclude Include="headers\Components\RigidBody2D.h" />
     <ClInclude Include="headers\Components\SpriteRenderer.h" />
+    <ClInclude Include="headers\Components\UI\TextEnterHandler.h" />
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />
     <ClInclude Include="headers\LifeCycleManager.h" />

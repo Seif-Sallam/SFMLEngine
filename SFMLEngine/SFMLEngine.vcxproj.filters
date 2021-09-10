@@ -75,6 +75,9 @@
     <ClCompile Include="src\UI\Textbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Components\UI\TextEnterHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Vec2.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\UI\Textbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\Components\UI\TextEnterHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
