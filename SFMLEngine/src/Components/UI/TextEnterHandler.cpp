@@ -3,7 +3,7 @@
 #include "../../../headers/ResourceManager.h"
 
 SFENG::UI::TextEnterHandler::TextEnterHandler()
-	: m_Transform(nullptr), m_MinSize(Vec2f(150.0f, 25.0f)), m_MaxCharacters(50)
+	: m_Transform(nullptr), m_MinSize(Vec2f(0.0f, 0.0f)), m_MaxCharacters(50)
 {
 }
 
@@ -15,12 +15,13 @@ void SFENG::UI::TextEnterHandler::SetFont(const std::string& fontName)
 
 bool SFENG::UI::TextEnterHandler::Init()
 {
+	m_Transform = &this->entity->GetCopmonent<Transform>();
+	m_MinSize = m_Transform->size;
 	m_Shape.setSize(m_MinSize);
 	m_Shape.setOrigin(m_MinSize / 2.0f);
 	m_Shape.setFillColor(sf::Color::Transparent);
 	m_Shape.setOutlineColor(sf::Color::Black);
 	m_Shape.setOutlineThickness(1.5f);
-	m_Transform = &this->entity->GetCopmonent<Transform>();
 	m_Shape.setPosition(m_Transform->position.x - 2.f, m_Transform->position.y - 2.f);
 	text.setCharacterSize(15);
 	text.setFillColor(sf::Color::Blue);
@@ -29,13 +30,16 @@ bool SFENG::UI::TextEnterHandler::Init()
 
 inline void SFENG::UI::TextEnterHandler::HandleEvents(sf::Event& event)
 {
-	if (event.type == sf::Event::TextEntered)
+	if (m_IsActive) 
 	{
-		if (ValidText(event.text.unicode))
+		if (event.type == sf::Event::TextEntered)
 		{
-			AddText(event.text.unicode);
-			text.setString(m_ActualText);
-			CenterText();
+			if (ValidText(event.text.unicode))
+			{
+				AddText(event.text.unicode);
+				text.setString(m_ActualText);
+				CenterText();
+			}
 		}
 	}
 	return Component::HandleEvents(event);
@@ -45,6 +49,7 @@ void SFENG::UI::TextEnterHandler::Update(const sf::Time& elapsedTime)
 {
 	if (m_Transform->position != Vec2f(m_Shape.getPosition()))
 		CenterText();
+
 }
 
 void SFENG::UI::TextEnterHandler::AddText(uint32_t value)
@@ -65,6 +70,7 @@ void SFENG::UI::TextEnterHandler::CenterText()
 	Vec2f pos = m_Transform->position;
 	text.setPosition(pos);
 	Vec2f newSize(std::max(rect.width + 20.f, m_MinSize.x), m_MinSize.h);
+	m_Transform->size = newSize;
 	m_Shape.setSize(newSize);
 	m_Shape.setOrigin(newSize / 2.0f);
 	m_Shape.setPosition(m_Transform->position);

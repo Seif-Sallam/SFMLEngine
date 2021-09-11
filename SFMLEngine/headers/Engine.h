@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "FPSCounter.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include <memory>
 #include <vector>
 #include <map>
@@ -12,7 +13,7 @@ namespace SFENG {
 	{
 	public:
 		void Run();
-		inline sf::RenderWindow& GetWindow() { return *m_Window; }
+		inline static sf::RenderWindow& GetWindow() { return *m_Window; }
 		void ExitGame();
 		void SetGravity(const Vec2f& gravity);
 		const Vec2f& GetGravity();
@@ -39,7 +40,7 @@ namespace SFENG {
 		std::vector<std::unique_ptr<Scene>> m_States;
 		std::unique_ptr<Scene> m_Change;
 
-		sf::RenderWindow* m_Window;
+		static sf::RenderWindow* m_Window;
 		FPSCounter* m_FPSCounter;
 
 		sf::Clock m_PhysicsClock;

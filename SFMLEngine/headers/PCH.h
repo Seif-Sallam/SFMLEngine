@@ -30,6 +30,7 @@
 #include "FPSCounter.h"
 #include "ResourceManager.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "ParticleSystem.h"
 #include "ParticleFountain.h"
 #include "Tilemap.h"
@@ -48,6 +49,7 @@
 #include "Components/Animation.h"
 #include "Components/Animator.h"
 #include "Components/Controller.h"
+#include "Components/Highlightable.h"
 
 // UI
 #include "UI/Canvas.h"

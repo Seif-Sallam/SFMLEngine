@@ -1,5 +1,5 @@
 #include "../headers/Engine.h"
-
+sf::RenderWindow* SFENG::Engine::m_Window = nullptr;
 SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	: m_ShouldChangeState(false)
 	, m_ShouldExit(false)
@@ -65,6 +65,7 @@ void SFENG::Engine::HandleEvent()
 			m_InFocus = false;
 
 		SFENG::Keyboard::Update(event);
+		SFENG::Mouse::Update(event);
 
 		currentState.HandleEvents(event);
 	}

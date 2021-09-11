@@ -30,7 +30,7 @@ std::string SFENG::UI::Canvas::AddElement(const std::string& name, UIElementType
 	default:
 		break;
 	}
-	AddElementPriv(name, element);
+	AddElementPriv(newName, element);
 	return newName;
 }
 

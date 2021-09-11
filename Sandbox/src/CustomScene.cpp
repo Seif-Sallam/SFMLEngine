@@ -71,7 +71,59 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow& window)
 CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	: SFENG::Scene(engine, world)
 {
-	//Main();
+	Main();
+	AddSprite();
+	//AddCanvas();
+	//AddSelectBox();
+	SFENG::UI::Canvas canvas("Canvas1", m_LCManager);
+	{
+		std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
+		SFENG::UI::Textbox* txtBox = dynamic_cast<SFENG::UI::Textbox*>(canvas.GetElement(textBoxName));
+		txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
+		SFENG::UI::TextEnterHandler* txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+		txtHandler->SetBoxColor(sf::Color::Red);
+		txtHandler->SetCharacterSize(25);
+		txtHandler->SetMaxNumOfChars(60);
+		txtHandler->SetTextColor(sf::Color::Green);
+	}
+	{
+		std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
+		SFENG::UI::Textbox* txtBox = dynamic_cast<SFENG::UI::Textbox*>(canvas.GetElement(textBoxName));
+		txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 100.0f);
+		txtBox->entity->GetCopmonent<SFENG::Transform>().size = Vec2f(150.0f, 25.0f);
+		SFENG::UI::TextEnterHandler* txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+		txtHandler->SetBoxColor(sf::Color::Blue);
+		txtHandler->SetCharacterSize(16);
+		txtHandler->SetMaxNumOfChars(60);
+		txtHandler->SetTextColor(sf::Color::Black);
+	}
+}
+
+void CustomScene::Main()
+{
+	AddBox("Ground", Vec2f(400.0f, 600.0f), Vec2f(1200.f, 50.0f), b2BodyType::b2_staticBody);
+	std::mt19937 random(time(0));
+	std::uniform_real_distribution<float> xPos(100.0f, 500.0f);
+	std::uniform_real_distribution<float> yPos(100.0f, 300.0f);
+	for (int i = 0; i < 100; i++) {
+		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), { 10.0f , 10.0f }, b2BodyType::b2_dynamicBody);
+		AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 10.0f, b2BodyType::b2_dynamicBody);
+	}
+}
+
+void CustomScene::AddSelectBox()
+{
+	SFENG::Entity* selectBox = this->m_LCManager.CreateEntity("SelectBox");
+	SFENG::Highlightable* boxShape = &selectBox->AddComponent<SFENG::Highlightable>();
+	boxShape->ListenToKeys(true);
+	OnClick* clk = &selectBox->AddComponent<OnClick>();
+	SFENG::Transform& trans = selectBox->GetCopmonent<SFENG::Transform>();
+	trans.position = Vec2f(350.0f, 200.0f);
+	trans.size = Vec2f(150.0f, 150.0f);
+}
+
+void CustomScene::AddSprite()
+{
 	SFENG::ResourceManager::AddTexture("SampleSprite.png", "Sample");
 	SFENG::Entity* en = this->m_LCManager.CreateEntity("Entity");
 	SFENG::Transform& transform = en->GetCopmonent<SFENG::Transform>();
@@ -96,7 +148,11 @@ CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	IDLEAnimation->AddFrame(rect, delay);
 	animator.SetActiveAnimation("IDLE");
 	IDLEAnimation->Loop(true);
-	SFENG::UI::Canvas canvas("Canvas1" ,m_LCManager);
+}
+
+void CustomScene::AddCanvas()
+{
+	SFENG::UI::Canvas canvas("Canvas1", m_LCManager);
 	std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
 	SFENG::UI::Textbox* txtBox = dynamic_cast<SFENG::UI::Textbox*>(canvas.GetElement(textBoxName));
 	txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
@@ -105,18 +161,7 @@ CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
 	txtHandler->SetCharacterSize(25);
 	txtHandler->SetMaxNumOfChars(60);
 	txtHandler->SetTextColor(sf::Color::Green);
-}
 
-void CustomScene::Main()
-{
-	AddBox("Ground", Vec2f(400.0f, 600.0f), Vec2f(1200.f, 50.0f), b2BodyType::b2_staticBody);
-	std::mt19937 random(time(0));
-	std::uniform_real_distribution<float> xPos(100.0f, 500.0f);
-	std::uniform_real_distribution<float> yPos(100.0f, 300.0f);
-	for (int i = 0; i < 100; i++) {
-		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), { 10.0f , 10.0f }, b2BodyType::b2_dynamicBody);
-		AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 10.0f, b2BodyType::b2_dynamicBody);
-	}
 }
 
 void CustomScene::AddBox(const std::string& name, const Vec2f& position, const Vec2f& size, b2BodyType type)

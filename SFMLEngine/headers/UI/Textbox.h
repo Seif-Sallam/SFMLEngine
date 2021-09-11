@@ -4,9 +4,10 @@
 #include "../Vec2.h"
 #include "UIElement.h"
 #include "../Components/UI/TextEnterHandler.h"
+#include "../Components/UI/Selected.h"
+#include "../Components/Highlightable.h"
 namespace SFENG {
 	namespace UI {
-		
 		class TextEnterHandler;
 		class Textbox : public UIElement
 		{
@@ -16,6 +17,15 @@ namespace SFENG {
 		private:
 			TextEnterHandler* m_TextEnterHandler;
 			void Initialize() override;
+			bool m_Active;
+			class TextBoxSelection : public Component {
+			public:
+				bool Init() override;
+				void HandleEvents(sf::Event& event) override;
+			private:
+				Selected* m_SelectedComp;
+				TextEnterHandler* m_TxtEnterHandler;
+			};
 		};
 	}
 }

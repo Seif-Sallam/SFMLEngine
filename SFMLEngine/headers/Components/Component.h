@@ -18,11 +18,15 @@ namespace SFENG {
 		inline virtual void HandleEvents(sf::Event& event) {}
 		inline virtual void Print() { std::cout << "Raw Copmonent\n"; }
 		inline void SetRenderState(sf::RenderStates state) { m_RenderState = state; }
-		bool IsValid() { return m_IsValid; }
-		void MakeUnValid() { m_IsValid = true; }
+		inline bool IsValid() { return m_IsValid; }
+		inline void MakeUnValid() { m_IsValid = true; }
+		inline bool IsActive() { return m_IsActive; }
+		inline void Deactivate() { m_IsActive = false; }
+		inline void Activate() { m_IsActive = true; }
 		Entity* entity = nullptr;
 	protected:
 		bool m_IsValid = false;
+		bool m_IsActive = true;
 		sf::RenderStates m_RenderState;
 	};
 }
