@@ -34,12 +34,14 @@ void SFENG::Tilemap::ReadMap(const std::string& map)
 				std::string str;
 				file >> str;
 				int in = str.find("_");
-				uint8_t x = std::stoi(str.substr(0, in));
-				uint8_t y = std::stoi(str.substr(in + 1));
-				m_Tiles[index]->trans->position = (Vec2f(m_StartPos.y + j * m_TileSize.x, m_StartPos.y + i * m_TileSize.y));
-				rect.left = x * m_TileSize.x;
-				rect.top = y * m_TileSize.y;
-				m_Tiles[index]->sr->SetRect(rect);
+				if (in != std::string::npos) {
+					uint8_t x = std::stoi(str.substr(0, in));
+					uint8_t y = std::stoi(str.substr(in + 1));
+					m_Tiles[index]->trans->position = (Vec2f(m_StartPos.y + j * m_TileSize.x, m_StartPos.y + i * m_TileSize.y));
+					rect.left = x * m_TileSize.x;
+					rect.top = y * m_TileSize.y;
+					m_Tiles[index]->sr->SetRect(rect);
+				}
 			}
 	}
 	else

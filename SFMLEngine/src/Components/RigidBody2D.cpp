@@ -3,11 +3,14 @@
 #include "../../headers/Components/Transform.h"
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Entity.h"
+#include "../../headers/Engine.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#define M_180_PI 57.29577951308232
+#define M_PI_180 0.017453292519943295
 
-SFENG::RigidBody2D::RigidBody2D(b2World* world)
-	: m_PhysWorld(world)
+SFENG::RigidBody2D::RigidBody2D()
+	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld())
 	, m_Body(nullptr)
 	, m_Transform(nullptr)
 {
@@ -38,7 +41,7 @@ Vec2f SFENG::RigidBody2D::GetPosition()
 void SFENG::RigidBody2D::SetPosition(const Vec2f& v)
 {
 	m_Transform->position = v;
-	m_Body->SetTransform(m_Transform->position, m_Transform->angle / 180.0f * M_PI);
+	m_Body->SetTransform(m_Transform->position, m_Transform->angle * M_PI_180);
 }
 
 float SFENG::RigidBody2D::GetAngle()
@@ -57,7 +60,7 @@ b2Body* SFENG::RigidBody2D::GetBody()
 b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2Shape* shape, float dinsety)
 {
 	if (m_Body != nullptr)
-		return m_Body->CreateFixture(shape, dinsety);
+		return m_Body->b2Body::CreateFixture(shape, dinsety);
 	else
 		return nullptr;
 }
@@ -65,7 +68,7 @@ b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2Shape* shape, float dinsety
 b2Fixture* SFENG::RigidBody2D::CreateFixture(const b2FixtureDef* def)
 {
 	if (m_Body != nullptr)
-		return m_Body->CreateFixture(def);
+		return m_Body->b2Body::CreateFixture(def);
 	else
 		return nullptr;
 }
@@ -87,7 +90,7 @@ bool SFENG::RigidBody2D::Init()
 		{
 			b2BodyDef bodyDef;
 			bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
-			bodyDef.angle = m_Transform->angle / 180.0f * M_PI;
+			bodyDef.angle = m_Transform->angle * M_PI_180;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
 		}
@@ -113,7 +116,7 @@ void SFENG::RigidBody2D::FixedUpdate(const sf::Time& elapsedTime)
 	if (m_Body != nullptr)
 	{
 		m_Transform->position = m_Body->GetPosition();
-		m_Transform->angle = m_Body->GetAngle() * 180.0f / M_PI;
+		m_Transform->angle = m_Body->GetAngle() * M_180_PI;
 	}
 	return Component::FixedUpdate(elapsedTime);
 }

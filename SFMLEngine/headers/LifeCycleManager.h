@@ -79,7 +79,7 @@ namespace SFENG {
 		void CleanUp();
 		void RmEntity(std::vector<Entity*>::iterator& it);
 
-		const std::string& AddEntityToMap(SFENG::Entity*& en, const std::string& name);
+		std::string AddEntityToMap(SFENG::Entity*& en, const std::string& name);
 
 		std::vector<Entity*> m_Entities;
 		std::list<Entity*> m_UnusedEntities;

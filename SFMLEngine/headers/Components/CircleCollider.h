@@ -9,7 +9,7 @@ namespace SFENG {
 	{
 		friend RigidBody2D;
 	public:
-		CircleCollider(b2World* world);
+		CircleCollider();
 		~CircleCollider();
 
 		void SetFriction(float f);

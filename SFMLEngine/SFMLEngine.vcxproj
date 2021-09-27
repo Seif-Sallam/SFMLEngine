@@ -163,6 +163,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\LifeCycleManager.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
     <ClCompile Include="src\ParticleSystem.cpp" />
     <ClCompile Include="src\Engine.cpp" />

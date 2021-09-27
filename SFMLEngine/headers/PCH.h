@@ -55,3 +55,6 @@
 #include "UI/Canvas.h"
 #include "UI/UIElement.h"
 #include "UI/Textbox.h"
+
+#define M_180_PI 57.29577951308232
+#define M_PI_180 0.017453292519943295

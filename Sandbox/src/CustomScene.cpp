@@ -3,9 +3,7 @@
 
 CustomScene::BoxShape::BoxShape()
 	: SFENG::Component(), m_Trans(nullptr), rb(nullptr)
-{
-
-}
+{}
 
 bool CustomScene::BoxShape::Init()
 {
@@ -26,7 +24,7 @@ void CustomScene::BoxShape::FixedUpdate(const sf::Time& elapsed)
 {
 	this->m_Shape.setSize(m_Trans->size);
 	this->m_Shape.setPosition(m_Trans->position);
-	this->m_Shape.setRotation(m_Trans->angle * 180.0f / M_PI);
+	this->m_Shape.setRotation(m_Trans->angle);
 }
 
 void CustomScene::BoxShape::Draw(sf::RenderWindow& window)
@@ -57,7 +55,7 @@ void CustomScene::CircleShape::Update(const sf::Time&)
 
 void CustomScene::CircleShape::FixedUpdate(const sf::Time& elapsed)
 {
-	m_Shape.setRadius(m_Trans->size.x);
+	this->m_Shape.setRadius(m_Trans->size.x);
 	this->m_Shape.setPosition(m_Trans->position);
 	this->m_Shape.setRotation(m_Trans->angle);
 }
@@ -68,8 +66,8 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow& window)
 }
 
 
-CustomScene::CustomScene(SFENG::Engine& engine, b2World& world)
-	: SFENG::Scene(engine, world)
+CustomScene::CustomScene(SFENG::Engine& engine)
+	: SFENG::Scene(engine)
 {
 	Main();
 	AddSprite();
@@ -171,8 +169,8 @@ void CustomScene::AddBox(const std::string& name, const Vec2f& position, const V
 	SFENG::Transform& trans = newEntity->GetCopmonent<SFENG::Transform>();
 	trans.size = size;
 	trans.position = position;
-	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>(&this->m_PhysicsWorld);
-	SFENG::BoxCollider& boxCol = newEntity->AddComponent<SFENG::BoxCollider>(&this->m_PhysicsWorld);
+	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>();
+	SFENG::BoxCollider& boxCol = newEntity->AddComponent<SFENG::BoxCollider>();
 	BoxShape& shape = newEntity->AddComponent<BoxShape>();
 	rb.SetBodyType(type);
 }
@@ -184,8 +182,8 @@ void CustomScene::AddCircle(const std::string& name, const Vec2f& position, floa
 	SFENG::Transform& trans = newEntity->GetCopmonent<SFENG::Transform>();
 	trans.size = { radius , radius };
 	trans.position = position;
-	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>(&this->m_PhysicsWorld);
-	SFENG::CircleCollider& boxCol = newEntity->AddComponent<SFENG::CircleCollider>(&this->m_PhysicsWorld);
+	SFENG::RigidBody2D& rb = newEntity->AddComponent<SFENG::RigidBody2D>();
+	SFENG::CircleCollider& boxCol = newEntity->AddComponent<SFENG::CircleCollider>();
 	CircleShape& shape = newEntity->AddComponent<CircleShape>();
 	rb.SetBodyType(type);
 }

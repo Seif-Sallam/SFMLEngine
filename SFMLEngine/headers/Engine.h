@@ -16,6 +16,7 @@ namespace SFENG {
 		inline static sf::RenderWindow& GetWindow() { return *m_Window; }
 		void ExitGame();
 		void SetGravity(const Vec2f& gravity);
+		static b2World& GetPhysicsWorld();
 		const Vec2f& GetGravity();
 	protected:
 		Engine(Vec2u resolution = Vec2u(800, 600), const std::string& title = "Title");
@@ -52,7 +53,7 @@ namespace SFENG {
 
 		Vec2f m_Gravity;
 	protected:
-		b2World* m_PhysicsWorld;
+		static b2World* m_PhysicsWorld;
 	};
 
 	template<class T, class ...Args>

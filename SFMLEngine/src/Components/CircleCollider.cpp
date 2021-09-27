@@ -1,11 +1,12 @@
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Components/RigidBody2D.h"
 #include "../../headers/Entity.h"
+#include "../../headers/Engine.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-SFENG::CircleCollider::CircleCollider(b2World* world)
-	: m_PhysWorld(world)
+SFENG::CircleCollider::CircleCollider()
+	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld())
 	, m_Body(nullptr)
 	, m_Fixture(nullptr)
 	, m_Transform(nullptr)

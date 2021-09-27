@@ -8,7 +8,7 @@ public:
 	MainMenu(en::Engine& engine, b2World& phys);
 	~MainMenu();
 protected:
-	void Main() override final;
+	void Main();
 
 private:
 	std::map<std::string, en::Entity*> m_Entities;

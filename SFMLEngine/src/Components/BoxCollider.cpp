@@ -1,9 +1,10 @@
 #include "../../headers/Components/BoxCollider.h"
 #include "../../headers/Components/RigidBody2D.h"
 #include "../../headers/Entity.h"
+#include "../../headers/Engine.h"
 
-SFENG::BoxCollider::BoxCollider(b2World* world)
-	: m_PhysWorld(world)
+SFENG::BoxCollider::BoxCollider()
+	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld())
 	, m_Body(nullptr)
 	, m_Fixture(nullptr)
 	, m_Transform(nullptr)

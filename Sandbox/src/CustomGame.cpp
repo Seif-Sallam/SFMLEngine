@@ -4,7 +4,7 @@ CustomGame::CustomGame()
 	: SFENG::Engine()
 {
 	//this->GetWindow().setVerticalSyncEnabled(false);
-	this->SFENG::Engine::PushStartingScene(std::make_unique<CustomScene>(*this, *m_PhysicsWorld));
+	this->SFENG::Engine::PushStartingScene(std::make_unique<CustomScene>(*this));
 }
 
 CustomGame::~CustomGame()

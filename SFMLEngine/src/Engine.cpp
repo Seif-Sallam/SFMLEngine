@@ -1,5 +1,6 @@
 #include "../headers/Engine.h"
 sf::RenderWindow* SFENG::Engine::m_Window = nullptr;
+b2World* SFENG::Engine::m_PhysicsWorld = nullptr;
 SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	: m_ShouldChangeState(false)
 	, m_ShouldExit(false)
@@ -91,6 +92,10 @@ void SFENG::Engine::ShouldChangeScene(std::unique_ptr<Scene> change)
 void SFENG::Engine::PopState()
 {
 	m_ShouldPop = true;
+}
+b2World& SFENG::Engine::GetPhysicsWorld()
+{
+	return *m_PhysicsWorld; 
 }
 
 void SFENG::Engine::ExitGame()

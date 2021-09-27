@@ -24,7 +24,7 @@ SFENG::LifeCycleManager::LifeCycleManager(const SFENG::LifeCycleManager& em)
 		this->m_Entities.push_back(*it);
 		it++;
 	}
-	for (auto i : em.m_EntitiesMap) {
+	for (auto& i : em.m_EntitiesMap) {
 		this->m_EntitiesMap.emplace(i);
 	}
 }
@@ -131,7 +131,7 @@ void SFENG::LifeCycleManager::RmEntity(std::vector<Entity*>::iterator& it)
 	else return;
 }
 
-const std::string& SFENG::LifeCycleManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
+std::string SFENG::LifeCycleManager::AddEntityToMap(SFENG::Entity*& en, const std::string& name)
 {
 	if (m_EntitiesMap.find(name) == m_EntitiesMap.end()) {
 		m_EntitiesMap.insert({ name, en });

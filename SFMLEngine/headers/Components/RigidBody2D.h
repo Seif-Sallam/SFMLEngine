@@ -12,9 +12,8 @@ namespace SFENG {
 		friend CircleCollider;
 		friend BoxCollider;
 	public:
-		RigidBody2D() = delete;
 		RigidBody2D(const RigidBody2D&) = delete;
-		RigidBody2D(b2World* world);
+		RigidBody2D();
 		~RigidBody2D();
 		void SetBodyType(const b2BodyType& type);
 		b2Body* GetBody();

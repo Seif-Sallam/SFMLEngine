@@ -12,20 +12,9 @@ namespace SFENG {
 	class Scene {
 		friend class Engine;
 	public:
-		Scene(Engine& engine, b2World& phys)
-			: m_Engine(engine)
-			, m_PhysicsWorld(phys)
-		{
-			Main();
-		}
+		Scene(Engine& engine);
 
 		virtual ~Scene() = default;
-	protected:
-		/// <summary>
-		/// This is a function made as an initializer to this class.
-		/// DO NOT CALL IT IN THE CONSTRUCTOR OF YOUR SCENE IT WILL BE CALLED AUTOMATICALLY.
-		/// </summary>
-		virtual void Main() {}
 
 	private:
 		inline void HandleEvents(sf::Event event) { m_LCManager.HandleEvents(event); }

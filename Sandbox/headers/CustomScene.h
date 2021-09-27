@@ -74,9 +74,9 @@ public:
 		SFENG::Transform* m_Transform;
 	};
 
-	CustomScene(SFENG::Engine& engine, b2World& world);
-	void Main() override;
+	CustomScene(SFENG::Engine& engine);
 private:
+	void Main();
 	void AddSelectBox();
 	void AddSprite();
 	void AddCanvas();
