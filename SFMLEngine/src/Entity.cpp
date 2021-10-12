@@ -1,4 +1,4 @@
-#include "../headers/Entity.h"
+#include "Entity.h"
 
 SFENG::Entity::Entity(const std::string& name)
 	: m_Active(true)

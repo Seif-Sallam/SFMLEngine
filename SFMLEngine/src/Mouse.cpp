@@ -1,5 +1,5 @@
-#include "../headers/Mouse.h"
-#include "../headers/Engine.h"
+#include "Mouse.h"
+#include "Engine.h"
 
 std::array<bool, sf::Mouse::ButtonCount> SFENG::Mouse::m_Buttons;
 

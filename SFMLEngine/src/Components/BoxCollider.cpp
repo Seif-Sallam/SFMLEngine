@@ -1,7 +1,7 @@
-#include "../../headers/Components/BoxCollider.h"
-#include "../../headers/Components/RigidBody2D.h"
-#include "../../headers/Entity.h"
-#include "../../headers/Engine.h"
+#include "Components/BoxCollider.h"
+#include "Components/RigidBody2D.h"
+#include "Entity.h"
+#include "Engine.h"
 
 SFENG::BoxCollider::BoxCollider()
 	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld())

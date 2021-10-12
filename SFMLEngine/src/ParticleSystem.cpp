@@ -1,4 +1,4 @@
-#include "../headers/ParticleSystem.h"
+#include "ParticleSystem.h"
 
 SFENG::ParticleSystem::ParticleSystem(sf::Shape* shapeType, const Vec2f& position, const Vec2f& direction, const uint32_t& maxParticles)
 	: m_ShapeType(shapeType), m_Direction(direction), m_Position(position), m_MaxParticles(maxParticles), m_Stop(false), m_Dead(false)

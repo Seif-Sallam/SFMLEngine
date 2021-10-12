@@ -1,8 +1,8 @@
-#include "../../headers/UI/Canvas.h"
-#include "../../headers/UI/Textbox.h"
-#include "../../headers/Components/Transform.h"
-#include "../../headers/Components/SpriteRenderer.h"
-#include "../../headers/LifeCycleManager.h"
+#include "UI/Canvas.h"
+#include "UI/Textbox.h"
+#include "Components/Transform.h"
+#include "Components/SpriteRenderer.h"
+#include "LifeCycleManager.h"
 
 SFENG::UI::Canvas::Canvas(const std::string& name, LifeCycleManager& LCM)
 	: m_LCM(LCM)

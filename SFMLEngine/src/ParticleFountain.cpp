@@ -1,4 +1,4 @@
-#include "../headers/ParticleFountain.h"
+#include "ParticleFountain.h"
 
 SFENG::ParticleFountain::ParticleFountain(sf::Shape* shapeType, const Vec2f& position, const Vec2f& direction, const uint32_t& maxParticles)
 	: ParticleSystem(shapeType, position, direction, maxParticles)

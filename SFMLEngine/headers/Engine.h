@@ -7,6 +7,8 @@
 #include <vector>
 #include <map>
 #include "box2d/box2d.h"
+#include "imgui.h"
+#include "imgui-SFML.h"
 
 namespace SFENG {
 	class Engine
@@ -55,7 +57,7 @@ namespace SFENG {
 	protected:
 		static b2World* m_PhysicsWorld;
 	};
-
+	
 	template<class T, class ...Args>
 	inline void Engine::PushScene(Args && ...args)
 	{

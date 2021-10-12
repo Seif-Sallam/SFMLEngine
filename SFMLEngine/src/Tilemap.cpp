@@ -1,5 +1,5 @@
-#include "../headers/Tilemap.h"
-#include "../headers/Components/SpriteRenderer.h"
+#include "Tilemap.h"
+#include "Components/SpriteRenderer.h"
 int32_t SFENG::Tilemap::s_TileNum = 0;
 
 SFENG::Tilemap::Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& tileSize, const std::string& spriteSheet, LifeCycleManager* LCM)
@@ -8,7 +8,8 @@ SFENG::Tilemap::Tilemap(const Vec2i& size, const Vec2f& startPos, const Vec2f& t
 	, m_TileSize(tileSize)
 	, m_LCM(LCM)
 {
-	for (int32_t i = 0; i < m_Size.x * m_Size.y; i++) {
+	for (int32_t i = 0; i < m_Size.x * m_Size.y; i++) 
+	{
 		Entity* en = m_LCM->CreateEntity("tile" + std::to_string(s_TileNum++));
 		Tile* tile = new Tile;
 		tile->thisEn = en;

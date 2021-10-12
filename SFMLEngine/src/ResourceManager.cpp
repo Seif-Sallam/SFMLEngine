@@ -1,4 +1,4 @@
-#include "../headers/ResourceManager.h"
+#include "ResourceManager.h"
 SFENG::ResourceManager SFENG::ResourceManager::m_Instance;
 
 SFENG::ResourceManager& SFENG::ResourceManager::Get()

@@ -1,5 +1,5 @@
-#include "../headers/FPSCounter.h"
-#include "../headers/ResourceManager.h"
+#include "FPSCounter.h"
+#include "ResourceManager.h"
 SFENG::FPSCounter::FPSCounter(sf::RenderWindow* window)
 	: m_Window(window), m_FPS(60.f)
 {

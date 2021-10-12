@@ -1,7 +1,7 @@
 #include "../../headers/UI/Textbox.h"
-#include "../../headers/UI/Canvas.h"
-#include "../../headers/Entity.h"
-#include "../../headers/ResourceManager.h"
+#include "UI/Canvas.h"
+#include "Entity.h"
+#include "ResourceManager.h"
 
 
 SFENG::UI::Textbox::Textbox(Entity* entity, Canvas* parentCanvas)

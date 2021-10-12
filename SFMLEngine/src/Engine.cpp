@@ -1,4 +1,4 @@
-#include "../headers/Engine.h"
+#include "Engine.h"
 sf::RenderWindow* SFENG::Engine::m_Window = nullptr;
 b2World* SFENG::Engine::m_PhysicsWorld = nullptr;
 SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
@@ -10,18 +10,21 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string& title)
 	, m_Gravity(Vec2f(0.0f, 9.81f))
 {
 	m_Window = new sf::RenderWindow(sf::VideoMode(resolution.x, resolution.y), title);
+	
 	m_Window->setVerticalSyncEnabled(true);
-	m_FPSCounter = new FPSCounter(m_Window);
 	m_Window->setPosition(Vec2i(m_Window->getPosition().x, 0));
+	m_FPSCounter = new FPSCounter(m_Window);
 	engineView = m_Window->getView();
 	m_PhysicsWorld = new b2World(m_Gravity);
+
+	ImGui::SFML::Init(*m_Window, true);
 }
 
 void SFENG::Engine::Run()
 {
 	sf::Clock timer;
-
 	sf::Time lastTime = sf::Time::Zero;
+	ImGui::NewFrame();
 	while (m_Window->isOpen() && !m_States.empty())
 	{
 		Scene& thisScene = GetCurrentScene();
@@ -30,21 +33,42 @@ void SFENG::Engine::Run()
 		lastTime = time;
 		HandleScenes();
 		HandleEvent();
-
+		
 		if (m_InFocus)
 		{
 			m_FPSCounter->Update();
+			/*ImGui::SFML::Update(*this->m_Window, elapsed);
+			ImGui::Begin("Hello, World");
+			
+			
+			ImGui::Button("A Button over here");
+			
+			ImGui::End();
+			ImGui::Begin("Hello, World TWO");
+
+
+			ImGui::Button("A Button over there");
+			
+
+			ImGui::End();*/
+
 			thisScene.Update(elapsed);
+			
 			m_Window->setView(engineView);
+			
 			Draw();
+			
 			m_PhysicsWorld->Step(m_TimeStep, 6, 2);
 			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
 			{
 				thisScene.FixedUpdate(elapsed);
 				m_PhysicsClock.restart();
 			}
+			
+			
 			thisScene.Refresh();
 		}
+		ImGui::EndFrame();
 		TryPop();
 	}
 }
@@ -56,6 +80,7 @@ void SFENG::Engine::HandleEvent()
 	sf::Event event;
 
 	while (m_Window->pollEvent(event)) {
+		ImGui::SFML::ProcessEvent(event);
 		if (event.type == sf::Event::Closed)
 			ExitGame();
 		if (event.type == sf::Event::Resized)
@@ -74,6 +99,8 @@ void SFENG::Engine::HandleEvent()
 
 SFENG::Engine::~Engine()
 {
+	m_Window->close();
+	ImGui::SFML::Shutdown();
 	delete m_FPSCounter;
 	delete m_Window;
 }
@@ -147,6 +174,7 @@ void SFENG::Engine::Draw()
 	m_Window->clear(sf::Color(192, 168, 138));
 	GetCurrentScene().Draw(*m_Window);
 	m_FPSCounter->Draw();
+	ImGui::SFML::Render(*m_Window);
 	m_Window->display();
 }
 
