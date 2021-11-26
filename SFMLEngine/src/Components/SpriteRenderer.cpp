@@ -45,6 +45,7 @@ void SFENG::SpriteRenderer::Update(const sf::Time& elapsedTime)
 {
 	m_Sprite.setPosition(m_Transform->position);
 	m_Sprite.setRotation(m_Transform->angle);
+	//m_Sprite.setScale(m_Transform->size);
 	return Component::Update(elapsedTime);
 }
 

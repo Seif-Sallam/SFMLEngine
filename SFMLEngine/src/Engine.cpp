@@ -37,7 +37,7 @@ void SFENG::Engine::Run()
 		if (m_InFocus)
 		{
 			m_FPSCounter->Update();
-			/*ImGui::SFML::Update(*this->m_Window, elapsed);
+			ImGui::SFML::Update(*this->m_Window, elapsed);
 			ImGui::Begin("Hello, World");
 			
 			
@@ -50,12 +50,12 @@ void SFENG::Engine::Run()
 			ImGui::Button("A Button over there");
 			
 
-			ImGui::End();*/
+			ImGui::End();
 
 			thisScene.Update(elapsed);
 			
 			m_Window->setView(engineView);
-			
+
 			Draw();
 			
 			m_PhysicsWorld->Step(m_TimeStep, 6, 2);

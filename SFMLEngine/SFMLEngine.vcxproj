@@ -180,6 +180,7 @@
     <ClCompile Include="src\Components\Transform.cpp" />
     <ClCompile Include="src\UI\Button.cpp" />
     <ClCompile Include="src\UI\Canvas.cpp" />
+    <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\UI\Textbox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="headers\Entity.h" />
     <ClInclude Include="headers\Engine.h" />
     <ClInclude Include="headers\Gui\GUI.h" />
+    <ClInclude Include="headers\Gui\GUIElement.h" />
     <ClInclude Include="headers\LifeCycleManager.h" />
     <ClInclude Include="headers\FPSCounter.h" />
     <ClInclude Include="headers\Keyboard.h" />
