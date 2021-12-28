@@ -1,4 +1,4 @@
-#include "..\headers\CustomGame.h"
+#include "../headers/CustomGame.h"
 
 CustomGame::CustomGame()
 	: SFENG::Engine()

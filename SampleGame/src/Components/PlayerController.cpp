@@ -1,4 +1,4 @@
-#include "Components\PlayerController.h"
+#include "Components/PlayerController.h"
 
 PlayerController::PlayerController()
 	: m_Controller(nullptr)
@@ -14,9 +14,10 @@ bool PlayerController::Init()
 	return SFENG::Component::Init();
 }
 
-void PlayerController::Update(const sf::Time& elapsed)
+void PlayerController::Update(const sf::Time &elapsed)
 {
-	if (m_Controller) {
+	if (m_Controller)
+	{
 		if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Left))
 		{
 			this->m_Controller->Move(Vec2f(-speed * elapsed.asSeconds(), 0));
@@ -34,14 +35,13 @@ void PlayerController::Update(const sf::Time& elapsed)
 			this->m_Controller->Move(Vec2f(0, speed * elapsed.asSeconds()));
 		}
 	}
-
 }
 
-void PlayerController::FixedUpdate(const sf::Time& elapsed)
+void PlayerController::FixedUpdate(const sf::Time &elapsed)
 {
 }
 
-void PlayerController::SetController(SFENG::Controller* c)
+void PlayerController::SetController(SFENG::Controller *c)
 {
 	m_Controller = c;
 }

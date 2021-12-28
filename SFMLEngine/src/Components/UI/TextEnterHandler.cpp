@@ -7,9 +7,9 @@ SFENG::UI::TextEnterHandler::TextEnterHandler()
 {
 }
 
-void SFENG::UI::TextEnterHandler::SetFont(const std::string& fontName)
+void SFENG::UI::TextEnterHandler::SetFont(const std::string &fontName)
 {
-	sf::Font& font = SFENG::ResourceManager::GetFont(fontName);
+	sf::Font &font = SFENG::ResourceManager::GetFont(fontName);
 	text.setFont(font);
 }
 
@@ -28,9 +28,9 @@ bool SFENG::UI::TextEnterHandler::Init()
 	return Component::Init();
 }
 
-inline void SFENG::UI::TextEnterHandler::HandleEvents(sf::Event& event)
+inline void SFENG::UI::TextEnterHandler::HandleEvents(sf::Event &event)
 {
-	if (m_IsActive) 
+	if (m_IsActive)
 	{
 		if (event.type == sf::Event::TextEntered)
 		{
@@ -45,17 +45,18 @@ inline void SFENG::UI::TextEnterHandler::HandleEvents(sf::Event& event)
 	return Component::HandleEvents(event);
 }
 
-void SFENG::UI::TextEnterHandler::Update(const sf::Time& elapsedTime)
+void SFENG::UI::TextEnterHandler::Update(const sf::Time &elapsedTime)
 {
 	if (m_Transform->position != Vec2f(m_Shape.getPosition()))
 		CenterText();
-
 }
 
 void SFENG::UI::TextEnterHandler::AddText(uint32_t value)
 {
-	if (value == '\b') {
-		if (m_ActualText.size() > 0) {
+	if (value == '\b')
+	{
+		if (m_ActualText.size() > 0)
+		{
 			m_ActualText.pop_back();
 		}
 	}
