@@ -22,7 +22,7 @@ VPATH_SRC:=$(sort $(dir $(VPATH_SRC)))
 all: | prep
 	@printf '$(red)Compiling BOX2D to a static library\n$(NC)'
 	@$(MAKE) $(BUILD_DIR)$(OUPTUT)
-	@printf '$(green)Successfully Created $(OUTPUT)\n$(NC)'
+	@printf '$(green)Successfully Created $(OUTPUT)\n\n$(NC)'
 
 $(BUILD_DIR)$(OUPTUT): $(OBJECTS)
 	@ar rvs ./BuildLib/$(OUTPUT) $(OBJECTS)

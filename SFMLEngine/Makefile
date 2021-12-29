@@ -42,7 +42,7 @@ vpath %.cpp $(VPATH_SRC)
 all: | prep
 	@printf '$(red)Compiling and Linking the created objects\n$(NC)'
 	@$(MAKE) -s $(OUTPUT_DIR)$(OUTPUT)
-	@printf '$(green)Created static library $(OUTPUT_DIR)$(OUTPUT)\n$(NC)'
+	@printf '$(green)Created static library $(OUTPUT_DIR)$(OUTPUT)\n\n$(NC)'
 
 $(OUTPUT_DIR)$(OUTPUT): $(OBJECTS)
 	@ar rvs $(OUTPUT_DIR)$(OUTPUT) $(OBJECTS)

@@ -54,7 +54,7 @@ vpath %.cpp $(VPATH_SRC)
 all: | prep
 	@printf '$(red)Compiling and Linking the created objects\n$(NC)'
 	@$(MAKE) -s $(OUTPUT_DIR)$(OUTPUT)
-	@printf '$(green)Created Binary file $(OUTPUT_DIR)$(OUTPUT)\n$(NC)'
+	@printf '$(green)Created Binary file $(OUTPUT_DIR)$(OUTPUT)\n\n$(NC)'
 
 $(OUTPUT_DIR)$(OUTPUT): $(OBJECTS)
 	@$(CC) $(CCFLAGS) $(OBJECTS) -o $(OUTPUT_DIR)$(OUTPUT) $(LINK_DIRS) $(LIBS)

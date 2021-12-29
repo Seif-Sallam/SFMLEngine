@@ -1,34 +1,17 @@
-# # The base make file that compiles and runs the top project
-# include SFMLEngine/Makefile
-# include Sandbox/Makefile
-# include SampleGame/Makefile
+# The base make file that compiles and runs the top project
+DEFAULT_PROJECT_DIR:= ./Sandbox/
+SFMLENGINE_DIR:= ./SFMLEngine/
 
-# CC=g++
-# SRC_INC_DIR= ./headers/
-# SRC_DIR= ./src/
-# SFML_INC_DIR= ./Thirdparty/SFML/include/
-# LIB_DIR= ./Thirdparty/SFML/lib/
-# IMGUI_SRC_DIR= ./Thirdparty/imgui/
-# LIBS= -lGL -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-# OBJECTS_DIR = ./Objs/
-# OBJECTS = $(subst $(SRC_DIR), $(OBJECTS_DIR), $(patsubst %.cpp, %.o, $(wildcard $(SRC_DIR)*.cpp)) )
-# INC= -I$(SFML_INC_DIR)
-# CCFLAGS= $(INC)
-# vpath %.h $(SRC_INC_DIR)
+bold := $(shell tput bold)
+NC := $(shell tput sgr0)
+red := $(shell tput setaf 1)
+green := $(shell tput setaf 2)
+yellow := $(shell tput setaf 3)
 
-
-# all: $(OBJECTS)
-# 	$(CC) $(OBJECTS) -o sfml -L$(LIB_DIR) $(LIBS)
-
-# $(OBJECTS): $(OBJECTS_DIR)%.o : $(SRC_DIR)%.cpp	
-# 	$(CC) -c $(CCFLAGS) $< -o $@
-
-# .PHONY: clean
-
-# clean:
-# 	$(RM) $(OBJECTS)
-
-# print:
-# 	for obj in $(OBJECTS); do\
-# 		echo $$obj;\
-# 	done
+all:
+	@printf '$(yellow)Building SFMLEngine $(NC)\n'
+	@cd $(SFMLENGINE_DIR) && $(MAKE) -s
+	@printf '$(yellow)Successfully built SFMLEngine $(NC)\n'
+	@printf '$(yellow)Building Default Project at $(DEFAULT_PROJECT_DIR) $(NC)\n'
+	@cd $(DEFAULT_PROJECT_DIR) && $(MAKE) -s
+	@printf '$(yellow)Successfully built Default project$(NC)\n\n'
