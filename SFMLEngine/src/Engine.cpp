@@ -143,6 +143,7 @@ const Vec2f &SFENG::Engine::GetGravity()
 void SFENG::Engine::PushScene(std::unique_ptr<Scene> state)
 {
 	m_States.push_back(std::move(state));
+	LCM::s_OnGoingLCM = &m_States.back()->m_LCManager;
 }
 
 void SFENG::Engine::TryPop()
@@ -163,7 +164,11 @@ void SFENG::Engine::TryPop()
 			return;
 		}
 		else
+		{
 			m_States.pop_back();
+			if (m_States.size() > 0)
+				LCM::s_OnGoingLCM = &m_States.back()->m_LCManager;
+		}
 	}
 }
 

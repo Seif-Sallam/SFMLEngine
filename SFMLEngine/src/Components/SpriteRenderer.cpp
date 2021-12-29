@@ -65,3 +65,13 @@ void SFENG::SpriteRenderer::Print()
 	std::cout << "Sprite Renderer\n";
 	std::cout << "TextureName: " << m_TextureName;
 }
+
+void SFENG::SpriteRenderer::SetScale(float x, float y)
+{
+	m_Sprite.setScale(x, y);
+}
+
+void SFENG::SpriteRenderer::SetScale(const Vec2f &scale)
+{
+	m_Sprite.setScale(scale.x, scale.y);
+}

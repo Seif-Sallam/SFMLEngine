@@ -6,8 +6,11 @@ SpaceShip::SpaceShip(SFENG::Entity *createdEntity)
     SFENG::Controller &controller = entity->AddComponent<SFENG::Controller>();
     SFENG::Transform &transform = entity->GetComponent<SFENG::Transform>();
     SFENG::SpriteRenderer &spriteRenderer = entity->AddComponent<SFENG::SpriteRenderer>();
+    transform.position = Vec2f(300.0f, 300.0f);
+    transform.size = Vec2f(40.0f, 40.0f);
     SFENG::BoxCollider &boxCollider = entity->AddComponent<SFENG::BoxCollider>();
     SFENG::ResourceManager::AddTexture("rsc/textures/spaceship.png", "SpaceShip");
+    SFENG::ResourceManager::AddTexture("rsc/textures/fire_blue.png", "Bullet");
     spriteRenderer.AttachTexture("SpaceShip");
     m_Animator = &entity->AddComponent<SFENG::Animator>();
     m_Animator->AttachSpriteRenderer(&spriteRenderer);

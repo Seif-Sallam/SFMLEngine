@@ -10,31 +10,34 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-namespace SFENG {
+namespace SFENG
+{
 	class Engine
 	{
 	public:
 		void Run();
-		inline static sf::RenderWindow& GetWindow() { return *m_Window; }
+		inline static sf::RenderWindow &GetWindow() { return *m_Window; }
 		void ExitGame();
-		void SetGravity(const Vec2f& gravity);
-		static b2World& GetPhysicsWorld();
-		const Vec2f& GetGravity();
+		void SetGravity(const Vec2f &gravity);
+		static b2World &GetPhysicsWorld();
+		const Vec2f &GetGravity();
+
 	protected:
-		Engine(Vec2u resolution = Vec2u(800, 600), const std::string& title = "Title");
+		Engine(Vec2u resolution = Vec2u(800, 600), const std::string &title = "Title");
 		~Engine();
 		void PushStartingScene(std::unique_ptr<Scene> state);
 		void ShouldChangeScene(std::unique_ptr<Scene> change);
 		void PopState();
 		virtual void HandleScenes() {}
-		template<class T, class... Args>
-		void PushScene(Args&&... args);
+		template <class T, class... Args>
+		void PushScene(Args &&...args);
 		void PushScene(std::unique_ptr<Scene> state);
+
 	private:
 		void HandleEvent();
 		void TryPop();
 		void Draw();
-		Scene& GetCurrentScene();
+		Scene &GetCurrentScene();
 
 	public:
 		sf::View engineView;
@@ -43,8 +46,8 @@ namespace SFENG {
 		std::vector<std::unique_ptr<Scene>> m_States;
 		std::unique_ptr<Scene> m_Change;
 
-		static sf::RenderWindow* m_Window;
-		FPSCounter* m_FPSCounter;
+		static sf::RenderWindow *m_Window;
+		FPSCounter *m_FPSCounter;
 
 		sf::Clock m_PhysicsClock;
 		const float m_TimeStep;
@@ -54,12 +57,13 @@ namespace SFENG {
 		bool m_InFocus;
 
 		Vec2f m_Gravity;
+
 	protected:
-		static b2World* m_PhysicsWorld;
+		static b2World *m_PhysicsWorld;
 	};
-	
-	template<class T, class ...Args>
-	inline void Engine::PushScene(Args && ...args)
+
+	template <class T, class... Args>
+	inline void Engine::PushScene(Args &&...args)
 	{
 		PushScene(std::make_unique<T>(std::forward<Args>(args)...));
 	}

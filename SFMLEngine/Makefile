@@ -55,6 +55,7 @@ prep:
 	@cd ./../Thirdparty/Box2D/ && $(MAKE) -s all
 	@cd ./../../SFMLEngine
 
+# @$(RM) $(OUTPUT_DIR)$(OUTPUT)
 
 
 $(OBJECTS): $(OBJECTS_DIR)%.o : $(SRC_DIR)%.cpp	

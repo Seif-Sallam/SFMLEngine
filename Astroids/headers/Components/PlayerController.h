@@ -1,6 +1,7 @@
 #pragma once
 #include "PCH.h"
 
+class Bullet;
 class PlayerController : public SFENG::Component
 {
 public:
@@ -23,6 +24,9 @@ private:
 	};
 	void HandleAnimations(const sf::Time &elapsed);
 	void HandleControls(const sf::Time &elapsed);
+	void AddBullet();
+	void HandleBullets();
+
 	Direction m_CurrentDirection;
 	bool m_Thrusting;
 	SFENG::Transform *m_Transform;
@@ -34,4 +38,12 @@ private:
 
 	Vec2f m_Velocity;
 	const float m_MaxSpeed;
+
+	int32_t m_BulletsShotCount;
+	int32_t m_AliveBullets;
+	sf::Time m_TotalElapsedTime;
+	float m_BulletFireRate;
+	float m_BulletNextShot;
+
+	std::vector<std::unique_ptr<Bullet>> m_Bullets;
 };

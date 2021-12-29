@@ -1,5 +1,7 @@
 #include "LifeCycleManager.h"
 
+SFENG::LifeCycleManager *SFENG::LCM::s_OnGoingLCM = nullptr;
+
 SFENG::LifeCycleManager::LifeCycleManager(const int32_t &initialSize)
 {
 	m_Entities.reserve(initialSize);
@@ -53,19 +55,22 @@ SFENG::Entity *SFENG::LifeCycleManager::GetEntity(const std::string &name) const
 void SFENG::LifeCycleManager::FixedUpdate(const sf::Time &time)
 {
 	for (auto &en : m_Entities)
-		en->FixedUpdate(time);
+		if (en->IsActive())
+			en->FixedUpdate(time);
 }
 
 void SFENG::LifeCycleManager::HandleEvents(sf::Event &event)
 {
 	for (auto &en : m_Entities)
-		en->HandleEvents(event);
+		if (en->IsActive())
+			en->HandleEvents(event);
 }
 
 void SFENG::LifeCycleManager::Update(const sf::Time &time)
 {
 	for (auto &en : m_Entities)
-		en->Update(time);
+		if (en->IsActive())
+			en->Update(time);
 }
 
 void SFENG::LifeCycleManager::Draw(sf::RenderWindow &window)
@@ -157,4 +162,14 @@ std::string SFENG::LifeCycleManager::AddEntityToMap(SFENG::Entity *&en, const st
 SFENG::LifeCycleManager::~LifeCycleManager()
 {
 	CleanUp();
+}
+
+SFENG::Entity *SFENG::LCM::InstantiateObject(const std::string &name)
+{
+	if (s_OnGoingLCM)
+	{
+		return LCM::s_OnGoingLCM->CreateEntity(name);
+	}
+	else
+		return nullptr;
 }
