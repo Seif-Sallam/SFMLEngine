@@ -4,14 +4,7 @@
 #include "Engine.h"
 
 SFENG::BoxCollider::BoxCollider()
-	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld())
-	, m_Body(nullptr)
-	, m_Fixture(nullptr)
-	, m_Transform(nullptr)
-	, m_CurrentSize(Vec2f(0.0f, 0.0f))
-	, m_Friction(0.3f)
-	, m_Density(1.0f)
-	, m_IsSensor(false)
+	: m_PhysWorld(&SFENG::Engine::GetPhysicsWorld()), m_Body(nullptr), m_Fixture(nullptr), m_Transform(nullptr), m_CurrentSize(Vec2f(0.0f, 0.0f)), m_Friction(0.3f), m_Density(1.0f), m_IsSensor(false)
 {
 }
 
@@ -33,12 +26,12 @@ void SFENG::BoxCollider::SetDensity(float d)
 	m_Density = d;
 }
 
-b2Body* SFENG::BoxCollider::GetBody()
+b2Body *SFENG::BoxCollider::GetBody()
 {
 	return m_Body;
 }
 
-b2Shape* SFENG::BoxCollider::GetShape()
+b2Shape *SFENG::BoxCollider::GetShape()
 {
 	return m_Fixture->GetShape();
 }
@@ -51,9 +44,10 @@ void SFENG::BoxCollider::SetSensor(bool s)
 
 bool SFENG::BoxCollider::Init()
 {
-	m_Transform = &this->entity->GetCopmonent<Transform>();
-	if (this->entity->HasComponent<RigidBody2D>()) {
-		RigidBody2D& rb = entity->GetCopmonent<RigidBody2D>();
+	m_Transform = &this->entity->GetComponent<Transform>();
+	if (this->entity->HasComponent<RigidBody2D>())
+	{
+		RigidBody2D &rb = entity->GetComponent<RigidBody2D>();
 		m_Body = rb.m_Body;
 	}
 	else
@@ -69,12 +63,12 @@ bool SFENG::BoxCollider::Init()
 	return Component::Init();
 }
 
-void SFENG::BoxCollider::Draw(sf::RenderWindow& window)
+void SFENG::BoxCollider::Draw(sf::RenderWindow &window)
 {
 	return Component::Draw(window);
 }
 
-void SFENG::BoxCollider::Update(const sf::Time& elapsedTime)
+void SFENG::BoxCollider::Update(const sf::Time &elapsedTime)
 {
 	if (m_CurrentSize != m_Transform->size)
 	{
@@ -83,12 +77,12 @@ void SFENG::BoxCollider::Update(const sf::Time& elapsedTime)
 	return Component::Update(elapsedTime);
 }
 
-void SFENG::BoxCollider::FixedUpdate(const sf::Time& elapsedTime)
+void SFENG::BoxCollider::FixedUpdate(const sf::Time &elapsedTime)
 {
 	return Component::FixedUpdate(elapsedTime);
 }
 
-void SFENG::BoxCollider::HandleEvents(sf::Event& event)
+void SFENG::BoxCollider::HandleEvents(sf::Event &event)
 {
 	return Component::HandleEvents(event);
 }

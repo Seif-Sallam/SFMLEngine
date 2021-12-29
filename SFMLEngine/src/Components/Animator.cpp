@@ -3,16 +3,14 @@
 #include "../../headers/Entity.h"
 
 SFENG::Animator::Animator()
-	: m_ActiveAnimation("NULL")
-	, m_Reset(false)
-	, m_SpriteRenderer(nullptr)
+	: m_ActiveAnimation("NULL"), m_Reset(false), m_SpriteRenderer(nullptr), m_LastAnimation("NULL")
 {
 }
 
-SFENG::Animator::Animator(const Animator& a)
+SFENG::Animator::Animator(const Animator &a)
 {
 	m_Reset = false;
-	for (auto& anim : a.m_Animations)
+	for (auto &anim : a.m_Animations)
 	{
 		m_Animations.insert(anim);
 	}
@@ -20,24 +18,25 @@ SFENG::Animator::Animator(const Animator& a)
 	Component::Init();
 }
 
-void SFENG::Animator::AttachSpriteRenderer(SpriteRenderer* sr)
+void SFENG::Animator::AttachSpriteRenderer(SpriteRenderer *sr)
 {
 	m_SpriteRenderer = sr;
-	for (auto& anim : m_Animations)
+	for (auto &anim : m_Animations)
 		anim.second.AttachSpriteRenderer(m_SpriteRenderer);
 }
 
-SFENG::Animation* SFENG::Animator::AddAnimation(const std::string& animName)
+SFENG::Animation *SFENG::Animator::AddAnimation(const std::string &animName)
 {
-	if (m_Animations.find(animName) == m_Animations.end()) {
+	if (m_Animations.find(animName) == m_Animations.end())
+	{
 		Animation a(animName);
-		m_Animations.insert({ animName, a });
+		m_Animations.insert({animName, a});
 		m_Animations[animName].AttachSpriteRenderer(m_SpriteRenderer);
 	}
 	return &m_Animations[animName];
 }
 
-SFENG::Animation* SFENG::Animator::GetAnimation(const std::string& animName)
+SFENG::Animation *SFENG::Animator::GetAnimation(const std::string &animName)
 {
 	if (m_Animations.find(animName) != m_Animations.end())
 		return &m_Animations[animName];
@@ -45,25 +44,28 @@ SFENG::Animation* SFENG::Animator::GetAnimation(const std::string& animName)
 		return nullptr;
 }
 
-void SFENG::Animator::SetActiveAnimation(const std::string& animName)
+void SFENG::Animator::SetActiveAnimation(const std::string &animName)
 {
 	m_ActiveAnimation = animName;
-	m_Reset = true;
+	if (m_LastAnimation != m_ActiveAnimation)
+		m_Reset = true;
+	m_LastAnimation = m_ActiveAnimation;
 }
 
 bool SFENG::Animator::Init()
 {
 	if (this->entity->HasComponent<SpriteRenderer>())
-		m_SpriteRenderer = &this->entity->GetCopmonent<SpriteRenderer>();
+		m_SpriteRenderer = &this->entity->GetComponent<SpriteRenderer>();
 	else
 		m_SpriteRenderer = nullptr;
 	return Component::Init();
 }
 
-void SFENG::Animator::Update(const sf::Time& elapsedTime)
+void SFENG::Animator::Update(const sf::Time &elapsedTime)
 {
-	if (m_ActiveAnimation != "NULL") {
-		Animation& animation = m_Animations[m_ActiveAnimation];
+	if (m_ActiveAnimation != "NULL")
+	{
+		Animation &animation = m_Animations[m_ActiveAnimation];
 		if (m_Reset)
 		{
 			animation.Reset();

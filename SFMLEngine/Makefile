@@ -28,8 +28,9 @@ HEADERS_DIRS:=$(sort $(dir $(shell find $(HEADERS_DIR) -name '*.h')))
 INC= -I$(SFML_INC_DIR)
 INC+= -I$(BOX2D_INC)
 INC+= -I$(IMGUI_SRC_DIR)
+INC+= -I$(SRC_DIR)
 INC+= $(addprefix -I, $(HEADERS_DIRS))
-CCFLAGS:= $(INC) -std=c++17
+CCFLAGS= $(INC) -std=c++17
 OBJECTS:= $(patsubst %.cpp, %.o, $(subst ./src/, ./Objs/, $(SOURCES)))
 
 VPATH_SRC:=$(sort $(dir $(VPATH_SRC)))

@@ -7,12 +7,12 @@ CustomScene::BoxShape::BoxShape()
 
 bool CustomScene::BoxShape::Init()
 {
-	m_Trans = &this->entity->GetCopmonent<SFENG::Transform>();
+	m_Trans = &this->entity->GetComponent<SFENG::Transform>();
 	m_Shape.setSize(m_Trans->size);
 	m_Shape.setOrigin(m_Trans->size / 2.0f);
 	m_Shape.setPosition(m_Trans->position);
 	m_Shape.setFillColor(sf::Color::Black);
-	rb = &this->entity->GetCopmonent<SFENG::RigidBody2D>();
+	rb = &this->entity->GetComponent<SFENG::RigidBody2D>();
 	return Component::Init();
 }
 
@@ -39,12 +39,12 @@ CustomScene::CircleShape::CircleShape()
 
 bool CustomScene::CircleShape::Init()
 {
-	m_Trans = &this->entity->GetCopmonent<SFENG::Transform>();
+	m_Trans = &this->entity->GetComponent<SFENG::Transform>();
 	m_Shape.setRadius(m_Trans->size.x);
 	m_Shape.setOrigin(m_Trans->size.x, m_Trans->size.x);
 	m_Shape.setPosition(m_Trans->position);
 	m_Shape.setFillColor(sf::Color::Red);
-	rb = &this->entity->GetCopmonent<SFENG::RigidBody2D>();
+	rb = &this->entity->GetComponent<SFENG::RigidBody2D>();
 	return Component::Init();
 }
 
@@ -75,8 +75,8 @@ CustomScene::CustomScene(SFENG::Engine &engine)
 	{
 		std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
 		SFENG::UI::Textbox *txtBox = dynamic_cast<SFENG::UI::Textbox *>(canvas.GetElement(textBoxName));
-		txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
-		SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+		txtBox->entity->GetComponent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
+		SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetComponent<SFENG::UI::TextEnterHandler>();
 		txtHandler->SetBoxColor(sf::Color::Red);
 		txtHandler->SetCharacterSize(25);
 		txtHandler->SetMaxNumOfChars(60);
@@ -85,9 +85,9 @@ CustomScene::CustomScene(SFENG::Engine &engine)
 	{
 		std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
 		SFENG::UI::Textbox *txtBox = dynamic_cast<SFENG::UI::Textbox *>(canvas.GetElement(textBoxName));
-		txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 100.0f);
-		txtBox->entity->GetCopmonent<SFENG::Transform>().size = Vec2f(150.0f, 25.0f);
-		SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+		txtBox->entity->GetComponent<SFENG::Transform>().position = Vec2f(300.0f, 100.0f);
+		txtBox->entity->GetComponent<SFENG::Transform>().size = Vec2f(150.0f, 25.0f);
+		SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetComponent<SFENG::UI::TextEnterHandler>();
 		txtHandler->SetBoxColor(sf::Color::Blue);
 		txtHandler->SetCharacterSize(16);
 		txtHandler->SetMaxNumOfChars(60);
@@ -114,7 +114,7 @@ void CustomScene::AddSelectBox()
 	SFENG::Highlightable *boxShape = &selectBox->AddComponent<SFENG::Highlightable>();
 	boxShape->ListenToKeys(true);
 	OnClick *clk = &selectBox->AddComponent<OnClick>();
-	SFENG::Transform &trans = selectBox->GetCopmonent<SFENG::Transform>();
+	SFENG::Transform &trans = selectBox->GetComponent<SFENG::Transform>();
 	trans.position = Vec2f(350.0f, 200.0f);
 	trans.size = Vec2f(150.0f, 150.0f);
 }
@@ -123,7 +123,7 @@ void CustomScene::AddSprite()
 {
 	SFENG::ResourceManager::AddTexture("SampleSprite.png", "Sample");
 	SFENG::Entity *en = this->m_LCManager.CreateEntity("Entity");
-	SFENG::Transform &transform = en->GetCopmonent<SFENG::Transform>();
+	SFENG::Transform &transform = en->GetComponent<SFENG::Transform>();
 	transform.position = {200.0f, 200.0f};
 	transform.size = {32.0f, 32.0f};
 	SFENG::SpriteRenderer &sr = en->AddComponent<SFENG::SpriteRenderer>();
@@ -152,8 +152,8 @@ void CustomScene::AddCanvas()
 	SFENG::UI::Canvas canvas("Canvas1", m_LCManager);
 	std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
 	SFENG::UI::Textbox *txtBox = dynamic_cast<SFENG::UI::Textbox *>(canvas.GetElement(textBoxName));
-	txtBox->entity->GetCopmonent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
-	SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetCopmonent<SFENG::UI::TextEnterHandler>();
+	txtBox->entity->GetComponent<SFENG::Transform>().position = Vec2f(300.0f, 400.0f);
+	SFENG::UI::TextEnterHandler *txtHandler = &txtBox->entity->GetComponent<SFENG::UI::TextEnterHandler>();
 	txtHandler->SetBoxColor(sf::Color::Red);
 	txtHandler->SetCharacterSize(25);
 	txtHandler->SetMaxNumOfChars(60);
@@ -164,7 +164,7 @@ void CustomScene::AddBox(const std::string &name, const Vec2f &position, const V
 {
 	SFENG::Entity *newEntity = m_LCManager.CreateEntity(name);
 	m_Entities[name] = newEntity;
-	SFENG::Transform &trans = newEntity->GetCopmonent<SFENG::Transform>();
+	SFENG::Transform &trans = newEntity->GetComponent<SFENG::Transform>();
 	trans.size = size;
 	trans.position = position;
 	SFENG::RigidBody2D &rb = newEntity->AddComponent<SFENG::RigidBody2D>();
@@ -177,7 +177,7 @@ void CustomScene::AddCircle(const std::string &name, const Vec2f &position, floa
 {
 	SFENG::Entity *newEntity = m_LCManager.CreateEntity(name);
 	m_Entities[name] = newEntity;
-	SFENG::Transform &trans = newEntity->GetCopmonent<SFENG::Transform>();
+	SFENG::Transform &trans = newEntity->GetComponent<SFENG::Transform>();
 	trans.size = {radius, radius};
 	trans.position = position;
 	SFENG::RigidBody2D &rb = newEntity->AddComponent<SFENG::RigidBody2D>();

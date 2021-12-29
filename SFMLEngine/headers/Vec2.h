@@ -62,6 +62,11 @@ public:
 		return *this;
 	}
 
+	inline double Length()
+	{
+		return sqrt(pow(x, 2) + pow(y, 2));
+	}
+
 	template <class U = T>
 	inline sf::Vector2<U> sfVec()
 	{

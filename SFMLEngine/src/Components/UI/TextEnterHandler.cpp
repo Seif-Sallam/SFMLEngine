@@ -15,7 +15,7 @@ void SFENG::UI::TextEnterHandler::SetFont(const std::string &fontName)
 
 bool SFENG::UI::TextEnterHandler::Init()
 {
-	m_Transform = &this->entity->GetCopmonent<Transform>();
+	m_Transform = &this->entity->GetComponent<Transform>();
 	m_MinSize = m_Transform->size;
 	m_Shape.setSize(m_MinSize);
 	m_Shape.setOrigin(m_MinSize / 2.0f);

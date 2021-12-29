@@ -9,7 +9,7 @@ SFENG::Highlightable::Highlightable()
 
 inline bool SFENG::Highlightable::Init()
 {
-	m_Trans = &entity->GetCopmonent<Transform>();
+	m_Trans = &entity->GetComponent<Transform>();
 	return SFENG::Component::Init();
 }
 
@@ -26,7 +26,7 @@ void SFENG::Highlightable::ListenToKeys(bool value)
 
 sf::Mouse::Button SFENG::Highlightable::KeyPressed()
 {
-	if (m_ListenToKeys) 
+	if (m_ListenToKeys)
 	{
 		for (int i = 0; i < SFENG::Mouse::m_Buttons.size(); i++)
 		{

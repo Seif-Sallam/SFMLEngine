@@ -36,16 +36,16 @@ void SFENG::Engine::Run()
 		{
 			ImGui::SFML::Update(*this->m_Window, elapsed);
 			m_FPSCounter->Update();
-			ImGui::Begin("Hello, World");
+			// ImGui::Begin("Hello, World");
 
-			ImGui::Button("A Button over here");
+			// ImGui::Button("A Button over here");
 
-			ImGui::End();
-			ImGui::Begin("Hello, World TWO");
+			// ImGui::End();
+			// ImGui::Begin("Hello, World TWO");
 
-			ImGui::Button("A Button over there");
+			// ImGui::Button("A Button over there");
 
-			ImGui::End();
+			// ImGui::End();
 
 			thisScene.Update(elapsed);
 
@@ -79,7 +79,10 @@ void SFENG::Engine::HandleEvent()
 		if (event.type == sf::Event::Closed)
 			ExitGame();
 		if (event.type == sf::Event::Resized)
+		{
 			engineView.setSize(sf::Vector2f(m_Window->getSize()));
+			engineView.setCenter(engineView.getSize() / 2.f);
+		}
 		if (event.type == sf::Event::GainedFocus)
 			m_InFocus = true;
 		if (event.type == sf::Event::LostFocus)

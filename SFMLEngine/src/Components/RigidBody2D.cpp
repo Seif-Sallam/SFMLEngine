@@ -75,14 +75,14 @@ bool SFENG::RigidBody2D::Init()
 {
 	if (m_PhysWorld != nullptr)
 	{
-		m_Transform = &this->entity->GetCopmonent<Transform>();
+		m_Transform = &this->entity->GetComponent<Transform>();
 		if (this->entity->HasComponent<CircleCollider>())
 		{
-			m_Body = this->entity->GetCopmonent<CircleCollider>().m_Body;
+			m_Body = this->entity->GetComponent<CircleCollider>().m_Body;
 		}
 		else if (this->entity->HasComponent<BoxCollider>())
 		{
-			m_Body = this->entity->GetCopmonent<BoxCollider>().m_Body;
+			m_Body = this->entity->GetComponent<BoxCollider>().m_Body;
 		}
 		else
 		{
