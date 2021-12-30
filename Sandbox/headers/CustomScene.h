@@ -79,6 +79,17 @@ public:
 		SFENG::Transform *m_Transform;
 	};
 
+	class ViewModifier : public SFENG::Component
+	{
+	public:
+		ViewModifier(sf::View &view);
+		void Update(const sf::Time &elapsed) override;
+		void Draw(sf::RenderWindow &window) override;
+
+	private:
+		sf::View &m_View;
+	};
+
 	CustomScene(SFENG::Engine &engine);
 
 private:

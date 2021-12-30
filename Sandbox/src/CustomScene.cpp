@@ -1,5 +1,33 @@
 #include "../headers/CustomScene.h"
 
+CustomScene::ViewModifier::ViewModifier(sf::View &view)
+	: m_View(view)
+{
+}
+void CustomScene::ViewModifier::Update(const sf::Time &elapsed)
+{
+	if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Left))
+	{
+		m_View.move(-250.f * elapsed.asSeconds(), 0.f);
+	}
+	if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Right))
+	{
+		m_View.move(250.f * elapsed.asSeconds(), 0.f);
+	}
+	if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Up))
+	{
+		m_View.move(0.f, -250.f * elapsed.asSeconds());
+	}
+	if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Down))
+	{
+		m_View.move(0.f, 250.f * elapsed.asSeconds());
+	}
+}
+void CustomScene::ViewModifier::Draw(sf::RenderWindow &window)
+{
+	window.setView(m_View);
+}
+
 CustomScene::BoxShape::BoxShape()
 	: SFENG::Component(), m_Trans(nullptr), rb(nullptr)
 {
@@ -12,7 +40,7 @@ bool CustomScene::BoxShape::Init()
 	m_Shape.setOrigin(m_Trans->size / 2.0f);
 	m_Shape.setPosition(m_Trans->position);
 	m_Shape.setFillColor(sf::Color::Black);
-	rb = &this->entity->GetComponent<SFENG::RigidBody2D>();
+	// rb = &this->entity->GetComponent<SFENG::RigidBody2D>();
 	return Component::Init();
 }
 
@@ -67,6 +95,7 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow &window)
 CustomScene::CustomScene(SFENG::Engine &engine)
 	: SFENG::Scene(engine)
 {
+	m_LCManager.CreateEntity("ViewModifier")->AddComponent<ViewModifier>(this->m_Engine.engineView);
 	Main();
 	AddSprite();
 	//AddCanvas();
