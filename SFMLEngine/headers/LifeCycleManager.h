@@ -81,11 +81,11 @@ namespace SFENG
 		void GetDeadEntities();
 		void CleanUpUnused();
 		void CleanUp();
-		void RmEntity(std::vector<Entity *>::iterator &it);
+		void RmEntity(std::list<Entity *>::iterator &it);
 
 		std::string AddEntityToMap(SFENG::Entity *&en, const std::string &name);
 
-		std::vector<Entity *> m_Entities;
+		std::list<Entity *> m_Entities;
 		std::list<Entity *> m_UnusedEntities;
 
 		std::map<std::string, Entity *> m_EntitiesMap;

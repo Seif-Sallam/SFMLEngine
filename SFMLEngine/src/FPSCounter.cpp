@@ -1,13 +1,14 @@
 #include "FPSCounter.h"
 #include "ResourceManager.h"
-SFENG::FPSCounter::FPSCounter(sf::RenderWindow* window)
+SFENG::FPSCounter::FPSCounter(sf::RenderWindow *window)
 	: m_Window(window), m_FPS(60.f)
 {
-	if (window == nullptr) {
+	if (window == nullptr)
+	{
 		std::cerr << "Window is a nullptr in FPSCounter\n";
 		exit(0);
 	}
-	sf::Font& font = ResourceManager::GetDefaultFont();
+	sf::Font &font = ResourceManager::GetDefaultFont();
 	m_Text.setFont(font);
 	m_Text.setCharacterSize(15);
 	m_Text.setFillColor(sf::Color::White);

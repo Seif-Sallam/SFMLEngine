@@ -4,7 +4,7 @@ SFENG::LifeCycleManager *SFENG::LCM::s_OnGoingLCM = nullptr;
 
 SFENG::LifeCycleManager::LifeCycleManager(const int32_t &initialSize)
 {
-	m_Entities.reserve(initialSize);
+	// m_Entities.reserve(initialSize);
 }
 
 SFENG::Entity *SFENG::LifeCycleManager::CloneEntity(SFENG::Entity *en)
@@ -20,7 +20,7 @@ SFENG::Entity *SFENG::LifeCycleManager::CloneEntity(SFENG::Entity *en)
 
 SFENG::LifeCycleManager::LifeCycleManager(const SFENG::LifeCycleManager &em)
 {
-	this->m_Entities.reserve(em.m_Entities.size());
+	// this->m_Entities.reserve(em.m_Entities.size());
 	auto it = em.m_Entities.begin();
 	while (it != em.m_Entities.end())
 	{
@@ -121,16 +121,16 @@ void SFENG::LifeCycleManager::CleanUpUnused()
 void SFENG::LifeCycleManager::CleanUp()
 {
 	CleanUpUnused();
-	for (int32_t i = 0; i < m_Entities.size(); i++)
+	for (auto &entity : m_Entities)
 	{
-		delete m_Entities[i];
-		m_Entities[i] = nullptr;
+		delete entity;
+		entity = nullptr;
 	}
 	m_Entities.clear();
 	m_EntitiesMap.clear();
 }
 
-void SFENG::LifeCycleManager::RmEntity(std::vector<Entity *>::iterator &it)
+void SFENG::LifeCycleManager::RmEntity(std::list<Entity *>::iterator &it)
 {
 	if (it != m_Entities.end())
 	{

@@ -2,9 +2,9 @@
 
 bold := $(shell tput bold)
 NC := $(shell tput sgr0)
-green := $(shell tput setaf 2)
 red := $(shell tput setaf 1)
-
+green := $(shell tput setaf 2)
+yellow := $(shell tput setaf 3)
 CC:=g++
 
 HEADERS_DIR:= ./headers/
@@ -30,7 +30,7 @@ INC+= -I$(BOX2D_INC)
 INC+= -I$(IMGUI_SRC_DIR)
 INC+= -I$(SRC_DIR)
 INC+= $(addprefix -I, $(HEADERS_DIRS))
-CCFLAGS= $(INC) -std=c++17
+CCFLAGS= $(INC) -std=c++17 -g
 OBJECTS:= $(patsubst %.cpp, %.o, $(subst ./src/, ./Objs/, $(SOURCES)))
 
 VPATH_SRC:=$(sort $(dir $(VPATH_SRC)))

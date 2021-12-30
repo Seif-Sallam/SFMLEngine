@@ -67,7 +67,10 @@ namespace SFENG
 		inline bool IsAlive() const { return m_Alive; }
 		inline bool IsActive() const { return m_Active; }
 		inline void Deactivate() { m_Active = false; }
-		inline void Destory() { m_Alive = false; }
+		inline void Destory()
+		{
+			m_Alive = false;
+		}
 
 		void Draw(sf::RenderWindow &window);
 		void Update(const sf::Time &time);
