@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "box2d/box2d.h"
 #include "Transform.h"
+#include <list>
 
 namespace SFENG
 {
@@ -25,6 +26,7 @@ namespace SFENG
 		void FixedUpdate(const sf::Time &elapsedTime) override;
 		void HandleEvents(sf::Event &event) override;
 		void Print() override;
+		std::list<Entity *> GetCollidingItems();
 
 	private:
 		void CreateFixture();

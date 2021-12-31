@@ -79,10 +79,13 @@ namespace SFENG
 		inline const std::string &GetName() const { return m_Name; }
 		inline void SetName(const std::string &name) { m_Name = name; }
 		virtual ~Entity();
+		inline void SetTag(const std::string &tag) { m_Tag = tag; }
+		inline const std::string &GetTag() { return m_Tag; }
 
 	private:
 		bool m_Active;
 		bool m_Alive;
+		std::string m_Tag;
 		std::string m_Name;
 		std::vector<Component *> m_Components;
 		std::map<std::type_index, Component *> m_ComponentsMap;

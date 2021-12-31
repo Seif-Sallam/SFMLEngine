@@ -1,15 +1,13 @@
 #include "Entity.h"
 
-SFENG::Entity::Entity(const std::string& name)
-	: m_Active(true)
-	, m_Alive(true)
-	, m_Name(name)
+SFENG::Entity::Entity(const std::string &name)
+	: m_Active(true), m_Alive(true), m_Name(name)
 {
 	m_Components.reserve(32u);
 	this->AddComponent<Transform>(Vec2f(0.0f, 0.0f), Vec2f(1.0f, 1.0f), 0.f);
 }
 
-SFENG::Entity::Entity(const Entity& en)
+SFENG::Entity::Entity(const Entity &en)
 {
 	{
 		this->m_Components.reserve(en.m_Components.size());
@@ -46,31 +44,31 @@ SFENG::Entity::Entity(const Entity& en)
 
 void SFENG::Entity::PrintComponents()
 {
-	for (auto& comp : m_Components)
+	for (auto &comp : m_Components)
 		comp->Print();
 }
 
-void SFENG::Entity::Draw(sf::RenderWindow& window)
+void SFENG::Entity::Draw(sf::RenderWindow &window)
 {
-	for (auto& comp : m_Components)
+	for (auto &comp : m_Components)
 		comp->Draw(window);
 }
 
-void SFENG::Entity::Update(const sf::Time& time)
+void SFENG::Entity::Update(const sf::Time &time)
 {
-	for (auto& comp : m_Components)
+	for (auto &comp : m_Components)
 		comp->Update(time);
 }
 
-void SFENG::Entity::HandleEvents(sf::Event& event)
+void SFENG::Entity::HandleEvents(sf::Event &event)
 {
-	for (auto& comp : m_Components)
+	for (auto &comp : m_Components)
 		comp->HandleEvents(event);
 }
 
-void SFENG::Entity::FixedUpdate(const sf::Time& time)
+void SFENG::Entity::FixedUpdate(const sf::Time &time)
 {
-	for (auto& comp : m_Components)
+	for (auto &comp : m_Components)
 		comp->FixedUpdate(time);
 }
 

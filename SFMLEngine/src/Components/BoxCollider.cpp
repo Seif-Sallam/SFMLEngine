@@ -56,10 +56,12 @@ bool SFENG::BoxCollider::Init()
 		bodyDef.position = m_Transform->position;
 		bodyDef.angle = m_Transform->angle;
 		bodyDef.type = b2BodyType::b2_staticBody;
+		b2BodyUserData data;
+		data.pointer = reinterpret_cast<uintptr_t>(entity);
+		bodyDef.userData = data;
 		m_Body = m_PhysWorld->CreateBody(&bodyDef);
 	}
 	CreateFixture();
-
 	return Component::Init();
 }
 
@@ -111,4 +113,23 @@ void SFENG::BoxCollider::CreateFixture()
 	fixtureDef.friction = m_Friction;
 	fixtureDef.isSensor = m_IsSensor;
 	m_Fixture = m_Body->CreateFixture(&fixtureDef);
+}
+
+std::list<SFENG::Entity *> SFENG::BoxCollider::GetCollidingItems()
+{
+	const std::list<std::pair<SFENG::Entity *, SFENG::Entity *>> &contactItems = SFENG::Engine::GetContactList();
+	std::list<SFENG::Entity *> collidingItems;
+
+	for (auto item : contactItems)
+	{
+		if (item.first->GetName() == this->entity->GetName())
+		{
+			collidingItems.push_back(item.second);
+		}
+		else if (item.second->GetName() == this->entity->GetName())
+		{
+			collidingItems.push_back(item.first);
+		}
+	}
+	return collidingItems;
 }

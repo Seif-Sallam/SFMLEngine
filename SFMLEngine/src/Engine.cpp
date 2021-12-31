@@ -1,6 +1,8 @@
 #include "Engine.h"
 sf::RenderWindow *SFENG::Engine::m_Window = nullptr;
 b2World *SFENG::Engine::m_PhysicsWorld = nullptr;
+SFENG::PhysicsListener SFENG::Engine::m_PhysicsListener;
+
 SFENG::Engine::Engine(Vec2u resolution, const std::string &title)
 	: m_ShouldChangeState(false), m_ShouldExit(false), m_ShouldPop(false), m_InFocus(true), m_TimeStep(1.0f / 60.0f), m_Gravity(Vec2f(0.0f, 9.81f))
 {
@@ -13,6 +15,7 @@ SFENG::Engine::Engine(Vec2u resolution, const std::string &title)
 	m_PhysicsWorld = new b2World(m_Gravity);
 
 	ImGui::SFML::Init(*m_Window);
+	m_PhysicsWorld->SetContactListener(&m_PhysicsListener);
 }
 
 void SFENG::Engine::Run()
@@ -53,13 +56,14 @@ void SFENG::Engine::Run()
 
 			Draw();
 
+			m_PhysicsListener.Update();
 			m_PhysicsWorld->Step(m_TimeStep, 6, 2);
+
 			if (this->m_PhysicsClock.getElapsedTime().asSeconds() >= m_TimeStep)
 			{
 				thisScene.FixedUpdate(elapsed);
 				m_PhysicsClock.restart();
 			}
-
 			thisScene.Refresh();
 		}
 		// ImGui::EndFrame();
@@ -184,4 +188,9 @@ void SFENG::Engine::Draw()
 SFENG::Scene &SFENG::Engine::GetCurrentScene()
 {
 	return *m_States.back();
+}
+
+const std::list<std::pair<SFENG::Entity *, SFENG::Entity *>> &SFENG::Engine::GetContactList()
+{
+	return m_PhysicsListener.GetContactList();
 }

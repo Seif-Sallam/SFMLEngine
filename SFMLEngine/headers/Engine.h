@@ -9,6 +9,7 @@
 #include "box2d/box2d.h"
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "PhysicsListener.h"
 
 namespace SFENG
 {
@@ -21,6 +22,8 @@ namespace SFENG
 		void SetGravity(const Vec2f &gravity);
 		static b2World &GetPhysicsWorld();
 		const Vec2f &GetGravity();
+		static const std::list<std::pair<Entity *, Entity *>> &GetContactList();
+		static PhysicsListener &GetPhysicsListener();
 
 	protected:
 		Engine(Vec2u resolution = Vec2u(800, 600), const std::string &title = "Title");
@@ -57,11 +60,11 @@ namespace SFENG
 		bool m_InFocus;
 
 		Vec2f m_Gravity;
+		static PhysicsListener m_PhysicsListener;
 
 	protected:
 		static b2World *m_PhysicsWorld;
 	};
-
 	template <class T, class... Args>
 	inline void Engine::PushScene(Args &&...args)
 	{

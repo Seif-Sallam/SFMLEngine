@@ -73,6 +73,7 @@ b2Fixture *SFENG::RigidBody2D::CreateFixture(const b2FixtureDef *def)
 
 bool SFENG::RigidBody2D::Init()
 {
+
 	if (m_PhysWorld != nullptr)
 	{
 		m_Transform = &this->entity->GetComponent<Transform>();
@@ -90,11 +91,16 @@ bool SFENG::RigidBody2D::Init()
 			bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
 			bodyDef.angle = m_Transform->angle * M_PI_180;
 			bodyDef.type = b2BodyType::b2_staticBody;
+			b2BodyUserData data;
+			data.pointer = reinterpret_cast<std::uintptr_t>(entity);
+			bodyDef.userData = data;
+			Entity *entity = reinterpret_cast<Entity *>(data.pointer);
 			m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
 		}
 	}
 	else
 		return false;
+
 	return Component::Init();
 }
 
