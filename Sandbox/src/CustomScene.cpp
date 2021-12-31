@@ -192,19 +192,22 @@ void CustomScene::AddCanvas()
 void CustomScene::AddBox(const std::string &name, const Vec2f &position, const Vec2f &size, b2BodyType type)
 {
 	SFENG::Entity *newEntity = m_LCManager.CreateEntity(name);
+	newEntity->SetTag("Box");
 	m_Entities[name] = newEntity;
 	SFENG::Transform &trans = newEntity->GetComponent<SFENG::Transform>();
 	trans.size = size;
 	trans.position = position;
-	// SFENG::RigidBody2D &rb = newEntity->AddComponent<SFENG::RigidBody2D>();
+	SFENG::RigidBody2D &rb = newEntity->AddComponent<SFENG::RigidBody2D>();
 	SFENG::BoxCollider &boxCol = newEntity->AddComponent<SFENG::BoxCollider>();
 	BoxShape &shape = newEntity->AddComponent<BoxShape>();
-	// rb.SetBodyType(type);
+	rb.SetBodyType(type);
+	newEntity->AddComponent<CollisionDetector>();
 }
 
 void CustomScene::AddCircle(const std::string &name, const Vec2f &position, float radius, b2BodyType type)
 {
 	SFENG::Entity *newEntity = m_LCManager.CreateEntity(name);
+	newEntity->SetTag("Circle");
 	m_Entities[name] = newEntity;
 	SFENG::Transform &trans = newEntity->GetComponent<SFENG::Transform>();
 	trans.size = {radius, radius};

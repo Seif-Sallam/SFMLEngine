@@ -12,6 +12,10 @@ public:
 		void Update(const sf::Time &) override;
 		void FixedUpdate(const sf::Time &elapsed) override;
 		void Draw(sf::RenderWindow &window) override;
+		void ChangeColor()
+		{
+			m_Shape.setFillColor(sf::Color::Blue);
+		}
 
 	private:
 		sf::RectangleShape m_Shape;
@@ -90,6 +94,52 @@ public:
 		sf::View &m_View;
 	};
 
+	class CollisionDetector : public SFENG::Component
+	{
+	public:
+		CollisionDetector()
+		{
+		}
+		bool Init() override
+		{
+			if (this->entity->HasComponent<SFENG::BoxCollider>())
+				m_BoxCollider = &this->entity->GetComponent<SFENG::BoxCollider>();
+			else
+				m_BoxCollider = nullptr;
+
+			if (this->entity->HasComponent<BoxShape>())
+				m_BoxShape = &this->entity->GetComponent<BoxShape>();
+			else
+				m_BoxShape = nullptr;
+			return Component::Init();
+		}
+		void SetBoxCollider(SFENG::BoxCollider *boxCollider)
+		{
+			m_BoxCollider = boxCollider;
+		}
+
+		void FixedUpdate(const sf::Time &elapsed) override
+		{
+			if (m_BoxCollider)
+			{
+				std::list<SFENG::Entity *> collidingItems = m_BoxCollider->GetCollidingItems();
+				for (auto &en : collidingItems)
+				{
+					if (en->GetTag() == "Circle")
+					{
+						if (m_BoxShape)
+						{
+							m_BoxShape->ChangeColor();
+						}
+					}
+				}
+			}
+		}
+
+	private:
+		SFENG::BoxCollider *m_BoxCollider;
+		BoxShape *m_BoxShape;
+	};
 	CustomScene(SFENG::Engine &engine);
 
 private:
