@@ -63,6 +63,15 @@ namespace SFENG
 			auto key = m_ComponentsMap.find(typeid(Type));
 			return key != m_ComponentsMap.end();
 		}
+		template <class Type>
+		void RemoveComponent()
+		{
+			auto &key = m_ComponentsMap.find(typeid(Type));
+			if (key == m_ComponentsMap.end())
+				return;
+			delete m_ComponentsMap[typeid(Type)];
+			m_ComponentsMap.erase(key);
+		}
 
 		inline bool IsAlive() const { return m_Alive; }
 		inline bool IsActive() const { return m_Active; }

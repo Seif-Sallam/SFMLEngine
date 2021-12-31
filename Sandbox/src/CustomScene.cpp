@@ -95,6 +95,7 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow &window)
 CustomScene::CustomScene(SFENG::Engine &engine)
 	: SFENG::Scene(engine)
 {
+	engine.SetGravity(Vec2f(0.f, 9.8f));
 	m_LCManager.CreateEntity("ViewModifier")->AddComponent<ViewModifier>(this->m_Engine.engineView);
 	Main();
 	AddSprite();
@@ -135,6 +136,22 @@ void CustomScene::Main()
 		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), {10.0f, 10.0f}, b2BodyType::b2_dynamicBody);
 		AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 10.0f, b2BodyType::b2_dynamicBody);
 	}
+
+	SFENG::Entity *newEntity = m_LCManager.CreateEntity("Movable Box");
+	newEntity->SetTag("Movable Box");
+	m_Entities["Movable Box"] = newEntity;
+	SFENG::Transform &trans = newEntity->GetComponent<SFENG::Transform>();
+	trans.size = Vec2f(50.0f, 50.0f);
+	trans.position = Vec2f(0.0f, 0.0f);
+	SFENG::RigidBody2D &rb = newEntity->AddComponent<SFENG::RigidBody2D>();
+	SFENG::BoxCollider &boxCol = newEntity->AddComponent<SFENG::BoxCollider>();
+	BoxShape &shape = newEntity->AddComponent<BoxShape>();
+	rb.SetBodyType(b2_staticBody);
+	newEntity->AddComponent<CollisionDetector>();
+	SFENG::Controller *controller = &newEntity->AddComponent<SFENG::Controller>();
+	controller->SetBoxCollider(&boxCol);
+	auto boxCon = &newEntity->AddComponent<BoxController>();
+	boxCon->SetController(controller);
 }
 
 void CustomScene::AddSelectBox()

@@ -8,6 +8,7 @@ public:
     ~BulletController();
     bool Init() override;
     void Update(const sf::Time &) override;
+    void SetController(SFENG::Controller *controller);
 
     float speed;
     bool alive;
@@ -16,4 +17,5 @@ private:
     Vec2f m_Position;
     SFENG::Transform *m_Transform;
     Vec2f m_Direction;
+    SFENG::Controller *m_Controller;
 };

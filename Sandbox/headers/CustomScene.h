@@ -125,7 +125,7 @@ public:
 				std::list<SFENG::Entity *> collidingItems = m_BoxCollider->GetCollidingItems();
 				for (auto &en : collidingItems)
 				{
-					if (en->GetTag() == "Circle")
+					if (en->GetTag() == "Movable Box")
 					{
 						if (m_BoxShape)
 						{
@@ -140,6 +140,56 @@ public:
 		SFENG::BoxCollider *m_BoxCollider;
 		BoxShape *m_BoxShape;
 	};
+
+	class BoxController : public SFENG::Component
+	{
+	public:
+		BoxController()
+		{
+		}
+		~BoxController()
+		{
+		}
+		bool Init() override
+		{
+			if (this->entity->HasComponent<SFENG::Controller>())
+				this->m_Controller = &this->entity->GetComponent<SFENG::Controller>();
+			else
+				m_Controller = nullptr;
+
+			return this->Component::Init();
+		}
+		void Update(const sf::Time &elapsed)
+		{
+			if (m_Controller)
+			{
+				if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::W))
+				{
+					m_Controller->Move(Vec2f(0.f, -250.f * elapsed.asSeconds()));
+				}
+				if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::S))
+				{
+					m_Controller->Move(Vec2f(0.f, 250.f * elapsed.asSeconds()));
+				}
+				if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::A))
+				{
+					m_Controller->Move(Vec2f(-250.f * elapsed.asSeconds(), 0.f));
+				}
+				if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::D))
+				{
+					m_Controller->Move(Vec2f(250.f * elapsed.asSeconds(), 0.f));
+				}
+			}
+		}
+		void SetController(SFENG::Controller *controller)
+		{
+			m_Controller = controller;
+		}
+
+	private:
+		SFENG::Controller *m_Controller;
+	};
+
 	CustomScene(SFENG::Engine &engine);
 
 private:

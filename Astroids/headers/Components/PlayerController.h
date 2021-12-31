@@ -32,6 +32,8 @@ private:
 	SFENG::Transform *m_Transform;
 	SFENG::Controller *m_Controller;
 	SFENG::Animator *m_Animator;
+	SFENG::BoxCollider *m_BoxCollider;
+	SFENG::RigidBody2D *m_RigidBody2D;
 	bool m_Alive;
 	float m_Angle;
 	const float m_RotationSpeed;

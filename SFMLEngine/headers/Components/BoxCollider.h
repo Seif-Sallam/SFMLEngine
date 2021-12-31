@@ -7,9 +7,11 @@
 namespace SFENG
 {
 	class RigidBody2D;
+	class Controller;
 	class BoxCollider : public Component
 	{
 		friend RigidBody2D;
+		friend Controller;
 
 	public:
 		BoxCollider();

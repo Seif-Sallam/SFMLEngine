@@ -8,6 +8,8 @@ public:
     ~AstroidController();
     bool Init() override;
     void Update(const sf::Time &) override;
+    void FixedUpdate(const sf::Time &) override;
+    void SetController(SFENG::Controller *controller);
 
     float speed;
     bool alive;
@@ -19,4 +21,6 @@ private:
     Vec2f m_Direction;
     float m_Angle;
     sf::Time totalTime;
+    SFENG::CircleCollider *m_CircleCollider;
+    SFENG::Controller *m_Controller;
 };

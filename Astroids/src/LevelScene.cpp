@@ -4,6 +4,7 @@
 LevelScene::LevelScene(SFENG::Engine &engine)
     : Scene(engine)
 {
+    this->m_Engine.SetGravity(Vec2f(0.f, 0.f));
     AddMain();
 }
 

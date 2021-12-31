@@ -12,6 +12,7 @@ namespace SFENG
 	public:
 		Animator();
 		Animator(const Animator &a);
+		~Animator();
 		void AttachSpriteRenderer(SpriteRenderer *sr);
 		Animation *AddAnimation(const std::string &animName);
 		Animation *GetAnimation(const std::string &animName);

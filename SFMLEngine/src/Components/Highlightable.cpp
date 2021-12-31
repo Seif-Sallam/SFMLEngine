@@ -2,37 +2,42 @@
 #include "../../headers/Components/Transform.h"
 #include "../../headers/Entity.h"
 
-SFENG::Highlightable::Highlightable()
-	: m_Trans(nullptr), m_ListenToKeys(false)
+namespace SFENG
 {
-}
 
-inline bool SFENG::Highlightable::Init()
-{
-	m_Trans = &entity->GetComponent<Transform>();
-	return SFENG::Component::Init();
-}
-
-bool SFENG::Highlightable::IsHighlighted()
-{
-	sf::FloatRect rect = sf::FloatRect(m_Trans->position - m_Trans->size / 2.0f, m_Trans->size);
-	return SFENG::Mouse::InBox(rect);
-}
-
-void SFENG::Highlightable::ListenToKeys(bool value)
-{
-	m_ListenToKeys = true;
-}
-
-sf::Mouse::Button SFENG::Highlightable::KeyPressed()
-{
-	if (m_ListenToKeys)
+	Highlightable::Highlightable()
+		: m_Trans(nullptr), m_ListenToKeys(false)
 	{
-		for (int i = 0; i < SFENG::Mouse::m_Buttons.size(); i++)
-		{
-			if (SFENG::Mouse::m_Buttons[i] == true)
-				return static_cast<sf::Mouse::Button>(i);
-		}
 	}
-	return sf::Mouse::ButtonCount;
+
+	inline bool Highlightable::Init()
+	{
+		m_Trans = &entity->GetComponent<Transform>();
+		return Component::Init();
+	}
+
+	bool Highlightable::IsHighlighted()
+	{
+		sf::FloatRect rect = sf::FloatRect(m_Trans->position - m_Trans->size / 2.0f, m_Trans->size);
+		return Mouse::InBox(rect);
+	}
+
+	void Highlightable::ListenToKeys(bool value)
+	{
+		m_ListenToKeys = true;
+	}
+
+	sf::Mouse::Button Highlightable::KeyPressed()
+	{
+		if (m_ListenToKeys)
+		{
+			for (int i = 0; i < Mouse::m_Buttons.size(); i++)
+			{
+				if (Mouse::m_Buttons[i] == true)
+					return static_cast<sf::Mouse::Button>(i);
+			}
+		}
+		return sf::Mouse::ButtonCount;
+	}
+
 }

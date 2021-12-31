@@ -21,6 +21,16 @@ bool PlayerController::Init()
     else
         this->m_Animator = nullptr;
 
+    if (this->entity->HasComponent<SFENG::BoxCollider>())
+        this->m_BoxCollider = &this->entity->GetComponent<SFENG::BoxCollider>();
+    else
+        this->m_BoxCollider = nullptr;
+
+    if (this->entity->HasComponent<SFENG::RigidBody2D>())
+        this->m_RigidBody2D = &this->entity->GetComponent<SFENG::RigidBody2D>();
+    else
+        this->m_RigidBody2D = nullptr;
+
     m_Transform = &this->entity->GetComponent<SFENG::Transform>();
     return SFENG::Component::Init();
 }
@@ -43,6 +53,20 @@ void PlayerController::FixedUpdate(const sf::Time &elapsed)
         Handling the collision between the Player and the Astroid happens here
         @TODO: Handle The collision with the Astroid
     */
+    if (m_BoxCollider)
+    {
+        std::list<SFENG::Entity *> collidingItems = m_BoxCollider->GetCollidingItems();
+        for (auto &item : collidingItems)
+        {
+            std::cout << "Player collided with:  " << item->GetName() << std::endl;
+            if (item->GetTag() == "Astroid")
+            {
+                std::cout << "Collided with an Astroids :D\n";
+                if (m_Controller)
+                    m_Controller->SetPosition(Vec2f(SFENG::Engine::GetWindow().getSize().x / 2.f, SFENG::Engine::GetWindow().getSize().y / 2.f));
+            }
+        }
+    }
 }
 
 void PlayerController::SetController(SFENG::Controller *c)
@@ -165,6 +189,9 @@ void PlayerController::AddBullet()
     Vec2f dir = Vec2f(cos(toRadian(m_Angle)), sin(toRadian(m_Angle)));
     SFENG::Entity *bulletEntity = SFENG::LCM::InstantiateObject("Bullet#" + std::to_string(m_BulletsShotCount));
     m_Bullets.push_back(std::make_unique<Bullet>(bulletEntity, this->m_Transform->position, dir));
+    BulletController *bc = &bulletEntity->GetComponent<BulletController>();
+    SFENG::Controller *controller = &bulletEntity->AddComponent<SFENG::Controller>();
+    bc->SetController(controller);
 }
 
 void PlayerController::HandleBullets()
@@ -173,11 +200,11 @@ void PlayerController::HandleBullets()
     {
         if (!m_Bullets[i]->IsAlive())
         {
-            m_Bullets[i]->entity->Destory();
+            // m_Bullets[i]->entity->Destory();
             // erasing the pointer is just deleting the data inside
             // but the LCM will take care of deleting the components and the entity itself
-            m_Bullets.erase(m_Bullets.begin() + i);
-            i--;
+            // m_Bullets.erase(m_Bullets.begin() + i);
+            // i--;
         }
     }
 }

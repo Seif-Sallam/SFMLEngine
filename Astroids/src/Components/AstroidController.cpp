@@ -1,12 +1,12 @@
 #include "../headers/Components/AstroidController.h"
-
+#include "../headers/Prefabs/Bullet.h"
 AstroidController::AstroidController(const Vec2f &position, bool big, const Vec2f &direction)
     : m_Position(position), m_Big(big), m_Direction(direction), alive(true)
 {
     if (big)
-        speed = 5.0f;
+        speed = 1.0f;
     else
-        speed = 7.0f;
+        speed = 1.0f;
     m_Angle = m_Direction.Length();
 }
 
@@ -17,6 +17,15 @@ AstroidController::~AstroidController()
 bool AstroidController::Init()
 {
     m_Transform = &this->entity->GetComponent<SFENG::Transform>();
+    if (this->entity->HasComponent<SFENG::CircleCollider>())
+        m_CircleCollider = &this->entity->GetComponent<SFENG::CircleCollider>();
+    else
+        m_CircleCollider = nullptr;
+
+    if (this->entity->HasComponent<SFENG::Controller>())
+        m_Controller = &this->entity->GetComponent<SFENG::Controller>();
+    else
+        m_Controller = nullptr;
 
     return Component::Init();
 }
@@ -24,43 +33,63 @@ bool AstroidController::Init()
 void AstroidController::Update(const sf::Time &elapsed)
 {
     totalTime += elapsed;
-    if (alive)
+    if (alive && m_Controller)
     {
         auto toRadian = [](float angle)
         { return angle * M_PI_180; };
 
-        m_Transform->position.x += speed * m_Direction.x;
-        m_Transform->position.y += speed * m_Direction.y;
+        m_Controller->Move(speed * m_Direction.x, speed * m_Direction.y);
         Vec2u screenSize = SFENG::Engine::GetWindow().getSize();
 
         if (m_Transform->position.x < 0.f)
         {
             m_Angle += rand() % 90;
             m_Direction = Vec2f(cos(toRadian(m_Angle)), sin(toRadian(m_Angle)));
-            m_Transform->position.x = screenSize.x;
+            m_Controller->SetPosition(screenSize.x, m_Transform->position.y);
         }
         else if (m_Transform->position.x > screenSize.x)
         {
             m_Angle += rand() % 90;
             m_Direction = Vec2f(cos(toRadian(m_Angle)), sin(toRadian(m_Angle)));
-            m_Transform->position.x = 0.f;
+            m_Controller->SetPosition(0.f, m_Transform->position.y);
         }
         if (m_Transform->position.y < 0.f)
         {
             m_Angle += rand() % 90;
             m_Direction = Vec2f(cos(toRadian(m_Angle)), sin(toRadian(m_Angle)));
-            m_Transform->position.y = screenSize.y;
+            m_Controller->SetPosition(m_Transform->position.x, screenSize.y);
         }
         else if (m_Transform->position.y > screenSize.y)
         {
             m_Angle += rand() % 90;
             m_Direction = Vec2f(cos(toRadian(m_Angle)), sin(toRadian(m_Angle)));
-            m_Transform->position.y = 0.f;
+            m_Controller->SetPosition(m_Transform->position.x, 0.f);
         }
     }
-    if (totalTime > sf::seconds(5.0f))
-    {
-        alive = false;
-    }
+
     return Component::Update(elapsed);
+}
+
+void AstroidController::FixedUpdate(const sf::Time &)
+{
+    if (m_CircleCollider)
+    {
+        std::list<SFENG::Entity *> collidingItems = m_CircleCollider->GetCollidingItems();
+        for (auto &item : collidingItems)
+        {
+            std::cout << "Astroid collided with: " << item->GetName() << std::endl;
+            if (item->GetTag() == "Bullet")
+            {
+                std::cout << "Hit by a bullet\n";
+                alive = false;
+                // Bullet *bullet = dynamic_cast<Bullet *>(item);
+                // bullet->Kill();
+            }
+        }
+    }
+}
+
+void AstroidController::SetController(SFENG::Controller *controller)
+{
+    m_Controller = controller;
 }

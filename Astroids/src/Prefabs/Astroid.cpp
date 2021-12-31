@@ -3,17 +3,18 @@
 Astroid::Astroid(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2f &direction, bool big)
 {
     entity = createdEntity;
+    entity->SetTag("Astroid");
     SFENG::Transform &transform = this->entity->AddComponent<SFENG::Transform>();
     SFENG::SpriteRenderer &sp = this->entity->AddComponent<SFENG::SpriteRenderer>();
     SFENG::Animator &animator = this->entity->AddComponent<SFENG::Animator>();
     if (big)
     {
-        transform.size.x = 20.0f;
+        transform.size.x = 800.0f;
         sp.AttachTexture("BIG_Astroid");
     }
     else
     {
-        transform.size.x = 10.0f;
+        transform.size.x = 600.0f;
         sp.AttachTexture("SMALL_Astroid");
     }
     SFENG::CircleCollider &cc = this->entity->AddComponent<SFENG::CircleCollider>();
@@ -27,6 +28,8 @@ Astroid::Astroid(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2
     }
 
     m_Controller = &this->entity->AddComponent<AstroidController>(position, big, direction);
+    SFENG::RigidBody2D *rb = &this->entity->AddComponent<SFENG::RigidBody2D>();
+    rb->SetBodyType(b2BodyType::b2_dynamicBody);
 }
 
 bool Astroid::IsAlive()
