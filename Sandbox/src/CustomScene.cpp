@@ -93,7 +93,7 @@ void CustomScene::CircleShape::Draw(sf::RenderWindow &window)
 }
 
 CustomScene::CustomScene(SFENG::Engine &engine)
-	: SFENG::Scene(engine)
+	: SFENG::Scene(engine, true)
 {
 	engine.SetGravity(Vec2f(0.f, 9.8f));
 	m_LCManager.CreateEntity("ViewModifier")->AddComponent<ViewModifier>(this->m_Engine.engineView);

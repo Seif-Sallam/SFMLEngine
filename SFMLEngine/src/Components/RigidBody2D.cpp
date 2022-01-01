@@ -178,10 +178,8 @@ namespace SFENG
 
 	void RigidBody2D::DeleteFixtures()
 	{
-		std::cout << "DELETING\n";
 		if (m_Body != nullptr)
 		{
-			std::cout << "Body is not nullptr\n";
 			while (m_Body->GetFixtureList())
 			{
 				m_Body->DestroyFixture(m_Body->GetFixtureList());
