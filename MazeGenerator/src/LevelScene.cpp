@@ -3,7 +3,7 @@
 #include "../headers/MazeGenerator.h"
 
 LevelScene::LevelScene(SFENG::Engine &engine)
-    : Scene(engine)
+    : Scene(engine, true)
 {
     AddMain();
 }
@@ -55,7 +55,6 @@ void ViewModifier::Draw(sf::RenderWindow &window)
 void LevelScene::AddMain()
 {
     SFENG::Entity *maze = this->m_LCManager.CreateEntity("MazeGenerator");
-    std::cout << "HERE\n";
     maze->AddComponent<MazeGenerator>();
     maze->AddComponent<MazeController>();
 }

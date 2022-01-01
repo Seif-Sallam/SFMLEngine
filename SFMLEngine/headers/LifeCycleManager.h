@@ -81,6 +81,9 @@ namespace SFENG
 		/// <param name="window"></param>
 		void Draw(sf::RenderWindow &window);
 
+		int GetAliveEntities();
+
+		int GetNumberOfDrawnEntities();
 		~LifeCycleManager();
 
 	private:
@@ -96,16 +99,17 @@ namespace SFENG
 
 		std::map<std::string, Entity *> m_EntitiesMap;
 		std::map<std::string, int32_t> m_EntitiesUsedNums;
+		int m_DrawnEntities;
 	};
 
 	class LCM
 	{
 	public:
 		static Entity *InstantiateObject(const std::string &name);
-
-	private:
+		static int GetAliveEntites();
 		static LifeCycleManager *s_OnGoingLCM;
 
+	private:
 		friend SFENG::Engine;
 	};
 }

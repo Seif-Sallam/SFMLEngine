@@ -12,4 +12,5 @@ public:
 
 private:
     MazeGenerator *m_MazeGen;
+    int m_Count = 0;
 };

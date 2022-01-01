@@ -15,7 +15,7 @@ namespace SFENG
 		friend class Engine;
 
 	public:
-		Scene(Engine &engine);
+		Scene(Engine &engine, bool isDefault = false);
 
 		virtual ~Scene() = default;
 

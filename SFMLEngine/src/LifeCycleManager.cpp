@@ -88,13 +88,17 @@ namespace SFENG
 		Vec2f min = currentView.getCenter() - currentView.getSize() / 2.0f;
 		sf::IntRect viewRect = sf::IntRect(min.x, min.y, currentView.getSize().x, currentView.getSize().y);
 
+		m_DrawnEntities = 0;
 		for (auto &en : m_Entities)
 		{
 			Transform &transform = en->GetComponent<Transform>();
 			Vec2f minPos = transform.position - transform.size / 2.0f;
 			sf::IntRect enRect = sf::IntRect(minPos.x, minPos.y, transform.size.x, transform.size.y);
 			if (enRect.intersects(viewRect))
+			{
 				en->Draw(window);
+				m_DrawnEntities++;
+			}
 		}
 	}
 
@@ -173,6 +177,16 @@ namespace SFENG
 		CleanUp();
 	}
 
+	int LifeCycleManager::GetAliveEntities()
+	{
+		return m_Entities.size();
+	}
+
+	int LifeCycleManager::GetNumberOfDrawnEntities()
+	{
+		return m_DrawnEntities;
+	}
+
 	Entity *LCM::InstantiateObject(const std::string &name)
 	{
 		if (s_OnGoingLCM)
@@ -182,4 +196,12 @@ namespace SFENG
 		else
 			return nullptr;
 	}
+	int LCM::GetAliveEntites()
+	{
+		if (s_OnGoingLCM)
+			return LCM::s_OnGoingLCM->GetAliveEntities();
+		else
+			return 0;
+	}
+
 }

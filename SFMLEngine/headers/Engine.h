@@ -24,6 +24,7 @@ namespace SFENG
 		const Vec2f &GetGravity();
 		static const std::list<std::pair<Entity *, Entity *>> &GetContactList();
 		static PhysicsListener &GetPhysicsListener();
+		void SetLCMToScene(Scene *scene);
 
 	protected:
 		Engine(Vec2u resolution = Vec2u(800, 600), const std::string &title = "Title");
@@ -32,6 +33,7 @@ namespace SFENG
 		void ShouldChangeScene(std::unique_ptr<Scene> change);
 		void PopState();
 		virtual void HandleScenes() {}
+
 		template <class T, class... Args>
 		void PushScene(Args &&...args);
 		void PushScene(std::unique_ptr<Scene> state);

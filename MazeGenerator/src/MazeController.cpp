@@ -33,8 +33,7 @@ void MazeController::ImGuiLayer()
 
             if (ImGui::Button("Set Width and Height"))
             {
-                m_MazeGen->SetWidth(width);
-                m_MazeGen->SetHeight(height);
+                m_MazeGen->SetWidthAndHeight(width, height);
             }
 
             static int startX2 = m_MazeGen->startX;
@@ -65,12 +64,18 @@ void MazeController::ImGuiLayer()
             {
                 m_MazeGen->Reset();
             }
+            ImGui::Separator();
+            ImGui::Text("Current cell: x: %d, y: %d", m_MazeGen->GetCurrentCell()->GetX(), m_MazeGen->GetCurrentCell()->GetX());
         }
         else
         {
             ImGui::TextUnformatted("Maze Generator is nullptr");
         }
     }
+    ImGui::End();
+    ImGui::Begin("Alive entities count");
+    ImGui::Text("Alive entities: %d", SFENG::LCM::GetAliveEntites());
+    ImGui::Text("Drawn entities: %d", SFENG::LCM::s_OnGoingLCM->GetNumberOfDrawnEntities());
     ImGui::End();
 }
 
