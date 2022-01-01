@@ -18,6 +18,7 @@ namespace SFENG
         Entity *entityA = reinterpret_cast<Entity *>(dataA.pointer);
         Entity *entityB = reinterpret_cast<Entity *>(dataB.pointer);
         m_ContactedEntities.push_back(std::make_pair(entityA, entityB));
+
         std::cout << "Entity: " << entityA->GetName() << " , was in contact with: " << entityB->GetName() << std::endl;
     }
 

@@ -18,20 +18,23 @@ namespace SFENG
 	RigidBody2D::~RigidBody2D()
 	{
 		DeleteFixtures();
-		m_PhysWorld->DestroyBody(m_Body);
-		m_Body = nullptr;
-		if (this->entity->HasComponent<BoxCollider>())
+		if (m_Body != nullptr)
 		{
-			auto &boxCollider = this->entity->GetComponent<BoxCollider>();
-			boxCollider.m_Body = nullptr;
-			boxCollider.m_Fixture = nullptr;
+			m_PhysWorld->DestroyBody(m_Body);
+			m_Body = nullptr;
 		}
-		if (this->entity->HasComponent<CircleCollider>())
-		{
-			auto &circleCollider = this->entity->GetComponent<CircleCollider>();
-			circleCollider.m_Body = nullptr;
-			circleCollider.m_Fixture = nullptr;
-		}
+		// if (this->entity->HasComponent<BoxCollider>())
+		// {
+		// 	auto &boxCollider = this->entity->GetComponent<BoxCollider>();
+		// 	boxCollider.m_Body = nullptr;
+		// 	boxCollider.m_Fixture = nullptr;
+		// }
+		// if (this->entity->HasComponent<CircleCollider>())
+		// {
+		// 	auto &circleCollider = this->entity->GetComponent<CircleCollider>();
+		// 	circleCollider.m_Body = nullptr;
+		// 	circleCollider.m_Fixture = nullptr;
+		// }
 	}
 
 	void RigidBody2D::SetBodyType(const b2BodyType &type)
@@ -98,6 +101,7 @@ namespace SFENG
 			m_Transform = &this->entity->GetComponent<Transform>();
 			m_OldBodyPos = m_Transform->position;
 			m_OldAngle = m_Transform->angle;
+			m_Body = nullptr;
 			if (this->entity->HasComponent<CircleCollider>())
 			{
 				m_Body = this->entity->GetComponent<CircleCollider>().m_Body;
@@ -115,7 +119,6 @@ namespace SFENG
 				b2BodyUserData data;
 				data.pointer = reinterpret_cast<std::uintptr_t>(entity);
 				bodyDef.userData = data;
-				Entity *entity = reinterpret_cast<Entity *>(data.pointer);
 				m_Body = this->m_PhysWorld->CreateBody(&bodyDef);
 			}
 		}
@@ -141,10 +144,8 @@ namespace SFENG
 		{
 			if (m_Body->GetType() == b2BodyType::b2_dynamicBody)
 			{
-				Vec2f newPos = Vec2f(m_Body->GetPosition().x - m_OldBodyPos.x, m_Body->GetPosition().y - m_OldBodyPos.y);
-				m_Transform->position = m_Transform->position + newPos;
-				float newAngle = (m_Body->GetAngle() - m_OldAngle) * M_180_PI;
-				m_Transform->angle = m_Transform->angle + newAngle;
+				m_Transform->position = Vec2f(m_Body->GetPosition());
+				m_Transform->angle = m_Body->GetAngle() * M_180_PI;
 			}
 		}
 		return Component::FixedUpdate(elapsedTime);
@@ -177,9 +178,14 @@ namespace SFENG
 
 	void RigidBody2D::DeleteFixtures()
 	{
-		while (m_Body->GetFixtureList())
+		std::cout << "DELETING\n";
+		if (m_Body != nullptr)
 		{
-			m_Body->DestroyFixture(m_Body->GetFixtureList());
+			std::cout << "Body is not nullptr\n";
+			while (m_Body->GetFixtureList())
+			{
+				m_Body->DestroyFixture(m_Body->GetFixtureList());
+			}
 		}
 	}
 }

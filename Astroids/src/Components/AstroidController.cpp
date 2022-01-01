@@ -78,12 +78,13 @@ void AstroidController::FixedUpdate(const sf::Time &)
         for (auto &item : collidingItems)
         {
             std::cout << "Astroid collided with: " << item->GetName() << std::endl;
+            std::cout << (item->GetTag() == "Bullet") << std::endl;
             if (item->GetTag() == "Bullet")
             {
                 std::cout << "Hit by a bullet\n";
                 alive = false;
-                // Bullet *bullet = dynamic_cast<Bullet *>(item);
-                // bullet->Kill();
+                Bullet *bullet = dynamic_cast<Bullet *>(item);
+                bullet->Kill();
             }
         }
     }

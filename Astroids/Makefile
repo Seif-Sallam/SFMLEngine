@@ -77,6 +77,9 @@ clean:
 	@$(RM) $(OUTPUT_DIR)$(OUTPUT)
 	@printf 'Successfully Cleaned\n'
 
+clean2:
+	@$(RM)  $(OUTPUT_DIR)$(OUTPUT)
+	@printf 'Successfully Cleaned outputfile\n'
 print:
 	@for obj in $(INC); do\
 		echo $$obj;\

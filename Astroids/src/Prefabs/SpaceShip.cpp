@@ -7,7 +7,7 @@ SpaceShip::SpaceShip(SFENG::Entity *createdEntity)
     SFENG::Transform &transform = entity->GetComponent<SFENG::Transform>();
     SFENG::SpriteRenderer &spriteRenderer = entity->AddComponent<SFENG::SpriteRenderer>();
     transform.position = Vec2f(300.0f, 300.0f);
-    transform.size = Vec2f(400.0f, 400.0f);
+    transform.size = Vec2f(40.0f, 40.0f);
     SFENG::BoxCollider &boxCollider = entity->AddComponent<SFENG::BoxCollider>();
     SFENG::RigidBody2D &rb = entity->AddComponent<SFENG::RigidBody2D>();
     rb.SetBodyType(b2BodyType::b2_kinematicBody);

@@ -23,7 +23,7 @@ Bullet::Bullet(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2f 
     m_bController->SetController(&this->entity->AddComponent<SFENG::Controller>());
     sp.SetScale(0.7f, 0.7f);
     SFENG::RigidBody2D *rb = &this->entity->AddComponent<SFENG::RigidBody2D>();
-    rb->SetBodyType(b2BodyType::b2_dynamicBody);
+    rb->SetBodyType(b2BodyType::b2_kinematicBody);
 }
 
 bool Bullet::IsAlive()

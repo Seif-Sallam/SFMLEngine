@@ -70,7 +70,7 @@ namespace SFENG
 			if (key == m_ComponentsMap.end())
 				return;
 			delete m_ComponentsMap[typeid(Type)];
-			m_ComponentsMap.erase(key);
+			m_ComponentsMap.erase(typeid(Type));
 		}
 
 		inline bool IsAlive() const { return m_Alive; }
@@ -85,6 +85,7 @@ namespace SFENG
 		void Update(const sf::Time &time);
 		void HandleEvents(sf::Event &event);
 		void FixedUpdate(const sf::Time &);
+		void ImGuiLayer();
 		inline const std::string &GetName() const { return m_Name; }
 		inline void SetName(const std::string &name) { m_Name = name; }
 		virtual ~Entity();

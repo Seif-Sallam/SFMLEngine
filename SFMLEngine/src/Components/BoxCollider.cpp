@@ -14,16 +14,21 @@ namespace SFENG
 
 	BoxCollider::~BoxCollider()
 	{
-		if (m_Fixture != nullptr)
+		if (m_Fixture != nullptr && m_Body != nullptr)
 		{
+			std::cout << "Trying to destroy the fixture\n";
 			m_Body->DestroyFixture(m_Fixture);
+			std::cout << "finished destroying the fixture\nTrying to destroy the body\n";
 			m_PhysWorld->DestroyBody(m_Body);
+			std::cout << "finished destroying the fixture\nTrying to destroy the body\n";
 		}
 
 		if (this->entity->HasComponent<RigidBody2D>())
 		{
-			auto &rb = this->entity->GetComponent<RigidBody2D>();
-			rb.m_Body = nullptr;
+			std::cout << "Box Collider has rigidbody 2d\n";
+			auto rb = &this->entity->GetComponent<RigidBody2D>();
+			if (rb != nullptr)
+				rb->m_Body = nullptr;
 		}
 	}
 
@@ -72,7 +77,7 @@ namespace SFENG
 		{
 			b2BodyDef bodyDef;
 			bodyDef.position = m_Transform->position;
-			bodyDef.angle = m_Transform->angle;
+			bodyDef.angle = m_Transform->angle / 180.f * M_PI;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			b2BodyUserData data;
 			data.pointer = reinterpret_cast<uintptr_t>(entity);
@@ -92,7 +97,8 @@ namespace SFENG
 	{
 		if (m_CurrentSize != m_Transform->size)
 		{
-			CreateFixture();
+			if (this->entity->IsAlive())
+				CreateFixture();
 		}
 		return Component::Update(elapsedTime);
 	}
@@ -119,7 +125,11 @@ namespace SFENG
 	{
 		if (m_Fixture != nullptr)
 		{
-			m_Body->DestroyFixture(m_Fixture);
+			if (m_Fixture->GetBody() == m_Body)
+			{
+				std::cout << "destroying fixture boxcollider\n";
+				m_Body->DestroyFixture(m_Fixture);
+			}
 		}
 
 		b2PolygonShape polyShape;

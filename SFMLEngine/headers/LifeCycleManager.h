@@ -65,6 +65,12 @@ namespace SFENG
 		void Update(const sf::Time &time);
 
 		/// <summary>
+		/// ImGuiLayer function that calls ImGuiLayer in all Entities.
+		/// </summary>
+		/// <param name="time">Elapsed Time</param>
+		void ImGuiLayer();
+
+		/// <summary>
 		/// Function that is called to remove the unused functions
 		/// </summary>
 		void Refresh();

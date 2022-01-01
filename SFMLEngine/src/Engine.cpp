@@ -31,13 +31,13 @@ void SFENG::Engine::Run()
 			elapsed = sf::milliseconds(1);
 
 		lastTime = time;
-		// ImGui::NewFrame();
+
 		HandleScenes();
 		HandleEvent();
 
+		ImGui::SFML::Update(*this->m_Window, elapsed);
 		if (m_InFocus)
 		{
-			ImGui::SFML::Update(*this->m_Window, elapsed);
 			m_FPSCounter->Update();
 			// ImGui::Begin("Hello, World");
 
@@ -49,12 +49,10 @@ void SFENG::Engine::Run()
 			// ImGui::Button("A Button over there");
 
 			// ImGui::End();
+			thisScene.ImGuiLayer();
 
 			thisScene.Update(elapsed);
-
 			m_Window->setView(engineView);
-
-			Draw();
 
 			m_PhysicsListener.Update();
 			m_PhysicsWorld->Step(m_TimeStep, 6, 2);
@@ -66,7 +64,7 @@ void SFENG::Engine::Run()
 			}
 			thisScene.Refresh();
 		}
-		// ImGui::EndFrame();
+		Draw();
 		TryPop();
 	}
 }
