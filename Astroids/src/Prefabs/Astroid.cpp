@@ -12,12 +12,12 @@ Astroid::Astroid(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2
     rb->SetBodyType(b2BodyType::b2_dynamicBody);
     if (big)
     {
-        transform.size.x = 20.0f;
+        transform.size.x = 10.0f;
         sp.AttachTexture("BIG_Astroid");
     }
     else
     {
-        transform.size.x = 10.0f;
+        transform.size.x = 5.0f;
         sp.AttachTexture("SMALL_Astroid");
     }
 

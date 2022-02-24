@@ -77,14 +77,10 @@ void AstroidController::FixedUpdate(const sf::Time &)
         std::list<SFENG::Entity *> collidingItems = m_CircleCollider->GetCollidingItems();
         for (auto &item : collidingItems)
         {
-            std::cout << "Astroid collided with: " << item->GetName() << std::endl;
-            std::cout << (item->GetTag() == "Bullet") << std::endl;
-            if (item->GetTag() == "Bullet")
+            bool isBullet = (item->GetTag() == "Bullet");
+            if (isBullet)
             {
-                std::cout << "Hit by a bullet\n";
                 alive = false;
-                Bullet *bullet = dynamic_cast<Bullet *>(item);
-                bullet->Kill();
             }
         }
     }

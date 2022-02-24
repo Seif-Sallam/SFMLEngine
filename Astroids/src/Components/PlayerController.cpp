@@ -196,15 +196,15 @@ void PlayerController::AddBullet()
 
 void PlayerController::HandleBullets()
 {
-    // for (int i = 0; i < m_Bullets.size(); i++)
-    // {
-    //     if (!m_Bullets[i]->IsAlive())
-    //     {
-    //         m_Bullets[i]->entity->Destory();
-    //         // erasing the pointer is just deleting the data inside
-    //         // but the LCM will take care of deleting the components and the entity itself
-    //         m_Bullets.erase(m_Bullets.begin() + i);
-    //         i--;
-    //     }
-    // }
+    for (int i = 0; i < m_Bullets.size(); i++)
+    {
+        if (!m_Bullets[i]->IsAlive())
+        {
+            m_Bullets[i]->entity->Destory();
+            // erasing the pointer is just deleting the data inside
+            // but the LCM will take care of deleting the components and the entity itself
+            m_Bullets.erase(m_Bullets.begin() + i);
+            i--;
+        }
+    }
 }

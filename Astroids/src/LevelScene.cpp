@@ -29,21 +29,13 @@ ViewModifier::ViewModifier(sf::View &view)
 void ViewModifier::Update(const sf::Time &elapsed)
 {
     if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Left))
-    {
         m_View.move(-250.f * elapsed.asSeconds(), 0.f);
-    }
     if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Right))
-    {
         m_View.move(250.f * elapsed.asSeconds(), 0.f);
-    }
     if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Up))
-    {
         m_View.move(0.f, -250.f * elapsed.asSeconds());
-    }
     if (SFENG::Keyboard::IsKeyPressed(sf::Keyboard::Down))
-    {
         m_View.move(0.f, 250.f * elapsed.asSeconds());
-    }
 }
 void ViewModifier::Draw(sf::RenderWindow &window)
 {

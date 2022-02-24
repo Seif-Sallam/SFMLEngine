@@ -9,6 +9,7 @@ public:
     bool Init() override;
     void Update(const sf::Time &) override;
     void SetController(SFENG::Controller *controller);
+    void FixedUpdate(const sf::Time &) override;
 
     float speed;
     bool alive;
@@ -18,4 +19,5 @@ private:
     SFENG::Transform *m_Transform;
     Vec2f m_Direction;
     SFENG::Controller *m_Controller;
+    SFENG::BoxCollider *m_BoxCollider;
 };

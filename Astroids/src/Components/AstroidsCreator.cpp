@@ -50,6 +50,7 @@ void AstroidsCreator::HandleDeadAstroids()
     {
         if (!m_Astroids[i]->IsAlive())
         {
+            std::cout << "Deleted\n";
             Vec2f pos = m_Astroids[i]->entity->GetComponent<SFENG::Transform>().position;
             Explosion e(SFENG::LCM::InstantiateObject("Explosion#" + std::to_string(m_AstroidsCount - 1)), pos);
             m_Astroids[i]->entity->Destory();
