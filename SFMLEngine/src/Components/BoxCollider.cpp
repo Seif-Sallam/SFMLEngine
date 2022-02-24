@@ -72,7 +72,7 @@ namespace SFENG
 		else
 		{
 			b2BodyDef bodyDef;
-			bodyDef.position = m_Transform->position;
+			bodyDef.position = m_Transform->position / Engine::GetPPM();
 			bodyDef.angle = m_Transform->angle / 180.f * M_PI;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			b2BodyUserData data;
@@ -91,7 +91,7 @@ namespace SFENG
 
 	void BoxCollider::Update(const sf::Time &elapsedTime)
 	{
-		if (m_CurrentSize != m_Transform->size)
+		if (m_CurrentSize == m_Transform->size / Engine::GetPPM())
 		{
 			if (this->entity->IsAlive())
 				CreateFixture();
@@ -128,8 +128,8 @@ namespace SFENG
 		}
 
 		b2PolygonShape polyShape;
-		m_CurrentSize = m_Transform->size;
-		polyShape.SetAsBox(m_Transform->size.x / 2.0f, m_Transform->size.y / 2.0f);
+		m_CurrentSize = m_Transform->size / Engine::GetPPM();
+		polyShape.SetAsBox(m_CurrentSize.x / 2.0f, m_CurrentSize.y / 2.0f);
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &polyShape;
 		fixtureDef.density = m_Density;

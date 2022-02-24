@@ -55,7 +55,7 @@ namespace SFENG
 	void RigidBody2D::SetPosition(const Vec2f &v)
 	{
 		m_Transform->position = v;
-		m_Body->SetTransform(m_Transform->position, m_Transform->angle * M_PI_180);
+		m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle * M_PI_180);
 	}
 
 	float RigidBody2D::GetAngle()
@@ -98,7 +98,7 @@ namespace SFENG
 		if (m_PhysWorld != nullptr)
 		{
 			m_Transform = &this->entity->GetComponent<Transform>();
-			m_OldBodyPos = m_Transform->position;
+			m_OldBodyPos = m_Transform->position / Engine::GetPPM();
 			m_OldAngle = m_Transform->angle;
 			m_Body = nullptr;
 			if (this->entity->HasComponent<CircleCollider>())
@@ -112,7 +112,7 @@ namespace SFENG
 			else
 			{
 				b2BodyDef bodyDef;
-				bodyDef.position.Set(m_Transform->position.x, m_Transform->position.y);
+				bodyDef.position.Set(m_Transform->position.x / Engine::GetPPM(), m_Transform->position.y / Engine::GetPPM());
 				bodyDef.angle = m_Transform->angle * M_PI_180;
 				bodyDef.type = b2BodyType::b2_staticBody;
 				b2BodyUserData data;
@@ -143,7 +143,7 @@ namespace SFENG
 		{
 			if (m_Body->GetType() == b2BodyType::b2_dynamicBody)
 			{
-				m_Transform->position = Vec2f(m_Body->GetPosition());
+				m_Transform->position = Vec2f(m_Body->GetPosition()) * Engine::GetPPM();
 				m_Transform->angle = m_Body->GetAngle() * M_180_PI;
 			}
 		}

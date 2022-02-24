@@ -25,6 +25,7 @@ namespace SFENG
 		static const std::list<std::pair<Entity *, Entity *>> &GetContactList();
 		static PhysicsListener &GetPhysicsListener();
 		void SetLCMToScene(Scene *scene);
+		static inline float GetPPM() { return 16.0f; }
 
 	protected:
 		Engine(Vec2u resolution = Vec2u(800, 600), const std::string &title = "Title");

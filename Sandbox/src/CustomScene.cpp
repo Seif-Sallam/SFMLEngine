@@ -127,7 +127,7 @@ CustomScene::CustomScene(SFENG::Engine &engine)
 
 void CustomScene::Main()
 {
-	const int boxNum = 1;
+	const int boxNum = 100;
 
 	AddBox("Ground", Vec2f(400.0f, 600.0f), Vec2f(1200.f, 50.0f), b2BodyType::b2_staticBody);
 	std::mt19937 random(time(0));
@@ -135,8 +135,8 @@ void CustomScene::Main()
 	std::uniform_real_distribution<float> yPos(100.0f, 300.0f);
 	for (int i = 0; i < boxNum; i++)
 	{
-		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), {10.0f, 10.0f}, b2BodyType::b2_dynamicBody);
-		// 	AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 10.0f, b2BodyType::b2_dynamicBody);
+		AddBox("Box" + std::to_string(i), Vec2f(xPos(random), yPos(random)), {15.0f, 15.0f}, b2BodyType::b2_dynamicBody);
+		AddCircle("Circle" + std::to_string(i), Vec2f(xPos(random), yPos(random)), 15.0f, b2BodyType::b2_dynamicBody);
 	}
 
 	SFENG::Entity *newEntity = m_LCManager.CreateEntity("Movable Box");

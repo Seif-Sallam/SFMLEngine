@@ -74,7 +74,7 @@ namespace SFENG
 		else
 		{
 			b2BodyDef bodyDef;
-			bodyDef.position = m_Transform->position;
+			bodyDef.position = m_Transform->position / Engine::GetPPM();
 			bodyDef.angle = m_Transform->angle / 180.0f * M_PI;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			b2BodyUserData data;
@@ -94,7 +94,7 @@ namespace SFENG
 
 	void CircleCollider::Update(const sf::Time &elapsedTime)
 	{
-		if (m_Radius != m_Transform->size.x)
+		if (m_Radius != m_Transform->size.x / Engine::GetPPM())
 		{
 			CreateFixture();
 		}
@@ -129,7 +129,7 @@ namespace SFENG
 			}
 		}
 		b2CircleShape shape;
-		m_Radius = m_Transform->size.x;
+		m_Radius = m_Transform->size.x / Engine::GetPPM();
 		shape.m_radius = m_Radius;
 		b2FixtureDef fixtureDef;
 		fixtureDef.shape = &shape;

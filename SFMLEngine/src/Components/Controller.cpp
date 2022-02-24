@@ -4,7 +4,7 @@
 #include "../../headers/Components/CircleCollider.h"
 #include "../../headers/Components/BoxCollider.h"
 #include "../../headers/Entity.h"
-
+#include "../../headers/Engine.h"
 namespace SFENG
 {
 	Controller::Controller()
@@ -70,15 +70,15 @@ namespace SFENG
 		m_Transform->position += v;
 		if (m_RigidBody2D)
 		{
-			m_RigidBody2D->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_RigidBody2D->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_CircleCollider)
 		{
-			m_CircleCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_CircleCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
-		if (m_BoxCollider)
+		else if (m_BoxCollider)
 		{
-			m_BoxCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_BoxCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 	}
 
@@ -87,15 +87,15 @@ namespace SFENG
 		m_Transform->position += {x, y};
 		if (m_RigidBody2D)
 		{
-			m_RigidBody2D->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_RigidBody2D->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_CircleCollider)
 		{
-			m_CircleCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_CircleCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_BoxCollider)
 		{
-			m_BoxCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_BoxCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 	}
 
@@ -104,15 +104,15 @@ namespace SFENG
 		m_Transform->position = pos;
 		if (m_RigidBody2D)
 		{
-			m_RigidBody2D->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_RigidBody2D->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_CircleCollider)
 		{
-			m_CircleCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_CircleCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_BoxCollider)
 		{
-			m_BoxCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_BoxCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 	}
 
@@ -121,15 +121,15 @@ namespace SFENG
 		m_Transform->position = {x, y};
 		if (m_RigidBody2D)
 		{
-			m_RigidBody2D->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_RigidBody2D->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_CircleCollider)
 		{
-			m_CircleCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_CircleCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 		if (m_BoxCollider)
 		{
-			m_BoxCollider->m_Body->SetTransform(m_Transform->position, m_Transform->angle);
+			m_BoxCollider->m_Body->SetTransform(m_Transform->position / Engine::GetPPM(), m_Transform->angle);
 		}
 	}
 

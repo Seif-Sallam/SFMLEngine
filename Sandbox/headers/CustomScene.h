@@ -132,7 +132,6 @@ public:
 					// 		m_BoxShape->ChangeColor();
 					// 	}
 					// }
-					std::cout << en->GetName() << std::endl;
 					en->Destory();
 				}
 			}
