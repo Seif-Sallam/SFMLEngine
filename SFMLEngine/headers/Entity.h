@@ -66,7 +66,7 @@ namespace SFENG
 		template <class Type>
 		void RemoveComponent()
 		{
-			auto &key = m_ComponentsMap.find(typeid(Type));
+			auto key = m_ComponentsMap.find(typeid(Type));
 			if (key == m_ComponentsMap.end())
 				return;
 			delete m_ComponentsMap[typeid(Type)];

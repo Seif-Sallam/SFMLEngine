@@ -125,13 +125,15 @@ public:
 				std::list<SFENG::Entity *> collidingItems = m_BoxCollider->GetCollidingItems();
 				for (auto &en : collidingItems)
 				{
-					if (en->GetTag() == "Movable Box")
-					{
-						if (m_BoxShape)
-						{
-							m_BoxShape->ChangeColor();
-						}
-					}
+					// if (en->GetTag() == "Movable Box")
+					// {
+					// 	if (m_BoxShape)
+					// 	{
+					// 		m_BoxShape->ChangeColor();
+					// 	}
+					// }
+					std::cout << en->GetName() << std::endl;
+					en->Destory();
 				}
 			}
 		}

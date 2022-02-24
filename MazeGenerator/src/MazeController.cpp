@@ -65,7 +65,7 @@ void MazeController::ImGuiLayer()
                 m_MazeGen->Reset();
             }
             ImGui::Separator();
-            ImGui::Text("Current cell: x: %d, y: %d", m_MazeGen->GetCurrentCell()->GetX(), m_MazeGen->GetCurrentCell()->GetX());
+            ImGui::Text("Current cell: x: %d, y: %d", m_MazeGen->GetCurrentCell()->GetX(), m_MazeGen->GetCurrentCell()->GetY());
         }
         else
         {

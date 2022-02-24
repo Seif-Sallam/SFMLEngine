@@ -1,6 +1,8 @@
 #include "Entity.h"
+#include "BoxCollider.h"
 namespace SFENG
 {
+
 	Entity::Entity(const std::string &name)
 		: m_Active(true), m_Alive(true), m_Name(name)
 	{
@@ -85,7 +87,7 @@ namespace SFENG
 		{
 			if (m_Components[i] != nullptr)
 			{
-				m_ComponentsMap.erase(typeid(m_Components[i]));
+				m_ComponentsMap.erase(typeid(*m_Components[i]));
 				delete m_Components[i];
 			}
 		}

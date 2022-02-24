@@ -17,24 +17,23 @@ namespace SFENG
 
 	RigidBody2D::~RigidBody2D()
 	{
-		DeleteFixtures();
 		if (m_Body != nullptr)
 		{
 			m_PhysWorld->DestroyBody(m_Body);
 			m_Body = nullptr;
 		}
-		// if (this->entity->HasComponent<BoxCollider>())
-		// {
-		// 	auto &boxCollider = this->entity->GetComponent<BoxCollider>();
-		// 	boxCollider.m_Body = nullptr;
-		// 	boxCollider.m_Fixture = nullptr;
-		// }
-		// if (this->entity->HasComponent<CircleCollider>())
-		// {
-		// 	auto &circleCollider = this->entity->GetComponent<CircleCollider>();
-		// 	circleCollider.m_Body = nullptr;
-		// 	circleCollider.m_Fixture = nullptr;
-		// }
+		if (this->entity->HasComponent<BoxCollider>())
+		{
+			auto &boxCollider = this->entity->GetComponent<BoxCollider>();
+			boxCollider.m_Body = nullptr;
+			boxCollider.m_Fixture = nullptr;
+		}
+		else if (this->entity->HasComponent<CircleCollider>())
+		{
+			auto &circleCollider = this->entity->GetComponent<CircleCollider>();
+			circleCollider.m_Body = nullptr;
+			circleCollider.m_Fixture = nullptr;
+		}
 	}
 
 	void RigidBody2D::SetBodyType(const b2BodyType &type)
