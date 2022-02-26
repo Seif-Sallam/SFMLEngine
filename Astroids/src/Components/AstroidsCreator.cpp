@@ -25,7 +25,7 @@ void AstroidsCreator::Update(const sf::Time &elapsed)
     static std::uniform_real_distribution<float> positionY(25.f, 800.f);
     static std::uniform_real_distribution<float> direction(-1.f, 1.f);
     m_PassedTime += elapsed;
-    if (m_PassedTime >= m_RateOfSpawn && m_Astroids.size() < 1)
+    if (m_PassedTime >= m_RateOfSpawn && m_Astroids.size() < 15)
     {
         m_PassedTime = sf::seconds(0.f);
         m_AstroidsCount++;

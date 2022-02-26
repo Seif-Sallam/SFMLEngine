@@ -8,6 +8,7 @@ Bullet::Bullet(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2f 
     transform.position = position;
     transform.size = Vec2f(32.0f * 0.7f, 64.0f * 0.7f);
     SFENG::BoxCollider &collider = this->entity->AddComponent<SFENG::BoxCollider>();
+    collider.SetSensor(true);
     SFENG::SpriteRenderer &sp = this->entity->AddComponent<SFENG::SpriteRenderer>();
     sp.AttachTexture("Bullet");
     SFENG::Animator &animator = this->entity->AddComponent<SFENG::Animator>();

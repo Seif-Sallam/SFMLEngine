@@ -9,6 +9,7 @@ Astroid::Astroid(SFENG::Entity *createdEntity, const Vec2f &position, const Vec2
     SFENG::Animator &animator = this->entity->AddComponent<SFENG::Animator>();
     SFENG::CircleCollider &cc = this->entity->AddComponent<SFENG::CircleCollider>();
     SFENG::RigidBody2D *rb = &this->entity->AddComponent<SFENG::RigidBody2D>();
+    cc.SetSensor(true);
     rb->SetBodyType(b2BodyType::b2_dynamicBody);
     if (big)
     {
