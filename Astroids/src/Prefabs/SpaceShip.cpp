@@ -11,8 +11,8 @@ SpaceShip::SpaceShip(SFENG::Entity *createdEntity)
     SFENG::BoxCollider &boxCollider = entity->AddComponent<SFENG::BoxCollider>();
     SFENG::RigidBody2D &rb = entity->AddComponent<SFENG::RigidBody2D>();
     rb.SetBodyType(b2BodyType::b2_kinematicBody);
-    SFENG::ResourceManager::AddTexture("rsc/textures/spaceship.png", "SpaceShip");
-    SFENG::ResourceManager::AddTexture("rsc/textures/fire_blue.png", "Bullet");
+    SFENG::ResourceManager::AddTexture(RSC_DIR "textures/spaceship.png", "SpaceShip");
+    SFENG::ResourceManager::AddTexture(RSC_DIR "textures/fire_blue.png", "Bullet");
     spriteRenderer.AttachTexture("SpaceShip");
     m_Animator = &entity->AddComponent<SFENG::Animator>();
     m_Animator->AttachSpriteRenderer(&spriteRenderer);

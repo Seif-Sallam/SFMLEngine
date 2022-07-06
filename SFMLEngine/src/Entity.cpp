@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "BoxCollider.h"
+#include "Components/BoxCollider.h"
 namespace SFENG
 {
 

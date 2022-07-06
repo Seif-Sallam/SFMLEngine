@@ -46,10 +46,10 @@ void LevelScene::AddMain()
     // m_LCManager.CreateEntity("ViewModifier")->AddComponent<ViewModifier>(this->m_Engine.engineView);
 
     {
-        SFENG::ResourceManager::AddTexture("rsc/textures/background0.jpg", "Background");
-        SFENG::ResourceManager::AddTexture("rsc/textures/rock.png", "BIG_Astroid");
-        SFENG::ResourceManager::AddTexture("rsc/textures/rock_small.png", "SMALL_Astroid");
-        SFENG::ResourceManager::AddTexture("rsc/textures/explosions/type_C.png", "Explosion");
+        SFENG::ResourceManager::AddTexture(RSC_DIR "textures/background0.jpg", "Background");
+        SFENG::ResourceManager::AddTexture(RSC_DIR "textures/rock.png", "BIG_Astroid");
+        SFENG::ResourceManager::AddTexture(RSC_DIR "textures/rock_small.png", "SMALL_Astroid");
+        SFENG::ResourceManager::AddTexture(RSC_DIR "textures/explosions/type_C.png", "Explosion");
         SFENG::Entity *background = m_LCManager.CreateEntity("Background");
         auto &sp = background->AddComponent<SFENG::SpriteRenderer>();
         sp.AttachTexture("Background");

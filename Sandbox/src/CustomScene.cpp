@@ -99,8 +99,8 @@ CustomScene::CustomScene(SFENG::Engine &engine)
 	m_LCManager.CreateEntity("ViewModifier")->AddComponent<ViewModifier>(this->m_Engine.engineView);
 	Main();
 	// AddSprite();
-	//AddCanvas();
-	//AddSelectBox();
+	// AddCanvas();
+	// AddSelectBox();
 	// SFENG::UI::Canvas canvas("Canvas1", m_LCManager);
 	// {
 	// 	std::string textBoxName = canvas.AddElement("Test TextBox", SFENG::UI::UIElementType::TextBox);
@@ -169,7 +169,7 @@ void CustomScene::AddSelectBox()
 
 void CustomScene::AddSprite()
 {
-	SFENG::ResourceManager::AddTexture("SampleSprite.png", "Sample");
+	SFENG::ResourceManager::AddTexture(RSC_DIR "SampleSprite.png", "Sample");
 	SFENG::Entity *en = this->m_LCManager.CreateEntity("Entity");
 	SFENG::Transform &transform = en->GetComponent<SFENG::Transform>();
 	transform.position = {200.0f, 200.0f};

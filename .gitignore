@@ -36,3 +36,5 @@ SFMLEngine/Debug/
 SFMLEngine/Release/
 Release/
 .vs/
+build/
+.vscode/
