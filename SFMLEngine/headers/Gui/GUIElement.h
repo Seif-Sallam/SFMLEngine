@@ -14,11 +14,11 @@ namespace SFENG {
 
 		class Element {
 		public:
-			Element(GUIElement type);
-			
+			Element(GUIElement type) {}
+
 		private:
 			GUIElement m_Type;
-			
+
 		};
 	}
 }

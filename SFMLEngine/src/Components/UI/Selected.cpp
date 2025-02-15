@@ -1,7 +1,7 @@
-#include "../../../headers/Components/UI/Selected.h"
-#include "../../../headers/Components/Transform.h"
-#include "../../../headers/Components/Highlightable.h"
-#include "../../../headers/Entity.h"
+#include "Components/UI/Selected.h"
+#include "Components/Transform.h"
+#include "Components/Highlightable.h"
+#include "Entity.h"
 
 bool SFENG::UI::Selected::Init()
 {

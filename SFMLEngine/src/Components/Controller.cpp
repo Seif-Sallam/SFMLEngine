@@ -1,10 +1,10 @@
-#include "../../headers/Components/Controller.h"
-#include "../../headers/Components/Transform.h"
-#include "../../headers/Components/RigidBody2D.h"
-#include "../../headers/Components/CircleCollider.h"
-#include "../../headers/Components/BoxCollider.h"
-#include "../../headers/Entity.h"
-#include "../../headers/Engine.h"
+#include "Components/Controller.h"
+#include "Components/Transform.h"
+#include "Components/RigidBody2D.h"
+#include "Components/CircleCollider.h"
+#include "Components/BoxCollider.h"
+#include "Entity.h"
+#include "Engine.h"
 namespace SFENG
 {
 	Controller::Controller()

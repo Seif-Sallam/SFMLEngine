@@ -13,6 +13,9 @@
 
 namespace SFENG
 {
+	class Scene;
+	class PhysicsListener;
+
 	class Engine
 	{
 	public:

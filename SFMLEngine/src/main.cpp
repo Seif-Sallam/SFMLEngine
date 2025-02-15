@@ -1,7 +1,7 @@
-//#include "../headers/ResourceManager.h"
-//#include "../headers/Animation.h"
-//#include "../headers/Keyboard.h"
-//#include "../headers/FPSCounter.h"
+//#include "ResourceManager.h"
+//#include "Animation.h"
+//#include "Keyboard.h"
+//#include "FPSCounter.h"
 //
 //int main()
 //{
@@ -83,7 +83,7 @@ int main()
 {
 	return 0;
 }
-// #include "../headers/PCH.h"
+// #include "PCH.h"
 
 // class CustomScene : public SFENG::Scene
 // {

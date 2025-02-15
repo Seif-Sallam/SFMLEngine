@@ -1,10 +1,12 @@
 #pragma once
-#include "Entity.h"
+#include "SFML/Graphics.hpp"
+#include <string>
 #include <list>
 
 namespace SFENG
 {
 	class Engine;
+	class Entity;
 	/// <summary>
 	/// Life Cycle Manager is the main class that creates Entities, clones Entities and maintains their life cycles.
 	/// An Entity is removed when it is considered not valid.

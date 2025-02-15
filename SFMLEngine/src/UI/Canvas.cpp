@@ -3,6 +3,8 @@
 #include "Components/Transform.h"
 #include "Components/SpriteRenderer.h"
 #include "LifeCycleManager.h"
+#include "UI/UIElement.h"
+#include "Entity.h"
 
 SFENG::UI::Canvas::Canvas(const std::string& name, LifeCycleManager& LCM)
 	: m_LCM(LCM)
@@ -39,7 +41,7 @@ SFENG::UI::UIElement* SFENG::UI::Canvas::GetElement(const std::string& name)
 	if(m_Elements.find(name) == m_Elements.end())
 		return nullptr;
 	return m_Elements[name];
-}		
+}
 
 SFENG::UI::Canvas::~Canvas()
 {

@@ -1,5 +1,5 @@
-#include "../headers/MazeController.h"
-#include "../headers/MazeGenerator.h"
+#include "MazeController.h"
+#include "MazeGenerator.h"
 
 MazeController::MazeController()
 {

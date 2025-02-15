@@ -1,5 +1,5 @@
-#include "../headers/MazeCell.h"
-#include "../headers/MazeCellShape.h"
+#include "MazeCell.h"
+#include "MazeCellShape.h"
 
 MazeCell::MazeCell(SFENG::Entity *createdEntity, int x, int y)
 {

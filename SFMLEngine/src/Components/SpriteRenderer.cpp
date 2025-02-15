@@ -1,6 +1,6 @@
-#include "../../headers/Components/SpriteRenderer.h"
-#include "../../headers/Entity.h"
-#include "../../headers/ResourceManager.h"
+#include "Components/SpriteRenderer.h"
+#include "Entity.h"
+#include "ResourceManager.h"
 
 namespace SFENG
 {

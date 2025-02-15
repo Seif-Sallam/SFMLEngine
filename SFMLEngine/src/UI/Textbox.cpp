@@ -1,9 +1,12 @@
-#include "../../headers/UI/Textbox.h"
+#include "UI/Textbox.h"
 #include "UI/Canvas.h"
+#include "UI/UIElement.h"
+
 #include "Entity.h"
 #include "ResourceManager.h"
 
-SFENG::UI::Textbox::Textbox(Entity *entity, Canvas *parentCanvas)
+
+SFENG::UI::Textbox::Textbox(SFENG::Entity *entity, Canvas *parentCanvas)
 	: UIElement(parentCanvas, entity), m_Active(false)
 {
 	Initialize();
@@ -12,7 +15,7 @@ SFENG::UI::Textbox::Textbox(Entity *entity, Canvas *parentCanvas)
 void SFENG::UI::Textbox::Initialize()
 {
 	Transform &boxTrans = entity->GetComponent<Transform>();
-	Entity *&canvasEntity = m_Canvas->entity;
+	SFENG::Entity *&canvasEntity = m_Canvas->entity;
 	Transform &canvasTrans = canvasEntity->GetComponent<Transform>();
 	boxTrans.position = canvasTrans.position;
 	boxTrans.size = {50.0f, 25.0f};

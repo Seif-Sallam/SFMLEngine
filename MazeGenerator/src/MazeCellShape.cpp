@@ -1,4 +1,4 @@
-#include "../headers/MazeCellShape.h"
+#include "MazeCellShape.h"
 
 MazeCellShape::MazeCellShape(int x, int y)
     : posX(x), posY(y)

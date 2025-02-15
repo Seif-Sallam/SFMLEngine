@@ -1,6 +1,6 @@
-#include "../headers/LevelScene.h"
-#include "../headers/MazeController.h"
-#include "../headers/MazeGenerator.h"
+#include "LevelScene.h"
+#include "MazeController.h"
+#include "MazeGenerator.h"
 
 LevelScene::LevelScene(SFENG::Engine &engine)
     : Scene(engine, true)

@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include "Component.h"
-#include "../Vec2.h"
+#include "Vec2.h"
 
 namespace SFENG
 {

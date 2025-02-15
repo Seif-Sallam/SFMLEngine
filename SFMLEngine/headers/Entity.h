@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include "SFML/Graphics.hpp"
 #include "Components/Transform.h"
+#include "PCH.h"
 
 namespace SFENG
 {

@@ -1,6 +1,6 @@
-#include "../../../headers/Components/UI/TextEnterHandler.h"
-#include "../../../headers/Entity.h"
-#include "../../../headers/ResourceManager.h"
+#include "Components/UI/TextEnterHandler.h"
+#include "Entity.h"
+#include "ResourceManager.h"
 
 SFENG::UI::TextEnterHandler::TextEnterHandler()
 	: m_Transform(nullptr), m_MinSize(Vec2f(0.0f, 0.0f)), m_MaxCharacters(50)

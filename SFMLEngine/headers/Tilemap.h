@@ -10,11 +10,14 @@
 #include "SFML/Graphics.hpp"
 #include "Vec2.h"
 #include "ResourceManager.h"
-#include "LifeCycleManager.h"
+
 //Needs refactoring
 namespace SFENG {
 	class Transform;
 	class SpriteRenderer;
+	class LifeCycleManager;
+	class Entity;
+
 	class Tilemap
 	{
 	public:
@@ -29,7 +32,7 @@ namespace SFENG {
 			Transform* trans;
 			SpriteRenderer* sr;
 		};
-		
+
 		Vec2i m_Size;
 		Vec2f m_StartPos;
 		Vec2f m_TileSize;

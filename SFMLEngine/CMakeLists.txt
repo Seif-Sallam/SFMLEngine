@@ -1,7 +1,78 @@
 cmake_minimum_required(VERSION 3.16)
 
-FILE(GLOB_RECURSE SOURCES ./src/*.cpp)
-FILE(GLOB_RECURSE HEADERS ./src/*.h)
+set(SOURCES
+    ./src/Engine.cpp
+    ./src/Entity.cpp
+    ./src/FPSCounter.cpp
+    ./src/Keyboard.cpp
+    ./src/LifeCycleManager.cpp
+    ./src/main.cpp
+    ./src/Mouse.cpp
+    ./src/ParticleFountain.cpp
+    ./src/ParticleSystem.cpp
+    ./src/PhysicsListener.cpp
+    ./src/ResourceManager.cpp
+    ./src/Scene.cpp
+    ./src/Tilemap.cpp
+    ./src/Components/Animation.cpp
+    ./src/Components/Animator.cpp
+    ./src/Components/BoxCollider.cpp
+    ./src/Components/CircleCollider.cpp
+    ./src/Components/Controller.cpp
+    ./src/Components/Highlightable.cpp
+    ./src/Components/RigidBody2D.cpp
+    ./src/Components/SpriteRenderer.cpp
+    ./src/Components/Transform.cpp
+    ./src/Components/UI/Selected.cpp
+    ./src/Components/UI/TextEnterHandler.cpp
+    ./src/GUI/GUI.cpp
+    ./src/imgui/imgui-SFML.cpp
+    ./src/imgui/imgui.cpp
+    ./src/imgui/imgui_demo.cpp
+    ./src/imgui/imgui_draw.cpp
+    ./src/imgui/imgui_tables.cpp
+    ./src/imgui/imgui_widgets.cpp
+    ./src/UI/Button.cpp
+    ./src/UI/Canvas.cpp
+    ./src/UI/Textbox.cpp
+)
+
+set(HEADERS
+    ./headers/Engine.h
+    ./headers/Entity.h
+    ./headers/FPSCounter.h
+    ./headers/Keyboard.h
+    ./headers/LifeCycleManager.h
+    ./headers/Mouse.h
+    ./headers/ParticleFountain.h
+    ./headers/ParticleSystem.h
+    ./headers/PCH.h
+    ./headers/PhysicsListener.h
+    ./headers/ResourceLoader.h
+    ./headers/ResourceManager.h
+    ./headers/Scene.h
+    ./headers/Tilemap.h
+    ./headers/Vec2.h
+    ./headers/Components/Animation.h
+    ./headers/Components/Animator.h
+    ./headers/Components/BoxCollider.h
+    ./headers/Components/CircleCollider.h
+    ./headers/Components/Component.h
+    ./headers/Components/Controller.h
+    ./headers/Components/Highlightable.h
+    ./headers/Components/RigidBody2D.h
+    ./headers/Components/SpriteRenderer.h
+    ./headers/Components/Transform.h
+    ./headers/Components/UI/Selected.h
+    ./headers/Components/UI/TextEnterHandler.h
+    ./headers/Gui/GUI.h
+    ./headers/Gui/GUIElement.h
+    ./headers/UI/Button.h
+    ./headers/UI/Canvas.h
+    ./headers/UI/Textbox.h
+    ./headers/UI/UIElement.h
+)
+
 
 add_library(
     SFMLEngine
@@ -10,9 +81,39 @@ add_library(
     ${HEADERS}
 )
 
+if (WIN32)
+    set(OS_LIBRARIES
+        opengl32
+        winmm
+        gdi32
+        user32
+        kernel32
+        shell32
+        advapi32
+        ws2_32
+    )
+else()
+    set(OS_LIBRARIES
+        GL
+        X11
+        pthread
+        freetype
+        udev
+        flac
+        vorbisenc
+        vorbisfile
+        vorbis
+        ogg
+        openal
+        pthread
+        rt
+        m
+    )
+endif()
+
 target_link_libraries(SFMLEngine
     PUBLIC
-    GL
+    ${OS_LIBRARIES}
     sfmlimgui
     sfml-graphics
     sfml-window
@@ -25,7 +126,22 @@ target_include_directories(SFMLEngine
     headers/
 )
 
-target_compile_definitions(SFMLEngine
-    PRIVATE
-    RSC_DIR="${CMAKE_CURRENT_SOURCE_DIR}/rsc/"
-)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(SFMLEngine
+        PRIVATE
+        DEBUG
+        RSC_DIR="${CMAKE_CURRENT_SOURCE_DIR}/rsc/"
+    )
+else()
+    target_compile_definitions(SFMLEngine
+        PRIVATE
+        RSC_DIR="./sfeng_rsc/"
+    )
+
+    add_custom_command(
+        TARGET SFMLEngine POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/rsc
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/rsc
+    )
+endif()

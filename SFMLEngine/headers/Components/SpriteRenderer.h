@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "../Vec2.h"
+#include "Vec2.h"
 #include "Transform.h"
 
 namespace SFENG

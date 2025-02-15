@@ -1,8 +1,8 @@
-#include "../../headers/Components/Transform.h"
-#include "../../headers/Components/RigidBody2D.h"
-#include "../../headers/Components/CircleCollider.h"
-#include "../../headers/Components/BoxCollider.h"
-#include "../../headers/Entity.h"
+#include "Components/Transform.h"
+#include "Components/RigidBody2D.h"
+#include "Components/CircleCollider.h"
+#include "Components/BoxCollider.h"
+#include "Entity.h"
 
 namespace SFENG
 {

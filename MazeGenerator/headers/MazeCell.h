@@ -1,6 +1,6 @@
 #pragma once
 #include "PCH.h"
-#include "../headers/MazeCellShape.h"
+#include "MazeCellShape.h"
 
 class MazeCell
 {

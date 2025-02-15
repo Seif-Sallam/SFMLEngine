@@ -1,5 +1,5 @@
-#include "../../headers/Components/Animation.h"
-#include "../../headers/Components/SpriteRenderer.h"
+#include "Components/Animation.h"
+#include "Components/SpriteRenderer.h"
 
 namespace SFENG
 {

@@ -27,7 +27,7 @@ There are 4 sub-projects in this project.
   - A project created to test the capabilities of the engine and show its ability in creating an actual project.
   - This was another project I created earlier without the engine.
   - I also created it to debug any errors or design inaccuracies I might have had while creating the engine, and it really did payoff.
-- Astroids
+- Asteroids
   - This project serves the same purpose as the _MazeGenerator_ project, however, it is not fully completed and contains bugs. It requires the update of the physics engine to run collision response code correctly and fix the memory problems that may appear.
   - It is also created before and can be found in this [repositry](https://github.com/Seif-Sallam/Asteroids).
 
@@ -68,7 +68,7 @@ The maze generator created in the project Maze Generator.
 
 <img src="./Images/Screensho3_MazeGenerator.png">
 
-A screenshot from Astroids project.
+A screenshot from Asteroids project.
 
 <img src="./Images/Screenshot1.png">
 

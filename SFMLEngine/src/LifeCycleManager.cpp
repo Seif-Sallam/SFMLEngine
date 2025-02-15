@@ -1,5 +1,7 @@
 #include "LifeCycleManager.h"
 
+#include "Entity.h"
+
 namespace SFENG
 {
 	LifeCycleManager *LCM::s_OnGoingLCM = nullptr;
@@ -86,14 +88,14 @@ namespace SFENG
 	{
 		sf::View currentView = window.getView();
 		Vec2f min = currentView.getCenter() - currentView.getSize() / 2.0f;
-		sf::IntRect viewRect = sf::IntRect(min.x, min.y, currentView.getSize().x, currentView.getSize().y);
+		sf::IntRect viewRect = sf::IntRect((int)min.x, (int)min.y, (int)currentView.getSize().x, (int)currentView.getSize().y);
 
 		m_DrawnEntities = 0;
 		for (auto &en : m_Entities)
 		{
 			Transform &transform = en->GetComponent<Transform>();
 			Vec2f minPos = transform.position - transform.size / 2.0f;
-			sf::IntRect enRect = sf::IntRect(minPos.x, minPos.y, transform.size.x, transform.size.y);
+			sf::IntRect enRect = sf::IntRect((int)minPos.x, (int)minPos.y, (int)transform.size.x, (int)transform.size.y);
 			if (enRect.intersects(viewRect))
 			{
 				en->Draw(window);
@@ -179,7 +181,7 @@ namespace SFENG
 
 	int LifeCycleManager::GetAliveEntities()
 	{
-		return m_Entities.size();
+		return (int)m_Entities.size();
 	}
 
 	int LifeCycleManager::GetNumberOfDrawnEntities()

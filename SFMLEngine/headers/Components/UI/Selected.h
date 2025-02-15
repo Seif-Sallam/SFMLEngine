@@ -1,8 +1,8 @@
 #pragma once
-#include "../Component.h"
 #include "SFML/Graphics.hpp"
-#include "../../Vec2.h"
-#include "../../Mouse.h"
+#include "Components/Component.h"
+#include "Vec2.h"
+#include "Mouse.h"
 
 namespace SFENG
 {

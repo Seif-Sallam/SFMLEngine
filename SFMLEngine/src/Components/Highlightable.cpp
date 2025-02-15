@@ -1,6 +1,6 @@
-#include "../../headers/Components/Highlightable.h"
-#include "../../headers/Components/Transform.h"
-#include "../../headers/Entity.h"
+#include "Components/Highlightable.h"
+#include "Components/Transform.h"
+#include "Entity.h"
 
 namespace SFENG
 {

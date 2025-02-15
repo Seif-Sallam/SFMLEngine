@@ -1,9 +1,9 @@
-#include "../../headers/Components/RigidBody2D.h"
-#include "../../headers/Components/BoxCollider.h"
-#include "../../headers/Components/Transform.h"
-#include "../../headers/Components/CircleCollider.h"
-#include "../../headers/Entity.h"
-#include "../../headers/Engine.h"
+#include "Components/RigidBody2D.h"
+#include "Components/BoxCollider.h"
+#include "Components/Transform.h"
+#include "Components/CircleCollider.h"
+#include "Entity.h"
+#include "Engine.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #define M_180_PI 57.29577951308232

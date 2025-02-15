@@ -1,4 +1,4 @@
-#include "../headers/CustomScene.h"
+#include "CustomScene.h"
 
 CustomScene::ViewModifier::ViewModifier(sf::View &view)
 	: m_View(view)

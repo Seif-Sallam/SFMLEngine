@@ -1,7 +1,7 @@
 #pragma once
 #include "PCH.h"
 #include <stack>
-#include "../headers/MazeCell.h"
+#include "MazeCell.h"
 class MazeGenerator : public SFENG::Component
 {
 public:

@@ -2,7 +2,7 @@
 #include <vector>
 #include "Component.h"
 #include "box2d/box2d.h"
-#include "../Vec2.h"
+#include "Vec2.h"
 
 namespace SFENG
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "../Mouse.h"
+#include "Mouse.h"
 
 namespace SFENG {
 	class Transform;

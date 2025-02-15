@@ -75,7 +75,7 @@ namespace SFENG
 		{
 			b2BodyDef bodyDef;
 			bodyDef.position = m_Transform->position / Engine::GetPPM();
-			bodyDef.angle = m_Transform->angle / 180.0f * M_PI;
+			bodyDef.angle = m_Transform->angle / 180.0f * (float)M_PI;
 			bodyDef.type = b2BodyType::b2_staticBody;
 			b2BodyUserData data;
 			data.pointer = reinterpret_cast<uintptr_t>(entity);
